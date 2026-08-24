@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <RootNamespace>PostgresTransport.NotificationService</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PostgresTransport.ServiceDefaults\PostgresTransport.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\PostgresTransport.Contracts\PostgresTransport.Contracts.csproj" />
+    <PackageReference Include="Mocha" />
+    <PackageReference Include="Mocha.Transport.Postgres" />
+    <PackageReference Include="Mocha.Hosting" />
+  </ItemGroup>
+</Project>

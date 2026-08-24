@@ -1,2 +1,10 @@
 <Solution>
+  <Folder Name="/PostgresTransport/">
+    <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
+    <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />
+    <Project Path="PostgresTransport/PostgresTransport.NotificationService/PostgresTransport.NotificationService.csproj" />
+    <Project Path="PostgresTransport/PostgresTransport.OrderService/PostgresTransport.OrderService.csproj" />
+    <Project Path="PostgresTransport/PostgresTransport.ServiceDefaults/PostgresTransport.ServiceDefaults.csproj" />
+    <Project Path="PostgresTransport/PostgresTransport.ShippingService/PostgresTransport.ShippingService.csproj" />
+  </Folder>
 </Solution>

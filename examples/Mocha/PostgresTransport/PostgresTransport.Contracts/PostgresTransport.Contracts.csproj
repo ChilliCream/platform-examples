@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>PostgresTransport.Contracts</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Mocha" />
+    <PackageReference Include="Mocha.Abstractions" />
+  </ItemGroup>
+</Project>
