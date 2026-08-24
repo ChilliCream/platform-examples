@@ -12,6 +12,9 @@
     <Project Path="Demo/Demo.ServiceDefaults/Demo.ServiceDefaults.csproj" />
     <Project Path="Demo/Demo.Shipping/Demo.Shipping.csproj" />
   </Folder>
+  <Folder Name="/ExceptionPolicies/">
+    <Project Path="ExceptionPolicies/ExceptionPolicies.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />

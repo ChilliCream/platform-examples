@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ExceptionPolicies</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Mocha" />
+    <PackageReference Include="Mocha.Abstractions" />
+    <PackageReference Include="Mocha.Hosting" />
+    <PackageReference Include="Mocha.Transport.InMemory" />
+  </ItemGroup>
+</Project>
