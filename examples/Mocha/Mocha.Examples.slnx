@@ -4,6 +4,14 @@
     <Project Path="AotExample/AotExample.FulfillmentService/AotExample.FulfillmentService.csproj" />
     <Project Path="AotExample/AotExample.OrderService/AotExample.OrderService.csproj" />
   </Folder>
+  <Folder Name="/Demo/">
+    <Project Path="Demo/Demo.AppHost/Demo.AppHost.csproj" />
+    <Project Path="Demo/Demo.Billing/Demo.Billing.csproj" />
+    <Project Path="Demo/Demo.Catalog/Demo.Catalog.csproj" />
+    <Project Path="Demo/Demo.Contracts/Demo.Contracts.csproj" />
+    <Project Path="Demo/Demo.ServiceDefaults/Demo.ServiceDefaults.csproj" />
+    <Project Path="Demo/Demo.Shipping/Demo.Shipping.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />
