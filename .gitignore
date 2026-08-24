@@ -13,7 +13,6 @@ lcov.info
 # NuGet
 *.nupkg
 *.snupkg
-packages.lock.json
 .nuget/
 
 # User-specific files
@@ -40,6 +39,3 @@ packages.lock.json
 Thumbs.db
 
 # Build artifacts
-*.dll
-*.pdb
-*.cache
