@@ -138,6 +138,11 @@
         "resolved": "16.6.1",
         "contentHash": "q6nkncxDchnYh5mVLjYciActhB0/13iX+IGz5Q5QoZxKxsxTaE+4RQk/4/2P7+yhFSqjYxxV42n5oKl0wM6wkQ=="
       }
-    }
+    },
+    "net11.0/linux-arm64": {},
+    "net11.0/linux-x64": {},
+    "net11.0/osx-arm64": {},
+    "net11.0/osx-x64": {},
+    "net11.0/win-x64": {}
   }
 }

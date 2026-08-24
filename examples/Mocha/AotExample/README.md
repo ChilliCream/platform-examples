@@ -53,3 +53,7 @@ dotnet publish examples/Mocha/AotExample/AotExample.FulfillmentService -c Releas
 
 The published binaries are self-contained native executables under each
 project's `bin/Release/net11.0/<rid>/publish/` folder.
+
+Publishing emits IL2104 and IL3053 trim and AOT warnings for
+`Mocha.Transport.RabbitMQ`. These originate in the published 16.6.1 package,
+not in this example, and the published binaries run correctly.
