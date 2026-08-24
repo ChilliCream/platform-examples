@@ -3,6 +3,7 @@
     <RootNamespace>AotExample.OrderService</RootNamespace>
     <PublishAot>true</PublishAot>
     <IsAotCompatible>true</IsAotCompatible>
+    <RuntimeIdentifiers>linux-x64;linux-arm64;win-x64;osx-arm64;osx-x64</RuntimeIdentifiers>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AotExample.Contracts\AotExample.Contracts.csproj" />
@@ -10,10 +11,6 @@
     <PackageReference Include="Mocha.Abstractions" />
     <PackageReference Include="Mocha.Mediator" />
     <PackageReference Include="Mocha.Transport.RabbitMQ" />
-    <PackageReference
-      Include="Mocha.Analyzers"
-      OutputItemType="Analyzer"
-      ReferenceOutputAssembly="false"
-    />
+    <PackageReference Include="Mocha.Analyzers" PrivateAssets="all" />
   </ItemGroup>
 </Project>
