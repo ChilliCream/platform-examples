@@ -22,5 +22,15 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
     <!-- EF Core -->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="11.0.0-preview.6.26359.118" />
+    <!-- Mocha -->
+    <PackageVersion Include="Mocha" Version="16.6.1" />
+    <PackageVersion Include="Mocha.Abstractions" Version="16.6.1" />
+    <PackageVersion Include="Mocha.Analyzers" Version="16.6.1" />
+    <PackageVersion Include="Mocha.EntityFrameworkCore.Postgres" Version="16.6.1" />
+    <PackageVersion Include="Mocha.Hosting" Version="16.6.1" />
+    <PackageVersion Include="Mocha.Mediator" Version="16.6.1" />
+    <PackageVersion Include="Mocha.Transport.InMemory" Version="16.6.1" />
+    <PackageVersion Include="Mocha.Transport.Postgres" Version="16.6.1" />
+    <PackageVersion Include="Mocha.Transport.RabbitMQ" Version="16.6.1" />
   </ItemGroup>
 </Project>
