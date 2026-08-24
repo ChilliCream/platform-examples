@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/AotExample/">
+    <Project Path="AotExample/AotExample.Contracts/AotExample.Contracts.csproj" />
+    <Project Path="AotExample/AotExample.FulfillmentService/AotExample.FulfillmentService.csproj" />
+    <Project Path="AotExample/AotExample.OrderService/AotExample.OrderService.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />

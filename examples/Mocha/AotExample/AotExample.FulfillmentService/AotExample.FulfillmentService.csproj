@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <RootNamespace>AotExample.FulfillmentService</RootNamespace>
+    <PublishAot>true</PublishAot>
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AotExample.Contracts\AotExample.Contracts.csproj" />
+    <PackageReference Include="Mocha" />
+    <PackageReference Include="Mocha.Transport.RabbitMQ" />
+    <PackageReference
+      Include="Mocha.Analyzers"
+      OutputItemType="Analyzer"
+      ReferenceOutputAssembly="false"
+    />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,143 @@
+{
+  "version": 2,
+  "dependencies": {
+    "net11.0": {
+      "Mocha": {
+        "type": "Direct",
+        "requested": "[16.6.1, )",
+        "resolved": "16.6.1",
+        "contentHash": "/+iL7vz399ypLfr4CFvXtVknPa1P5e9EwD0e5g0dV7ZHubfHbg6Gjr193i9yPBR0SwYmtt2ZYQG6nbHTKTuCEQ==",
+        "dependencies": {
+          "Microsoft.Extensions.ObjectPool": "11.0.0-preview.6.26359.118",
+          "Mocha.Abstractions": "16.6.1",
+          "Mocha.Threading": "16.6.1",
+          "Mocha.Utilities": "16.6.1",
+          "Npgsql": "8.0.7",
+          "OpenTelemetry": "1.15.3",
+          "Polly": "8.6.5",
+          "System.IO.Hashing": "11.0.0-preview.6.26359.118"
+        }
+      },
+      "Mocha.Analyzers": {
+        "type": "Direct",
+        "requested": "[16.6.1, )",
+        "resolved": "16.6.1",
+        "contentHash": "jmpI7RYq7MImZEXeFrnLHr4kCriMMh5oveDuum1CUYqRR+RHzDtNXpT2BucOMtpIAdz4Z+FPagdbFhft1Sz+rw=="
+      },
+      "Microsoft.Extensions.Configuration": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "H4SWETCh/cC5L1WtWchHR6LntGk3rDTTznZMssr4cL8IbDmMWBxY+MOGDc/ASnqNolLKPIWHWeuC1ddiL/iNPw=="
+      },
+      "Microsoft.Extensions.Configuration.Binder": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "tMF9wNh+hlyYDWB8mrFCQHQmWHlRosol1b/N2Jrefy1bFLnuTlgSYmPyHNmz8xVQgs7DpXytBRWxGhG+mSTp0g==",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "10.0.0"
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "f0RBabswJq+gRu5a+hWIobrLWiUYPKMhCD9WO3sYBAdSy3FFH14LMvLVFZc2kPSCimBLxSuitUhsd6tb0TAY6A=="
+      },
+      "Microsoft.Extensions.Logging": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "BStFkd5CcnEtarlcgYDBcFzGYCuuNMzPs02wN3WBsOFoYIEmYoUdAiU+au6opzoqfTYJsMTW00AeqDdnXH2CvA==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "10.0.0"
+        }
+      },
+      "Microsoft.Extensions.Logging.Configuration": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "j8zcwhS6bYB6FEfaY3nYSgHdpiL2T+/V3xjpHtslVAegyI1JUbB9yAt/BFdvZdsNbY0Udm4xFtvfT/hUwcOOOg==",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "10.0.0",
+          "Microsoft.Extensions.Configuration.Binder": "10.0.0",
+          "Microsoft.Extensions.Logging": "10.0.0",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "10.0.0"
+        }
+      },
+      "Microsoft.Extensions.ObjectPool": {
+        "type": "Transitive",
+        "resolved": "11.0.0-preview.6.26359.118",
+        "contentHash": "wkd3wkioJWClzhHN0ulgLsWj2kE7UpEtewfTxjDdvGltY4nlvHoDEsCepnTx4JgiqUhHVmHfL4nICFS2bZkkvQ=="
+      },
+      "Microsoft.Extensions.Options.ConfigurationExtensions": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "tL9cSl3maS5FPzp/3MtlZI21ExWhni0nnUCF8HY4npTsINw45n9SNDbkKXBMtFyUFGSsQep25fHIDN4f/Vp3AQ==",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Binder": "10.0.0"
+        }
+      },
+      "Mocha.Threading": {
+        "type": "Transitive",
+        "resolved": "16.6.1",
+        "contentHash": "M0h0oA8fmcscmJGkk7VsLNtAlT3FezKu7F+lQQXCmDnHTmbNHJR4oDB7dbzbl0dhitrMNrv5NccZiPw0CJP9EA=="
+      },
+      "Mocha.Utilities": {
+        "type": "Transitive",
+        "resolved": "16.6.1",
+        "contentHash": "dez7kdXXfTxnjSJyaoIttuCd0DPZHZEHFbUZuDGCd0A5UQ7wxjPpIF8OyRjLnl0/nH7ccIPuSHVDsVFDMazQ3g==",
+        "dependencies": {
+          "Mocha.Abstractions": "16.6.1"
+        }
+      },
+      "Npgsql": {
+        "type": "Transitive",
+        "resolved": "8.0.7",
+        "contentHash": "8QcXw22w43PYvS0/vmH6m566rzCl0ik+8oKBI5LkRikBVSo9XZE2LXa82wU7AZCMgoxJrP65zD93RPv9J/iUwg=="
+      },
+      "OpenTelemetry": {
+        "type": "Transitive",
+        "resolved": "1.15.3",
+        "contentHash": "N0i6WjPoHPbZyms1ugbDIFAJFuGlpeExJMU/+XSL0lQRUkg/D0utFkDoLXf8Z1km5B+xVZ2GyMXXiX8qdeNmPg==",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Configuration": "10.0.0",
+          "OpenTelemetry.Api.ProviderBuilderExtensions": "1.15.3"
+        }
+      },
+      "OpenTelemetry.Api": {
+        "type": "Transitive",
+        "resolved": "1.15.3",
+        "contentHash": "fX+fkCysfPut+qCcT3bKqyX4QN9Saf4CgX8HLOHywEVD+Xr7sULtfuypITpoDysjx8R59dn/3mWhgimMH8cm/g=="
+      },
+      "OpenTelemetry.Api.ProviderBuilderExtensions": {
+        "type": "Transitive",
+        "resolved": "1.15.3",
+        "contentHash": "SYn0lqYDwLMWhv/zlNGsQcl2yX++yTumanX46bmOZE/ZDOd1WjPBO2kZaZgKLEZTZk48pavIFGJ6vOvxXgWVFQ==",
+        "dependencies": {
+          "OpenTelemetry.Api": "1.15.3"
+        }
+      },
+      "Polly": {
+        "type": "Transitive",
+        "resolved": "8.6.5",
+        "contentHash": "VqtW2ZE/ALvQMAH1cQY3qZ2cF2OXa3oe/HKMdOv6Q02HCoEW0rsFNfcBONXlHBe1TnjWW1vdRxBEkPeq0/2FHA==",
+        "dependencies": {
+          "Polly.Core": "8.6.5"
+        }
+      },
+      "Polly.Core": {
+        "type": "Transitive",
+        "resolved": "8.6.5",
+        "contentHash": "t+sUVrIwvo7UmsgHGgOG9F0GDZSRIm47u2ylH17Gvcv1q5hNEwgD5GoBlFyc0kh/pebmPyrAgvGsR/65ZBaXlg=="
+      },
+      "System.IO.Hashing": {
+        "type": "Transitive",
+        "resolved": "11.0.0-preview.6.26359.118",
+        "contentHash": "AUXAHNtNiizMfxE34EcXrP7Kn3rmEl77Uky5RIj6zgib/woHUpXmwyPb4PFhygaxMFdtXaOTD8rDk6Oo5V4OlA=="
+      },
+      "Mocha.Abstractions": {
+        "type": "CentralTransitive",
+        "requested": "[16.6.1, )",
+        "resolved": "16.6.1",
+        "contentHash": "q6nkncxDchnYh5mVLjYciActhB0/13iX+IGz5Q5QoZxKxsxTaE+4RQk/4/2P7+yhFSqjYxxV42n5oKl0wM6wkQ=="
+      }
+    }
+  }
+}
