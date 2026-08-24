@@ -5,13 +5,11 @@
   <ItemGroup>
     <!-- Aspire hosting and client integrations -->
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.4.6" />
-    <PackageVersion Include="Aspire.Hosting.Azure.EventHubs" Version="13.4.6" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.4.6" />
     <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="13.4.6" />
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.4.6" />
     <PackageVersion Include="Aspire.RabbitMQ.Client" Version="13.4.6" />
     <!-- Azure clients -->
-    <PackageVersion Include="Azure.Messaging.EventHubs" Version="5.12.2" />
     <!-- Service defaults (resilience, discovery, telemetry) -->
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.8.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.8.0" />

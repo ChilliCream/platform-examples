@@ -21,7 +21,6 @@ examples/Mocha/Demo/
 examples/Mocha/PostgresTransport/
 examples/Mocha/AotExample/
 examples/Mocha/ExceptionPolicies/
-examples/Mocha/AzureEventHubTransport/
 ```
 
 ## Solution files
