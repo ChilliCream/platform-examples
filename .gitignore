@@ -1,0 +1,45 @@
+# .NET build output
+bin/
+obj/
+out/
+
+# Test results
+TestResults/
+[Tt]est[Rr]esult*/
+coverage.opencover.xml
+coverage.json
+lcov.info
+
+# NuGet
+*.nupkg
+*.snupkg
+packages.lock.json
+.nuget/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Visual Studio
+.vs/
+*.dotCover
+
+# Rider / ReSharper
+.idea/
+*.DotSettings
+*.DotSettings.user
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.dll
+*.pdb
+*.cache
