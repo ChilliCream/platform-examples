@@ -1,0 +1,37 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', '$(MSBuildThisFileDirectory)../'))" />
+  <ItemGroup Label="GraphQL">
+    <PackageVersion Include="HotChocolate.AspNetCore" Version="16.6.1-p.2" />
+    <PackageVersion Include="HotChocolate.AspNetCore.CommandLine" Version="16.6.1-p.2" />
+    <PackageVersion Include="HotChocolate.Data" Version="16.6.1-p.2" />
+    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="16.6.1-p.2" />
+  </ItemGroup>
+  <ItemGroup Label="Mediator">
+    <PackageVersion Update="Mocha.Mediator" Version="16.6.1-p.2" />
+    <PackageVersion Update="Mocha.Analyzers" Version="16.6.1-p.2" />
+  </ItemGroup>
+  <ItemGroup Label="DataLoaders">
+    <PackageVersion Include="GreenDonut" Version="16.6.1-p.2" />
+    <PackageVersion Include="GreenDonut.Data" Version="16.6.1-p.2" />
+    <PackageVersion Include="GreenDonut.Data.EntityFramework" Version="16.6.1-p.2" />
+    <PackageVersion Include="GreenDonut.Data.Primitives" Version="16.6.1-p.2" />
+  </ItemGroup>
+  <ItemGroup Label="EF Core">
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.9" />
+    <PackageVersion Update="Microsoft.EntityFrameworkCore.Design" Version="10.0.9" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.9" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    <PackageVersion Include="EFCore.NamingConventions" Version="10.0.1" />
+  </ItemGroup>
+  <ItemGroup Label="Extensions">
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.9" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.9" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.9" />
+    <PackageVersion Include="Microsoft.Extensions.Options" Version="10.0.9" />
+  </ItemGroup>
+  <ItemGroup Label="Test Dependencies">
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.5.0" />
+    <PackageVersion Include="xunit.v3" Version="3.1.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+  </ItemGroup>
+</Project>

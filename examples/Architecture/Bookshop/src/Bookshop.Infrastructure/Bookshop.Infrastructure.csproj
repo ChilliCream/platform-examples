@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <!-- HotChocolate.Types.Analyzers (the [DataLoader] source generator) emits interceptors for
+         the generated DataLoader registration/module code; without this, the generated
+         interceptors are invisible to the compiler and the build fails with CS9137/CS9224-style
+         "interceptor namespace not listed" diagnostics. Same property Operations.Host sets for
+         the same generator (see ChilliCream.Operations.Host.csproj). -->
+    <InterceptorsNamespaces>$(InterceptorsNamespaces);HotChocolate.Execution.Generated</InterceptorsNamespaces>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="EFCore.NamingConventions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <!-- BookshopMigrationHostedService implements IHostedService; Bookshop.Application does not
+         reference this package transitively, and Bookshop.Host's Web SDK reference is not
+         visible to this class library, so it must be referenced directly here. -->
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <!-- Application does not reference EF Core (it keeps
+         only DataLoader interfaces and ReadModels), so this project - the one now querying
+         BookshopContext for both writes and reads - needs its own direct references instead of
+         relying on whatever floor Npgsql.EntityFrameworkCore.PostgreSQL/EFCore.NamingConventions
+         happen to require. This is not just style: Microsoft.EntityFrameworkCore.Design above is
+         PrivateAssets="all" (an analyzer-time-only dependency, correctly hidden from consumers),
+         so without a normal, non-private reference of its own, nothing in this project's public
+         dependency surface asks for the centrally-pinned 10.0.9 - Bookshop.Host, which references
+         this project but declares no EF Core package itself, would independently float both
+         packages down to Npgsql's bare minimum (10.0.4) and collide at link time with the 10.0.9
+         this project actually built against (verified: removing either line below reproduces
+         exactly that MSB3277 "Found conflicts between different versions" warning on
+         Bookshop.Host.csproj for the corresponding package, even though nothing here changed). -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <!-- Provides the IQueryable extensions the DataLoader fetch methods use:
+         .With(query.Include(...)), .ToPageAsync, .ToBatchPageAsync. The
+         QueryContext<T>/Page<T>/PagingArguments types themselves come from
+         GreenDonut.Data.Primitives, already flowing transitively through the Application project
+         reference below (Application depends on it directly for the DataLoader interfaces). -->
+    <PackageReference Include="GreenDonut.Data.EntityFramework" />
+    <!-- The [DataLoader]/[assembly: DataLoaderModule]/[assembly: DataLoaderDefaults] source
+         generator. Analyzer-only: it must not flow to projects referencing this one. -->
+    <PackageReference Include="HotChocolate.Types.Analyzers">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bookshop.Application\Bookshop.Application.csproj" />
+  </ItemGroup>
+</Project>

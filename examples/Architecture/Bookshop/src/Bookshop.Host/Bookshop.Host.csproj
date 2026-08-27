@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <InterceptorsNamespaces>$(InterceptorsNamespaces);HotChocolate.Execution.Generated</InterceptorsNamespaces>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore.CommandLine" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bookshop.Application\Bookshop.Application.csproj" />
+    <ProjectReference Include="..\Bookshop.Infrastructure\Bookshop.Infrastructure.csproj" />
+    <ProjectReference Include="..\Bookshop.GraphQL\Bookshop.GraphQL.csproj" />
+  </ItemGroup>
+</Project>

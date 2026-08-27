@@ -21,7 +21,11 @@ examples/Mocha/Demo/
 examples/Mocha/PostgresTransport/
 examples/Mocha/AotExample/
 examples/Mocha/ExceptionPolicies/
+examples/Architecture/Bookshop/
 ```
+
+`examples/Architecture/` contains cross-product architecture examples. `Bookshop` demonstrates
+clean architecture and DDD with HotChocolate, GreenDonut, Mocha.Mediator, and EF Core.
 
 ## Solution files
 

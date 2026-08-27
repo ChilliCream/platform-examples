@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Bookshop/src/">
+    <Project Path="Bookshop/src/Bookshop.Domain/Bookshop.Domain.csproj" />
+    <Project Path="Bookshop/src/Bookshop.Application/Bookshop.Application.csproj" />
+    <Project Path="Bookshop/src/Bookshop.Infrastructure/Bookshop.Infrastructure.csproj" />
+    <Project Path="Bookshop/src/Bookshop.GraphQL/Bookshop.GraphQL.csproj" />
+    <Project Path="Bookshop/src/Bookshop.Host/Bookshop.Host.csproj" />
+  </Folder>
+  <Folder Name="/Bookshop/test/">
+    <Project Path="Bookshop/test/Bookshop.Domain.Tests/Bookshop.Domain.Tests.csproj" />
+    <Project Path="Bookshop/test/Bookshop.Application.Tests/Bookshop.Application.Tests.csproj" />
+  </Folder>
+</Solution>

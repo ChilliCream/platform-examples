@@ -1,0 +1,137 @@
+{
+  "version": 2,
+  "dependencies": {
+    "net10.0": {
+      "GreenDonut": {
+        "type": "Direct",
+        "requested": "[16.6.1-p.2, )",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "zE7w6wxga+rtyhCGk1uSWdx/vY+uhlXCHb1TAq41GGfJO3AaxWYM/IXzam4jw4KVDiBbNHrunEApuLtaOOJ2Zw==",
+        "dependencies": {
+          "GreenDonut.Abstractions": "16.6.1-p.2",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.0",
+          "Microsoft.Extensions.ObjectPool": "10.0.0"
+        }
+      },
+      "GreenDonut.Data": {
+        "type": "Direct",
+        "requested": "[16.6.1-p.2, )",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "vXKVBmplq7eiPUrOb54WvXF7sB9RHw07uKl/ZlxIZSSYOS4H4gRXmjlgb4uKQZKxR8r1M+PGG1qsYIi/p2kCiQ==",
+        "dependencies": {
+          "GreenDonut": "16.6.1-p.2",
+          "GreenDonut.Data.Abstractions": "16.6.1-p.2"
+        }
+      },
+      "GreenDonut.Data.Primitives": {
+        "type": "Direct",
+        "requested": "[16.6.1-p.2, )",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "HW7pPMBG1tv2BwwnSnyPCPGpX8O5EHxQdwsfmgyNMOTdZwwMDHBTXxlzdBDsYaOE0wAguRo8HBDAUvP/2uumIg=="
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions": {
+        "type": "Direct",
+        "requested": "[10.0.9, )",
+        "resolved": "10.0.9",
+        "contentHash": "g41l/30G3K4B/d/L8kjux0+30e27c8D0FVQ/PFCpbekgfDpj9mnDhieP67EqXWvl1EWNeZh2rpR4F5B/jcDOHA=="
+      },
+      "Microsoft.Extensions.Logging.Abstractions": {
+        "type": "Direct",
+        "requested": "[10.0.9, )",
+        "resolved": "10.0.9",
+        "contentHash": "9S/DFt4cohlMPpzIxjG6kk0L8MuN2vDm9pbMCulxtJzzk82oJHVLBd8vuQxaPskaYQwKqmFmbannf5eoChgjYg==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9"
+        }
+      },
+      "Microsoft.Extensions.Options": {
+        "type": "Direct",
+        "requested": "[10.0.9, )",
+        "resolved": "10.0.9",
+        "contentHash": "hyNdX4c2UwkRkzb9byw0H2DQkRzwBM3mzY2sCM9egwzTyg8dvQJmp5noQHGEaaCORQrNK3DD2gREBsc2DlXS4A==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.9",
+          "Microsoft.Extensions.Primitives": "10.0.9"
+        }
+      },
+      "Mocha.Analyzers": {
+        "type": "Direct",
+        "requested": "[16.6.1-p.2, )",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "Z2MxjzxHEEolqx4Pp+YPbzPeXtt7tddXp5xJ+M/hoLLq4t19/pFCok845wNrHrk5R/ln36g26zVy7VNpNXjPoA=="
+      },
+      "Mocha.Mediator": {
+        "type": "Direct",
+        "requested": "[16.6.1-p.2, )",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "qhOfSvMwpEp9g6EiJ7VyPt5lIh0yb7T7tqSqIjWwqcwlvOUwEyDqjkr7acQwNmg/5NGpRuP2wvHeVwQIR5DmRA==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "10.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.0",
+          "Microsoft.Extensions.ObjectPool": "10.0.0",
+          "Microsoft.Extensions.Options": "10.0.0",
+          "Mocha.Abstractions": "16.6.1-p.2",
+          "Mocha.Mediator.Abstractions": "16.6.1-p.2",
+          "Mocha.Utilities": "16.6.1-p.2"
+        }
+      },
+      "GreenDonut.Abstractions": {
+        "type": "Transitive",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "i8PIhwkMgDCG1GraHhpjd3+pFohphx8Quar/xzlVYTWQQPo4SGYIZXeTrHyfyJlc7VYwBo3yrIpXxfU7i5ebug=="
+      },
+      "GreenDonut.Data.Abstractions": {
+        "type": "Transitive",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "OX3YPzP3tnnGpCdVIkecjvniRgEhM56UZdL+uo7SepRL0wVsdkMNEsjZZfhH+y08h1LYpGLotNVoP2DoOEMpNw==",
+        "dependencies": {
+          "GreenDonut.Abstractions": "16.6.1-p.2",
+          "GreenDonut.Data.Primitives": "16.6.1-p.2"
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "f0RBabswJq+gRu5a+hWIobrLWiUYPKMhCD9WO3sYBAdSy3FFH14LMvLVFZc2kPSCimBLxSuitUhsd6tb0TAY6A==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.0"
+        }
+      },
+      "Microsoft.Extensions.ObjectPool": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "bpeCq0IYmVLACyEUMzFIOQX+zZUElG1t+nu1lSxthe7B+1oNYking7b91305+jNB6iwojp9fqTY9O+Nh7ULQxg=="
+      },
+      "Microsoft.Extensions.Primitives": {
+        "type": "Transitive",
+        "resolved": "10.0.9",
+        "contentHash": "fmEbAUFsaIKirgLt/lYhuFRBwhcSJN31jjHgCdbQxJiWOum6EdLjkbgGuukSP9z/a+9LibaxII/kF+GwOXgC4g=="
+      },
+      "Mocha.Mediator.Abstractions": {
+        "type": "Transitive",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "QyyLYUwEv8yonsLJFkb9/CPlN/vunrw2Jj+cN29Nd42xirmiQeZihLvvWoQMkj4+738lknswgKw/FXIQiti1GA=="
+      },
+      "Mocha.Utilities": {
+        "type": "Transitive",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "RWdSkr6U/YLKEIyH573q06tVV6AT79ky9VlEbKaHCwEF/I5PSVpo9BE0pOxsxz/V8F0lDQS7jaG0CLI0ZrJ72w==",
+        "dependencies": {
+          "Mocha.Abstractions": "16.6.1-p.2"
+        }
+      },
+      "bookshop.domain": {
+        "type": "Project"
+      },
+      "Mocha.Abstractions": {
+        "type": "CentralTransitive",
+        "requested": "[16.6.1, )",
+        "resolved": "16.6.1-p.2",
+        "contentHash": "+Zk5CHi5QTW54JNOlW1dOlysebumn64+YXaWbCR+lE240FbTVrY688Peocq7ym03Qf2hTm698RtDf9Rm217E8A==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.0"
+        }
+      }
+    }
+  }
+}
