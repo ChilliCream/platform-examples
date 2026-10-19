@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Catalog.API/eShop.Catalog.API.csproj" />
+  <Project Path="Catalog.Data/Catalog.Data.csproj" />
+  <Project Path="Catalog.Services/Catalog.Services.csproj" />
+</Solution>
