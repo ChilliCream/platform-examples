@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/ConnectionAggregations/">
+    <Project Path="ConnectionAggregations/src/Catalog.API/eShop.Catalog.API.csproj" />
+  </Folder>
+  <Folder Name="/DataLoaderExplained/">
+    <Project Path="DataLoaderExplained/src/Catalog.API/eShop.Catalog.API.csproj" />
+  </Folder>
+  <Folder Name="/EfCoreProjections/">
+    <Project Path="EfCoreProjections/src/Catalog.API/eShop.Catalog.API.csproj" />
+  </Folder>
+  <Folder Name="/GreenDonutData/">
+    <Project Path="GreenDonutData/src/Catalog.API/eShop.Catalog.API.csproj" />
+  </Folder>
+  <Folder Name="/LayeredDataLoader/">
+    <Project Path="LayeredDataLoader/src/Catalog.API/eShop.Catalog.API.csproj" />
+    <Project Path="LayeredDataLoader/src/Catalog.Data/Catalog.Data.csproj" />
+    <Project Path="LayeredDataLoader/src/Catalog.Services/Catalog.Services.csproj" />
+  </Folder>
+  <Folder Name="/RelativeCursors/">
+    <Project Path="RelativeCursors/src/Catalog.API/eShop.Catalog.API.csproj" />
+  </Folder>
+  <Folder Name="/StatefulDataLoader/">
+    <Project Path="StatefulDataLoader/src/Catalog.API/eShop.Catalog.API.csproj" />
+  </Folder>
+</Solution>
