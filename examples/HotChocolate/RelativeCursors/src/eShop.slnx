@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/Catalog.API/">
+    <Project Path="Catalog.API/eShop.Catalog.API.csproj" />
+  </Folder>
+</Solution>
