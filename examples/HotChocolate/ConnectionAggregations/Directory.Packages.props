@@ -1,0 +1,13 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', '$(MSBuildThisFileDirectory)../'))" />
+  <ItemGroup Label="GraphQL">
+    <PackageVersion Include="HotChocolate.AspNetCore" Version="15.1.0-rc.4" />
+    <PackageVersion Include="HotChocolate.AspNetCore.CommandLine" Version="15.1.0-rc.4" />
+    <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="15.1.0-rc.4" />
+    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="15.1.0-rc.4" />
+  </ItemGroup>
+  <ItemGroup Label="EF Core">
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2" />
+  </ItemGroup>
+</Project>
