@@ -15,19 +15,22 @@
           "OpenTelemetry.Extensions.Hosting": "1.15.3"
         }
       },
-      "MediatR": {
+      "Mocha.Analyzers": {
         "type": "Direct",
-        "requested": "[12.5.0, )",
-        "resolved": "12.5.0",
-        "contentHash": "vqm2H8/nqL5NAJHPhsG1JOPwfkmbVrPyh4svdoRzu+uZh6Ex7PRoHBGsLYC0/RWCEJFqD1ohHNpteQvql9OktA==",
-        "dependencies": {
-          "MediatR.Contracts": "[2.0.1, 3.0.0)"
-        }
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "oM1RYUo2zVJHw4B8etmGi+wjO3Tw0YZIsv03bvlSpCigOzPglhZW/gSkxwKpzHmznkjsXjkq3nFWLoYdadlP2A=="
       },
-      "MediatR.Contracts": {
-        "type": "Transitive",
-        "resolved": "2.0.1",
-        "contentHash": "FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ=="
+      "Mocha.Mediator": {
+        "type": "Direct",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "zWh/4/sB/rvJu7+CEOCuMKe+u5RasRTKYIfrVcQ5SZSOXJmhqDprD9UcDcQjnrl22kK06D0iD/LIJhbop/ogxA==",
+        "dependencies": {
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Mediator.Abstractions": "16.7.3",
+          "Mocha.Utilities": "16.7.3"
+        }
       },
       "Microsoft.EntityFrameworkCore": {
         "type": "Transitive",
@@ -62,6 +65,19 @@
         "contentHash": "VyjlpOHGpT9xoNFKNd/27FBF4eBimMcCCIfMxkeju/8uUnugwsxHfzZX2iP+ilYeoYB4HeT5gAoswTIKD6SYJw==",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Relational": "10.0.8"
+        }
+      },
+      "Mocha.Mediator.Abstractions": {
+        "type": "Transitive",
+        "resolved": "16.7.3",
+        "contentHash": "A+MyRIc/bZfiLpLNwm1rbgLZuiaa10DdMao2X6a8o3MYs5uaIac162ENDXncYZ7HcypGM7guny8RrGxiCtXS0w=="
+      },
+      "Mocha.Utilities": {
+        "type": "Transitive",
+        "resolved": "16.7.3",
+        "contentHash": "zG1H28fKNKWxDGphtObX/0vadbbZJusBgc7J5MS8UbJy+22stpqwepX+jfdQ4TLgWrwgpRq/MHw46mScfknANQ==",
+        "dependencies": {
+          "Mocha.Abstractions": "16.7.3"
         }
       },
       "Npgsql": {
@@ -116,6 +132,12 @@
         "dependencies": {
           "OpenTelemetry.Api": "1.15.3"
         }
+      },
+      "Mocha.Abstractions": {
+        "type": "CentralTransitive",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "vUUwJfHroTO7DkBwqF7rNY76lFAokFZCsRo0GrfuggLTTJRA3c/lFcptdFLWcLeRhe6Li9f8bryMTz0yO011mQ=="
       },
       "OpenTelemetry.Extensions.Hosting": {
         "type": "CentralTransitive",

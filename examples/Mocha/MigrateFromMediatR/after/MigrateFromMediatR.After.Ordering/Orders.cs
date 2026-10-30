@@ -1,15 +1,13 @@
-using MediatR;
+using Mocha.Mediator;
 using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Ordering;
 
-public interface IOrderCommand;
+public sealed record PlaceOrder(Guid ProductId, int Quantity) : ICommand<Guid>;
 
-public sealed record PlaceOrder(Guid ProductId, int Quantity) : IRequest<Guid>, IOrderCommand;
+public sealed record CancelOrder(Guid OrderId) : ICommand;
 
-public sealed record CancelOrder(Guid OrderId) : IRequest, IOrderCommand;
-
-public sealed record GetOrder(Guid OrderId) : IRequest<OrderResult>;
+public sealed record GetOrder(Guid OrderId) : IQuery<OrderResult>;
 
 public sealed record OrderResult(OrderDto? Order);
 
@@ -34,9 +32,9 @@ public sealed class OrderNotFoundException(Guid orderId) : Exception($"Order {or
 
 public sealed class OrderValidationException(string message) : Exception(message);
 
-public sealed class PlaceOrderHandler(OrderingDbContext db) : IRequestHandler<PlaceOrder, Guid>
+public sealed class PlaceOrderHandler(OrderingDbContext db) : ICommandHandler<PlaceOrder, Guid>
 {
-    public async Task<Guid> Handle(PlaceOrder request, CancellationToken cancellationToken)
+    public async ValueTask<Guid> HandleAsync(PlaceOrder request, CancellationToken cancellationToken)
     {
         var order = new Order { Id = Guid.NewGuid(), ProductId = request.ProductId, Quantity = request.Quantity };
         db.Orders.Add(order);
@@ -45,9 +43,9 @@ public sealed class PlaceOrderHandler(OrderingDbContext db) : IRequestHandler<Pl
     }
 }
 
-public sealed class CancelOrderHandler(OrderingDbContext db) : IRequestHandler<CancelOrder>
+public sealed class CancelOrderHandler(OrderingDbContext db) : ICommandHandler<CancelOrder>
 {
-    public async Task Handle(CancelOrder request, CancellationToken cancellationToken)
+    public async ValueTask HandleAsync(CancelOrder request, CancellationToken cancellationToken)
     {
         var order = await db.Orders.FindAsync([request.OrderId], cancellationToken)
             ?? throw new OrderNotFoundException(request.OrderId);
@@ -56,9 +54,9 @@ public sealed class CancelOrderHandler(OrderingDbContext db) : IRequestHandler<C
     }
 }
 
-public sealed class GetOrderHandler(OrderingDbContext db) : IRequestHandler<GetOrder, OrderResult>
+public sealed class GetOrderHandler(OrderingDbContext db) : IQueryHandler<GetOrder, OrderResult>
 {
-    public async Task<OrderResult> Handle(GetOrder request, CancellationToken cancellationToken)
+    public async ValueTask<OrderResult> HandleAsync(GetOrder request, CancellationToken cancellationToken)
     {
         var order = await db.Orders.AsNoTracking().SingleOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken)
             ?? throw new OrderNotFoundException(request.OrderId);
@@ -68,18 +66,18 @@ public sealed class GetOrderHandler(OrderingDbContext db) : IRequestHandler<GetO
 
 public sealed class OrderReceiptHandler(ILogger<OrderReceiptHandler> logger) : INotificationHandler<OrderPlaced>
 {
-    public Task Handle(OrderPlaced notification, CancellationToken cancellationToken)
+    public ValueTask HandleAsync(OrderPlaced notification, CancellationToken cancellationToken)
     {
         logger.LogInformation("Receipt prepared for order {OrderId}", notification.OrderId);
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 }
 
 public sealed class OrderInventoryHandler(ILogger<OrderInventoryHandler> logger) : INotificationHandler<OrderPlaced>
 {
-    public Task Handle(OrderPlaced notification, CancellationToken cancellationToken)
+    public ValueTask HandleAsync(OrderPlaced notification, CancellationToken cancellationToken)
     {
         logger.LogInformation("Inventory notified for order {OrderId}", notification.OrderId);
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 }

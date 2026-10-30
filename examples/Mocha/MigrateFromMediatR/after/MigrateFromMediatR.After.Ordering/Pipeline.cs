@@ -1,89 +1,157 @@
-using MediatR;
-using MediatR.Pipeline;
 using Microsoft.EntityFrameworkCore;
+using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-public sealed class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
-    : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
+public sealed class LoggingPreProcessorMiddleware
 {
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)
     {
-        logger.LogInformation("Handling {Message}", typeof(TRequest).Name);
-        return await next();
+        var logger = context.Services.GetRequiredService<ILogger<LoggingPreProcessorMiddleware>>();
+        logger.LogInformation("Starting {Message}", context.MessageType.Name);
+        await next(context);
     }
+
+    public static MediatorMiddlewareConfiguration Create()
+        => new(static (factoryCtx, next) =>
+        {
+            if (factoryCtx.IsNotification())
+            {
+                return next;
+            }
+
+            var middleware = new LoggingPreProcessorMiddleware();
+            return ctx => middleware.InvokeAsync(ctx, next);
+        }, "PreProcessor");
 }
 
-public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull
+public sealed class OrderExceptionMiddleware
 {
-    public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)
     {
-        if (request is PlaceOrder command && (command.ProductId == Guid.Empty || command.Quantity <= 0))
+        try
+        {
+            await next(context);
+        }
+        catch (OrderNotFoundException) when (context.Message is GetOrder)
+        {
+            var logger = context.Services.GetRequiredService<ILogger<OrderExceptionMiddleware>>();
+            logger.LogInformation("Order {OrderId} was not found", ((GetOrder)context.Message).OrderId);
+            context.Result = new OrderResult(null);
+        }
+        catch (OrderNotFoundException) when (context.Message is CancelOrder)
+        {
+            var logger = context.Services.GetRequiredService<ILogger<OrderExceptionMiddleware>>();
+            logger.LogInformation("Could not cancel order {OrderId}", ((CancelOrder)context.Message).OrderId);
+            throw;
+        }
+    }
+
+    public static MediatorMiddlewareConfiguration Create()
+        => new(static (factoryCtx, next) =>
+        {
+            if (!factoryCtx.IsMessageAssignableTo<GetOrder>() && !factoryCtx.IsMessageAssignableTo<CancelOrder>())
+            {
+                return next;
+            }
+
+            var middleware = new OrderExceptionMiddleware();
+            return ctx => middleware.InvokeAsync(ctx, next);
+        }, "OrderException");
+}
+
+public sealed class LoggingMiddleware
+{
+    public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)
+    {
+        var logger = context.Services.GetRequiredService<ILogger<LoggingMiddleware>>();
+        logger.LogInformation("Handling {Message}", context.MessageType.Name);
+        await next(context);
+    }
+
+    public static MediatorMiddlewareConfiguration Create()
+        => new(static (factoryCtx, next) =>
+        {
+            if (factoryCtx.IsNotification())
+            {
+                return next;
+            }
+
+            var middleware = new LoggingMiddleware();
+            return ctx => middleware.InvokeAsync(ctx, next);
+        }, "Logging");
+}
+
+public sealed class ValidationMiddleware
+{
+    public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)
+    {
+        var command = (PlaceOrder)context.Message;
+        if (command.ProductId == Guid.Empty || command.Quantity <= 0)
         {
             throw new OrderValidationException("A product ID and a positive quantity are required.");
         }
 
-        return next();
+        await next(context);
     }
-}
 
-public sealed class TransactionBehavior<TRequest, TResponse>(OrderingDbContext db, ILogger<TransactionBehavior<TRequest, TResponse>> logger)
-    : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
-{
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
-    {
-        if (request is not IOrderCommand)
+    public static MediatorMiddlewareConfiguration Create()
+        => new(static (factoryCtx, next) =>
         {
-            return await next();
-        }
+            if (!factoryCtx.IsMessageAssignableTo<PlaceOrder>())
+            {
+                return next;
+            }
 
-        await using var transaction = await db.Database.BeginTransactionAsync(cancellationToken);
-        logger.LogInformation("Transaction started for {Message}", typeof(TRequest).Name);
-        var result = await next();
-        await transaction.CommitAsync(cancellationToken);
-        logger.LogInformation("Transaction committed for {Message}", typeof(TRequest).Name);
-        return result;
-    }
+            var middleware = new ValidationMiddleware();
+            return ctx => middleware.InvokeAsync(ctx, next);
+        }, "Validation");
 }
 
-public sealed class LoggingPreProcessor<TRequest>(ILogger<LoggingPreProcessor<TRequest>> logger)
-    : IRequestPreProcessor<TRequest> where TRequest : notnull
+public sealed class LoggingPostProcessorMiddleware
 {
-    public Task Process(TRequest request, CancellationToken cancellationToken)
+    public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)
     {
-        logger.LogInformation("Starting {Message}", typeof(TRequest).Name);
-        return Task.CompletedTask;
+        await next(context);
+        var logger = context.Services.GetRequiredService<ILogger<LoggingPostProcessorMiddleware>>();
+        logger.LogInformation("Finished {Message}", context.MessageType.Name);
     }
+
+    public static MediatorMiddlewareConfiguration Create()
+        => new(static (factoryCtx, next) =>
+        {
+            if (factoryCtx.IsNotification())
+            {
+                return next;
+            }
+
+            var middleware = new LoggingPostProcessorMiddleware();
+            return ctx => middleware.InvokeAsync(ctx, next);
+        }, "PostProcessor");
 }
 
-public sealed class LoggingPostProcessor<TRequest, TResponse>(ILogger<LoggingPostProcessor<TRequest, TResponse>> logger)
-    : IRequestPostProcessor<TRequest, TResponse> where TRequest : notnull
+public sealed class TransactionMiddleware
 {
-    public Task Process(TRequest request, TResponse response, CancellationToken cancellationToken)
+    public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)
     {
-        logger.LogInformation("Finished {Message}", typeof(TRequest).Name);
-        return Task.CompletedTask;
+        var db = context.Services.GetRequiredService<OrderingDbContext>();
+        var logger = context.Services.GetRequiredService<ILogger<TransactionMiddleware>>();
+        await using var transaction = await db.Database.BeginTransactionAsync(context.CancellationToken);
+        logger.LogInformation("Transaction started for {Message}", context.MessageType.Name);
+        await next(context);
+        await transaction.CommitAsync(context.CancellationToken);
+        logger.LogInformation("Transaction committed for {Message}", context.MessageType.Name);
     }
-}
 
-public sealed class GetOrderNotFoundHandler(ILogger<GetOrderNotFoundHandler> logger)
-    : IRequestExceptionHandler<GetOrder, OrderResult, OrderNotFoundException>
-{
-    public Task Handle(GetOrder request, OrderNotFoundException exception, RequestExceptionHandlerState<OrderResult> state, CancellationToken cancellationToken)
-    {
-        logger.LogInformation("Order {OrderId} was not found", request.OrderId);
-        state.SetHandled(new OrderResult(null));
-        return Task.CompletedTask;
-    }
-}
+    public static MediatorMiddlewareConfiguration Create()
+        => new(static (factoryCtx, next) =>
+        {
+            if (!factoryCtx.IsCommand() && !factoryCtx.IsCommandWithResponse())
+            {
+                return next;
+            }
 
-public sealed class CancelOrderNotFoundAction(ILogger<CancelOrderNotFoundAction> logger)
-    : IRequestExceptionAction<CancelOrder, OrderNotFoundException>
-{
-    public Task Execute(CancelOrder request, OrderNotFoundException exception, CancellationToken cancellationToken)
-    {
-        logger.LogInformation("Could not cancel order {OrderId}", request.OrderId);
-        return Task.CompletedTask;
-    }
+            var middleware = new TransactionMiddleware();
+            return ctx => middleware.InvokeAsync(ctx, next);
+        }, "Transaction");
 }
