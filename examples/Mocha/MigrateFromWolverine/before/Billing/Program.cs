@@ -1,0 +1,31 @@
+using Microsoft.EntityFrameworkCore;
+using Shop.Billing;
+using Shop.Contracts;
+using Wolverine;
+using Wolverine.EntityFrameworkCore;
+using Wolverine.Postgresql;
+using Wolverine.RabbitMQ;
+
+var builder = WebApplication.CreateBuilder(args);
+var database = builder.Configuration.GetConnectionString("billing-db")!;
+builder.Services.AddDbContextWithWolverineIntegration<BillingDb>(x => x.UseNpgsql(database));
+builder.Host.UseWolverine(opts =>
+{
+    opts.PersistMessagesWithPostgresql(database, "wolverine");
+    opts.UseEntityFrameworkCoreTransactions();
+    opts.Policies.AutoApplyTransactions();
+    opts.Policies.UseDurableLocalQueues();
+    opts.Policies.UseDurableOutboxOnAllSendingEndpoints();
+    opts.Policies.UseDurableInboxOnAllListeners();
+    opts.UseRabbitMq(builder.Configuration.GetConnectionString("rabbitmq")!).AutoProvision();
+    opts.ListenToRabbitQueue("wolverine-billing");
+    opts.PublishMessage<InvoiceConfirmed>().ToRabbitQueue("wolverine-ordering");
+});
+
+var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    await scope.ServiceProvider.GetRequiredService<BillingDb>().Database.EnsureCreatedAsync();
+}
+app.MapGet("/health", () => Results.Ok());
+await app.RunAsync();

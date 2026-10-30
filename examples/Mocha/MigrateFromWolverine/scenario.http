@@ -1,0 +1,42 @@
+@baseUrl = http://localhost:41410
+
+### Submit an order that Billing confirms
+# @name confirmedOrder
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "product": "coffee",
+  "confirmInvoice": true
+}
+
+### Inspect the order after Billing confirms the invoice
+GET {{baseUrl}}/orders/{{confirmedOrder.response.body.$}}
+
+### Request the invoice status from Billing
+GET {{baseUrl}}/orders/{{confirmedOrder.response.body.$}}/invoice
+
+### Schedule a reminder
+POST {{baseUrl}}/orders/{{confirmedOrder.response.body.$}}/reminder
+
+### Exercise a transient failure and redelivery
+POST {{baseUrl}}/orders/{{confirmedOrder.response.body.$}}/fail/transient
+
+### Exercise validation failure
+POST {{baseUrl}}/orders/{{confirmedOrder.response.body.$}}/fail/validation
+
+### Send five messages to the batch handler
+POST {{baseUrl}}/orders/{{confirmedOrder.response.body.$}}/audit
+
+### Submit an order that is not confirmed
+# @name unconfirmedOrder
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "product": "tea",
+  "confirmInvoice": false
+}
+
+### Inspect the order after the saga timeout
+GET {{baseUrl}}/orders/{{unconfirmedOrder.response.body.$}}
