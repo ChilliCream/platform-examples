@@ -2,7 +2,7 @@
 @productId = 11111111-1111-1111-1111-111111111111
 @missingId = 00000000-0000-0000-0000-000000000001
 
-### Place an order, then publish OrderPlaced to both notification handlers
+### Place an order, then publish OrderPlacedNotification to both notification handlers
 # @name placeOrder
 POST {{baseUrl}}/orders
 Content-Type: application/json

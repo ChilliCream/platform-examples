@@ -4,6 +4,18 @@ This example starts with an ASP.NET Core ordering API using MediatR 12.5 and EF 
 
 The notification publisher uses `TaskWhenAllPublisher`. MediatR request behaviors do not run for notifications, so the API logs the notification at the publish call. Its two handlers use only loggers and do not share a `DbContext`. The mediator is in-process; there is no message broker, outbox, or error queue. Both AppHosts reference the centrally pinned MessagePack 2.5.303 to avoid a vulnerability warning from an older transitive dependency.
 
+## Structure
+
+Each side is a standalone Aspire application with the same `Shop.Ordering` namespace. The AppHost starts PostgreSQL and the ordering API. In each ordering project:
+
+- `Commands/` contains `PlaceOrderCommand` and `CancelOrderCommand` with their handlers.
+- `Queries/` contains `GetOrderQuery`, its result types, and its handler.
+- `Notifications/` contains `OrderPlacedNotification` and both notification handlers.
+- `Data/` contains the EF Core context and order entity; `Endpoints/` maps the HTTP API.
+- `Behaviors/` in `before/` contains the MediatR behaviors, processors, and exception handlers. `Middleware/` in `after/` contains the corresponding Mocha middleware.
+
+The logged message type names include the `Command`, `Query`, or `Notification` suffix used by the example's types. Both applications write the same business log messages.
+
 ## Prerequisites
 
 - The .NET SDK specified in the repository's `global.json`.
@@ -34,7 +46,7 @@ Run the requests in `scenario.http` in order using the VS Code REST Client exten
 The [MediatR migration guide](https://chillicream.com/docs/mocha/migration/coming-from-mediatr) describes the changes shown in `after/`:
 
 1. Install `Mocha.Mediator` and `Mocha.Analyzers`.
-2. Replace `IRequest<Guid>` and `IRequest` with `ICommand<Guid>` and `ICommand`, and `IRequest<OrderResult>` with `IQuery<OrderResult>`. Keep `OrderPlaced` as a notification in the Mocha namespace.
+2. Replace `IRequest<Guid>` and `IRequest` with `ICommand<Guid>` and `ICommand`, and `IRequest<OrderResult>` with `IQuery<OrderResult>`. Keep `OrderPlacedNotification` as a notification in the Mocha namespace.
 3. Implement the corresponding Mocha handler interfaces and rename `Handle` to `HandleAsync`, returning `ValueTask`.
 4. Replace `AddMediatR` and assembly scanning with `AddMediator().AddOrdering()`, where `AddOrdering` is generated.
 5. Replace `Send` with `SendAsync` for commands and `QueryAsync` for queries, and replace `Publish` with `PublishAsync`.

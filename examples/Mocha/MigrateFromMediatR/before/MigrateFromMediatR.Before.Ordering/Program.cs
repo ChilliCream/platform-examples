@@ -3,12 +3,16 @@ using MediatR.NotificationPublishers;
 using Microsoft.EntityFrameworkCore;
 using Shop.Ordering;
 
+// Configure the application and services.
 var builder = WebApplication.CreateBuilder(args);
 
+// Register the ordering database.
 builder.AddNpgsqlDbContext<OrderingDbContext>("ordering-db");
+
+// Register the mediator, its request pipeline, and concurrent notification publishing.
 builder.Services.AddMediatR(configuration =>
 {
-    configuration.RegisterServicesFromAssemblyContaining<PlaceOrder>();
+    configuration.RegisterServicesFromAssemblyContaining<PlaceOrderCommand>();
     configuration.NotificationPublisher = new TaskWhenAllPublisher();
     configuration.AddOpenBehavior(typeof(LoggingBehavior<,>));
     configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
@@ -17,6 +21,7 @@ builder.Services.AddMediatR(configuration =>
     configuration.AddOpenRequestPostProcessor(typeof(LoggingPostProcessor<,>));
 });
 
+// Create the application and initialize its database.
 var app = builder.Build();
 
 await using (var scope = app.Services.CreateAsyncScope())
@@ -24,38 +29,8 @@ await using (var scope = app.Services.CreateAsyncScope())
     await scope.ServiceProvider.GetRequiredService<OrderingDbContext>().Database.EnsureCreatedAsync();
 }
 
-app.MapPost("/orders", async (PlaceOrder command, ISender sender, IPublisher publisher, CancellationToken ct) =>
-{
-    try
-    {
-        var id = await sender.Send(command, ct);
-        app.Logger.LogInformation("Handling {Message}", nameof(OrderPlaced));
-        await publisher.Publish(new OrderPlaced(id, command.ProductId, command.Quantity), ct);
-        return Results.Created($"/orders/{id}", new { id });
-    }
-    catch (OrderValidationException exception)
-    {
-        return Results.BadRequest(new { error = exception.Message });
-    }
-});
+// Map the HTTP API.
+app.MapOrderEndpoints();
 
-app.MapGet("/orders/{id:guid}", async (Guid id, ISender sender, CancellationToken ct) =>
-{
-    var result = await sender.Send(new GetOrder(id), ct);
-    return result.Order is null ? Results.NotFound() : Results.Ok(result.Order);
-});
-
-app.MapPost("/orders/{id:guid}/cancel", async (Guid id, ISender sender, CancellationToken ct) =>
-{
-    try
-    {
-        await sender.Send(new CancelOrder(id), ct);
-        return Results.NoContent();
-    }
-    catch (OrderNotFoundException)
-    {
-        return Results.NotFound();
-    }
-});
-
+// Start the application.
 await app.RunAsync();
