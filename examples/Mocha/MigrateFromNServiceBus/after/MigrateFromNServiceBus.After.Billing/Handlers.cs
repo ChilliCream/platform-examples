@@ -1,45 +1,39 @@
-using NServiceBus;
+using Microsoft.EntityFrameworkCore;
+using Mocha;
 using Shop.Contracts;
 
 namespace Shop.Billing;
 
-public class OrderPlacedHandler(IConfiguration configuration, ILogger<OrderPlacedHandler> logger)
-    : IHandleMessages<OrderPlaced>
+public class OrderPlacedHandler(
+    BillingDbContext db,
+    IMessageBus bus,
+    IConfiguration configuration,
+    ILogger<OrderPlacedHandler> logger) : IEventHandler<OrderPlaced>
 {
-    public async Task Handle(OrderPlaced message, IMessageHandlerContext context)
+    public async ValueTask HandleAsync(OrderPlaced message, CancellationToken cancellationToken)
     {
-        var sql = context.SynchronizedStorageSession.SqlPersistenceSession();
-        await using var command = sql.Connection.CreateCommand();
-        command.Transaction = sql.Transaction;
-        command.CommandText = "INSERT INTO invoices (order_id, status) VALUES (@id, 'Created')";
-        var parameter = command.CreateParameter();
-        parameter.ParameterName = "id";
-        parameter.Value = message.OrderId;
-        command.Parameters.Add(parameter);
-        await command.ExecuteNonQueryAsync(context.CancellationToken);
+        db.Invoices.Add(new Invoice { OrderId = message.OrderId, Status = "Created" });
+        await db.SaveChangesAsync(cancellationToken);
         logger.LogInformation("Invoice created for order {OrderId}", message.OrderId);
         if (message.ConfirmInvoice)
         {
-            var options = new SendOptions();
-            options.DelayDeliveryWith(TimeSpan.FromSeconds(configuration.GetValue<int>("Scenario:ConfirmationDelaySeconds")));
-            await context.Send(new InvoiceConfirmed(message.OrderId), options);
+            await bus.ScheduleSendAsync(
+                new InvoiceConfirmed(message.OrderId),
+                DateTimeOffset.UtcNow.AddSeconds(configuration.GetValue<int>("Scenario:ConfirmationDelaySeconds")),
+                cancellationToken);
         }
     }
 }
 
-public class CheckInvoiceStatusHandler : IHandleMessages<CheckInvoiceStatus>
+public class CheckInvoiceStatusHandler(BillingDbContext db)
+    : IEventRequestHandler<CheckInvoiceStatus, InvoiceStatus>
 {
-    public async Task Handle(CheckInvoiceStatus message, IMessageHandlerContext context)
+    public async ValueTask<InvoiceStatus> HandleAsync(CheckInvoiceStatus message, CancellationToken cancellationToken)
     {
-        var sql = context.SynchronizedStorageSession.SqlPersistenceSession();
-        await using var command = sql.Connection.CreateCommand();
-        command.Transaction = sql.Transaction;
-        command.CommandText = "SELECT status FROM invoices WHERE order_id = @id";
-        var parameter = command.CreateParameter();
-        parameter.ParameterName = "id";
-        parameter.Value = message.OrderId;
-        command.Parameters.Add(parameter);
-        var status = (string?)await command.ExecuteScalarAsync(context.CancellationToken) ?? "NotFound";
-        await context.Reply(new InvoiceStatus(message.OrderId, status));
+        var status = await db.Invoices
+            .Where(x => x.OrderId == message.OrderId)
+            .Select(x => x.Status)
+            .SingleOrDefaultAsync(cancellationToken) ?? "NotFound";
+        return new InvoiceStatus(message.OrderId, status);
     }
 }

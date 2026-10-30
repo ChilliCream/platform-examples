@@ -2,12 +2,12 @@
   <PropertyGroup><RootNamespace>Shop.Ordering</RootNamespace></PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../MigrateFromNServiceBus.After.Contracts/MigrateFromNServiceBus.After.Contracts.csproj" />
-    <PackageReference Include="NServiceBus" />
-    <PackageReference Include="NServiceBus.Callbacks" />
-    <PackageReference Include="NServiceBus.Extensions.Hosting" />
-    <PackageReference Include="NServiceBus.Persistence.Sql" />
-    <PackageReference Include="NServiceBus.Persistence.Sql.TransactionalSession" />
-    <PackageReference Include="NServiceBus.RabbitMQ" />
-    <PackageReference Include="Npgsql" />
+    <PackageReference Include="Mocha" />
+    <PackageReference Include="Mocha.Analyzers" PrivateAssets="all" />
+    <PackageReference Include="Mocha.EntityFrameworkCore.Postgres" />
+    <PackageReference Include="Mocha.Transport.RabbitMQ" />
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Aspire.RabbitMQ.Client" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" PrivateAssets="all" />
   </ItemGroup>
 </Project>
