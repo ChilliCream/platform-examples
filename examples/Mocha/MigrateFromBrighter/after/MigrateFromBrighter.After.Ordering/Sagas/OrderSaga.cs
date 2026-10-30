@@ -4,14 +4,6 @@ using Shop.Contracts;
 namespace Shop.Ordering;
 
 // Publish the reply-producing event from the initial transition with the saga state.
-public sealed class OrderSagaState : SagaStateBase
-{
-    public string Product { get; set; } = string.Empty;
-    public bool ConfirmInvoice { get; set; }
-    public DateTimeOffset ExpiresAt { get; set; }
-}
-
-// Publish the reply-producing event from the initial transition with the saga state.
 public sealed class OrderSaga : Saga<OrderSagaState>
 {
     protected override void Configure(ISagaDescriptor<OrderSagaState> descriptor)
