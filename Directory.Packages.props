@@ -33,4 +33,9 @@
     <PackageVersion Include="Mocha.Transport.Postgres" Version="16.7.3" />
     <PackageVersion Include="Mocha.Transport.RabbitMQ" Version="16.7.3" />
   </ItemGroup>
+  <ItemGroup Label="MigrateFromMediator">
+    <PackageVersion Include="Mediator.Abstractions" Version="3.0.2" />
+    <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.2" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+  </ItemGroup>
 </Project>
