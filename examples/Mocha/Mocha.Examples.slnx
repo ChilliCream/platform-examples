@@ -15,6 +15,12 @@
   <Folder Name="/ExceptionPolicies/">
     <Project Path="ExceptionPolicies/ExceptionPolicies.csproj" />
   </Folder>
+  <Folder Name="/MigrateFromMassTransit/before/">
+    <Project Path="MigrateFromMassTransit/before/AppHost/MigrateFromMassTransit.Before.AppHost.csproj" />
+    <Project Path="MigrateFromMassTransit/before/Ordering/MigrateFromMassTransit.Before.Ordering.csproj" />
+    <Project Path="MigrateFromMassTransit/before/Billing/MigrateFromMassTransit.Before.Billing.csproj" />
+    <Project Path="MigrateFromMassTransit/before/Contracts/MigrateFromMassTransit.Before.Contracts.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />

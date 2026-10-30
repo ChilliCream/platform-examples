@@ -1,0 +1,44 @@
+@baseUrl = http://localhost:41210
+@acceptedId = 11111111-1111-1111-1111-111111111111
+@expiredId = 22222222-2222-2222-2222-222222222222
+
+### Place an order with an invoice confirmation
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "orderId": "{{acceptedId}}",
+  "amount": 42.50,
+  "confirmInvoice": true
+}
+
+### Inspect order and saga, initially Submitted, then Accepted
+GET {{baseUrl}}/orders/{{acceptedId}}
+
+### Request the invoice status from Billing
+GET {{baseUrl}}/orders/{{acceptedId}}/invoice
+
+### Trigger immediate retries, followed by a delayed redelivery
+POST {{baseUrl}}/orders/{{acceptedId}}/process/transient
+
+### Send a validation failure directly to the error queue
+POST {{baseUrl}}/orders/{{acceptedId}}/process/validation
+
+### Schedule a reminder, delivered after 10 seconds
+POST {{baseUrl}}/orders/{{acceptedId}}/reminder
+
+### Place an order without confirmation, which expires after 30 seconds
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "orderId": "{{expiredId}}",
+  "amount": 15.00,
+  "confirmInvoice": false
+}
+
+### Inspect the expired saga after 30 seconds
+GET {{baseUrl}}/orders/{{expiredId}}
+
+### Request the expired order's invoice status
+GET {{baseUrl}}/orders/{{expiredId}}/invoice
