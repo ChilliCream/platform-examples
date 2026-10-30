@@ -5,7 +5,10 @@
   <ItemGroup>
     <ProjectReference Include="../Contracts/MigrateFromMassTransit.After.Contracts.csproj" />
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
-    <PackageReference Include="MassTransit.RabbitMQ" />
-    <PackageReference Include="MassTransit.EntityFrameworkCore" />
+    <PackageReference Include="Aspire.RabbitMQ.Client" />
+    <PackageReference Include="Mocha" />
+    <PackageReference Include="Mocha.Analyzers" PrivateAssets="all" />
+    <PackageReference Include="Mocha.EntityFrameworkCore.Postgres" />
+    <PackageReference Include="Mocha.Transport.RabbitMQ" />
   </ItemGroup>
 </Project>

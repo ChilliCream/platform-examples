@@ -1,45 +1,30 @@
-using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Mocha;
+using Mocha.EntityFrameworkCore;
+using Mocha.Inbox;
+using Mocha.Outbox;
+using Mocha.Sagas;
+using Mocha.Scheduling;
+using Mocha.Transport.RabbitMQ;
 using Shop.Contracts;
 using Shop.Ordering;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.AddNpgsqlDbContext<OrderingDbContext>("ordering-db");
-
-var rabbit = new Uri(builder.Configuration.GetConnectionString("rabbitmq")!);
-var credentials = rabbit.UserInfo.Split(':', 2);
-builder.Services.AddMassTransit(x =>
-{
-    x.AddPublishMessageScheduler();
-    x.AddRequestClient<CheckInvoiceStatus>();
-    x.AddSagaStateMachine<OrderStateMachine, OrderState>()
-        .EntityFrameworkRepository(r =>
-        {
-            r.ConcurrencyMode = ConcurrencyMode.Optimistic;
-            r.ExistingDbContext<OrderingDbContext>();
-            r.UsePostgres();
-        });
-    x.AddEntityFrameworkOutbox<OrderingDbContext>(o =>
+builder.AddNpgsqlDbContext<OrderingDbContext>("ordering-db", settings => settings.DisableRetry = true);
+builder.AddRabbitMQClient("rabbitmq");
+builder.Services
+    .AddMessageBus()
+    .AddResilience(policy => policy.Default().Retry([TimeSpan.FromMilliseconds(200), TimeSpan.FromMilliseconds(200), TimeSpan.FromMilliseconds(200)]).ThenDeadLetter())
+    .AddOrdering()
+    .AddEntityFramework<OrderingDbContext>(p =>
     {
-        o.UsePostgres();
-        o.UseBusOutbox();
-    });
-    x.AddConfigureEndpointsCallback((context, _, cfg) =>
-    {
-        cfg.UseMessageRetry(r => r.Interval(3, TimeSpan.FromMilliseconds(200)));
-        cfg.UseEntityFrameworkOutbox<OrderingDbContext>(context);
-    });
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host(rabbit.Host, (ushort)rabbit.Port, "/", h =>
-        {
-            h.Username(Uri.UnescapeDataString(credentials[0]));
-            h.Password(Uri.UnescapeDataString(credentials[1]));
-        });
-        cfg.UsePublishMessageScheduler();
-        cfg.ConfigureEndpoints(context);
-    });
-});
+        p.UsePostgresOutbox();
+        p.UseTransaction();
+        p.UsePostgresInbox();
+        p.AddPostgresSagas();
+        p.UsePostgresScheduling();
+    })
+    .AddRabbitMQ();
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
@@ -47,12 +32,14 @@ using (var scope = app.Services.CreateScope())
     await scope.ServiceProvider.GetRequiredService<OrderingDbContext>().Database.EnsureCreatedAsync();
 }
 
-app.MapPost("/orders", async (PlaceOrder request, OrderingDbContext db, IPublishEndpoint publisher, CancellationToken ct) =>
+app.MapPost("/orders", async (PlaceOrder request, OrderingDbContext db, IMessageBus bus, CancellationToken ct) =>
 {
+    await using var transaction = await db.Database.BeginTransactionAsync(ct);
     var order = new Order { Id = request.OrderId, Amount = request.Amount, ConfirmInvoice = request.ConfirmInvoice };
     db.Orders.Add(order);
-    await publisher.Publish(new OrderPlaced(order.Id, order.Amount, order.ConfirmInvoice), ct);
+    await bus.PublishAsync(new OrderPlaced(order.Id, order.Amount, order.ConfirmInvoice), ct);
     await db.SaveChangesAsync(ct);
+    await transaction.CommitAsync(ct);
     app.Logger.LogInformation("Order {OrderId} placed", order.Id);
     return Results.Accepted($"/orders/{order.Id}", new { order.Id });
 });
@@ -64,25 +51,28 @@ app.MapGet("/orders/{id:guid}", async (Guid id, OrderingDbContext db, Cancellati
     return order is null ? Results.NotFound() : Results.Ok(new { order.Id, order.Amount, order.ConfirmInvoice, Saga = saga?.CurrentState });
 });
 
-app.MapGet("/orders/{id:guid}/invoice", async (Guid id, IRequestClient<CheckInvoiceStatus> client, CancellationToken ct) =>
+app.MapGet("/orders/{id:guid}/invoice", async (Guid id, IMessageBus bus, CancellationToken ct) =>
 {
-    var response = await client.GetResponse<InvoiceStatus>(new CheckInvoiceStatus(id), ct);
-    return Results.Ok(response.Message);
+    var response = await bus.RequestAsync(new CheckInvoiceStatus(id), ct);
+    return Results.Ok(response);
 });
 
-app.MapPost("/orders/{id:guid}/process/{failure}", async (Guid id, string failure, ISendEndpointProvider provider, OrderingDbContext db, CancellationToken ct) =>
+app.MapPost("/orders/{id:guid}/process/{failure}", async (Guid id, string failure, IMessageBus bus, OrderingDbContext db, CancellationToken ct) =>
 {
-    var endpoint = await provider.GetSendEndpoint(new Uri("queue:process-invoice"));
-    await endpoint.Send(new ProcessInvoice(id, failure), ct);
+    await using var transaction = await db.Database.BeginTransactionAsync(ct);
+    await bus.SendAsync(new ProcessInvoice(id, failure), ct);
     await db.SaveChangesAsync(ct);
+    await transaction.CommitAsync(ct);
     return Results.Accepted();
 });
 
-app.MapPost("/orders/{id:guid}/reminder", async (Guid id, IMessageScheduler scheduler, IConfiguration configuration, OrderingDbContext db, CancellationToken ct) =>
+app.MapPost("/orders/{id:guid}/reminder", async (Guid id, IMessageBus bus, IConfiguration configuration, OrderingDbContext db, CancellationToken ct) =>
 {
+    await using var transaction = await db.Database.BeginTransactionAsync(ct);
     var delay = configuration.GetValue<int>("Scenario:ReminderDelaySeconds");
-    await scheduler.SchedulePublish(DateTime.UtcNow.AddSeconds(delay), new SendReminder(id), ct);
+    await bus.SchedulePublishAsync(new SendReminder(id), DateTimeOffset.UtcNow.AddSeconds(delay), ct);
     await db.SaveChangesAsync(ct);
+    await transaction.CommitAsync(ct);
     app.Logger.LogInformation("Reminder for order {OrderId} scheduled", id);
     return Results.Accepted();
 });

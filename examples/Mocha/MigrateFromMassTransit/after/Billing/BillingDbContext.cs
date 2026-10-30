@@ -1,5 +1,7 @@
-using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Mocha.Inbox;
+using Mocha.Outbox;
+using Mocha.Scheduling;
 
 namespace Shop.Billing;
 
@@ -9,9 +11,9 @@ public sealed class BillingDbContext(DbContextOptions<BillingDbContext> options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.AddInboxStateEntity();
-        modelBuilder.AddOutboxMessageEntity();
-        modelBuilder.AddOutboxStateEntity();
+        modelBuilder.AddPostgresInbox();
+        modelBuilder.AddPostgresOutbox();
+        modelBuilder.AddPostgresScheduledMessages();
         modelBuilder.Entity<Invoice>().HasIndex(x => x.OrderId).IsUnique();
     }
 }

@@ -1,59 +1,69 @@
-using MassTransit;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Mocha;
+using Mocha.Sagas;
 using Shop.Contracts;
 
 namespace Shop.Ordering;
 
-public sealed class OrderState : SagaStateMachineInstance
-{
-    public Guid CorrelationId { get; set; }
-    public string CurrentState { get; set; } = null!;
-    public Guid? TimeoutTokenId { get; set; }
-    public uint RowVersion { get; set; }
-}
+public sealed class OrderState : SagaStateBase;
 
-public sealed class OrderStateMap : SagaClassMap<OrderState>
+public sealed class OrderSaga : Saga<OrderState>
 {
-    protected override void Configure(EntityTypeBuilder<OrderState> entity, ModelBuilder model)
+    private const string Submitted = nameof(Submitted);
+    private const string Accepted = nameof(Accepted);
+    private const string Expired = nameof(Expired);
+
+    protected override void Configure(ISagaDescriptor<OrderState> descriptor)
     {
-        entity.Property(x => x.CurrentState).HasMaxLength(64);
-        entity.Property(x => x.RowVersion).HasColumnName("xmin").HasColumnType("xid").IsRowVersion();
+        descriptor.Initially()
+            .OnEvent<OrderPlaced>()
+            .StateFactory(message => new OrderState { Id = message.OrderId })
+            .Publish((_, state) => new OrderExpired(state.Id), new SagaPublishOptions
+            {
+                ConfigureOptions = (context, _) => new PublishOptions
+                {
+                    ScheduledTime = DateTimeOffset.UtcNow.AddSeconds(
+                        context.Services.GetRequiredService<IConfiguration>().GetValue<int>("Scenario:SagaTimeoutSeconds"))
+                }
+            })
+            .TransitionTo(Submitted);
+
+        descriptor.During(Submitted)
+            .OnEvent<InvoiceConfirmed>()
+            .TransitionTo(Accepted);
+
+        descriptor.During(Submitted)
+            .OnEvent<OrderExpired>()
+            .TransitionTo(Expired);
+
+        descriptor.Finally(Accepted);
+        descriptor.Finally(Expired);
     }
-}
 
-public sealed class OrderStateMachine : MassTransitStateMachine<OrderState>
-{
-    public State Submitted { get; private set; } = null!;
-    public State Accepted { get; private set; } = null!;
-    public State Expired { get; private set; } = null!;
-    public Event<OrderPlaced> OrderPlaced { get; private set; } = null!;
-    public Event<InvoiceConfirmed> InvoiceConfirmed { get; private set; } = null!;
-    public Schedule<OrderState, OrderExpired> Timeout { get; private set; } = null!;
-
-    public OrderStateMachine(IConfiguration configuration, ILogger<OrderStateMachine> logger)
+    protected override async Task OnHandleTransitionAsync<TEvent>(OrderState state, TEvent message, IConsumeContext context)
     {
-        InstanceState(x => x.CurrentState);
-        Event(() => OrderPlaced, x => x.CorrelateById(m => m.Message.OrderId));
-        Event(() => InvoiceConfirmed, x => x.CorrelateById(m => m.Message.OrderId));
-        Schedule(() => Timeout, x => x.TimeoutTokenId, x =>
+        var previousState = state.State;
+        await base.OnHandleTransitionAsync(state, message, context);
+        var db = context.Services.GetRequiredService<OrderingDbContext>();
+        var status = await db.OrderStates.FindAsync([state.Id], context.CancellationToken);
+        if (status is null)
         {
-            x.Delay = TimeSpan.FromSeconds(configuration.GetValue<int>("Scenario:SagaTimeoutSeconds"));
-            x.Received = e => e.CorrelateById(m => m.Message.OrderId);
-        });
-
-        Initially(When(OrderPlaced)
-            .Then(c => logger.LogInformation("Order {OrderId} saga submitted", c.Saga.CorrelationId))
-            .Schedule(Timeout, c => Task.FromResult(new OrderExpired(c.Saga.CorrelationId)))
-            .TransitionTo(Submitted));
-
-        During(Submitted,
-            When(InvoiceConfirmed)
-                .Unschedule(Timeout)
-                .Then(c => logger.LogInformation("Order {OrderId} saga accepted", c.Saga.CorrelationId))
-                .TransitionTo(Accepted),
-            When(Timeout.Received)
-                .Then(c => logger.LogInformation("Order {OrderId} saga expired", c.Saga.CorrelationId))
-                .TransitionTo(Expired));
+            status = new OrderStatus { CorrelationId = state.Id };
+            db.OrderStates.Add(status);
+        }
+        status.CurrentState = state.State;
+        await db.SaveChangesAsync(context.CancellationToken);
+        var logger = context.Services.GetRequiredService<ILogger<OrderSaga>>();
+        if (message is OrderPlaced)
+        {
+            logger.LogInformation("Order {OrderId} saga submitted", state.Id);
+        }
+        else if (message is InvoiceConfirmed && state.State == Accepted)
+        {
+            logger.LogInformation("Order {OrderId} saga accepted", state.Id);
+        }
+        else if (message is OrderExpired && previousState == Submitted)
+        {
+            logger.LogInformation("Order {OrderId} saga expired", state.Id);
+        }
     }
 }

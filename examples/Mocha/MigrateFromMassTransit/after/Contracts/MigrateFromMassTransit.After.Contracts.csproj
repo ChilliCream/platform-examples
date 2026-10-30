@@ -2,4 +2,7 @@
   <PropertyGroup>
     <RootNamespace>Shop.Contracts</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Mocha" />
+  </ItemGroup>
 </Project>
