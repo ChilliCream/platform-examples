@@ -33,4 +33,16 @@
     <PackageVersion Include="Mocha.Transport.Postgres" Version="16.7.3" />
     <PackageVersion Include="Mocha.Transport.RabbitMQ" Version="16.7.3" />
   </ItemGroup>
+  <ItemGroup Label="MigrateFromBrighter">
+    <PackageVersion Include="Npgsql" Version="10.0.3" />
+    <PackageVersion Include="Paramore.Brighter" Version="10.8.1" />
+    <PackageVersion Include="Paramore.Brighter.BoxProvisioning.PostgreSql" Version="10.8.1" />
+    <PackageVersion Include="Paramore.Brighter.Extensions.DependencyInjection" Version="10.8.1" />
+    <PackageVersion Include="Paramore.Brighter.MessagingGateway.RMQ.Async" Version="10.8.1" />
+    <PackageVersion Include="Paramore.Brighter.Outbox.Hosting" Version="10.8.1" />
+    <PackageVersion Include="Paramore.Brighter.Outbox.PostgreSql" Version="10.8.1" />
+    <PackageVersion Include="Paramore.Brighter.PostgreSql" Version="10.8.1" />
+    <PackageVersion Include="Paramore.Brighter.ServiceActivator.Extensions.DependencyInjection" Version="10.8.1" />
+    <PackageVersion Include="Paramore.Brighter.ServiceActivator.Extensions.Hosting" Version="10.8.1" />
+  </ItemGroup>
 </Project>
