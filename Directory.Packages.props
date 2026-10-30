@@ -34,7 +34,7 @@
     <PackageVersion Include="Mocha.Transport.RabbitMQ" Version="16.7.3" />
   </ItemGroup>
   <ItemGroup Label="MigrateFromBrighter">
-    <PackageVersion Include="Npgsql" Version="10.0.3" />
+    <PackageVersion Include="Npgsql" Version="10.0.3" Condition="$(MSBuildProjectName.StartsWith('MigrateFromBrighter.'))" />
     <PackageVersion Include="Paramore.Brighter" Version="10.8.1" />
     <PackageVersion Include="Paramore.Brighter.BoxProvisioning.PostgreSql" Version="10.8.1" />
     <PackageVersion Include="Paramore.Brighter.Extensions.DependencyInjection" Version="10.8.1" />
@@ -57,7 +57,7 @@
   <ItemGroup Label="MigrateFromMediator">
     <PackageVersion Include="Mediator.Abstractions" Version="3.0.2" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.2" />
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" Condition="$(MSBuildProjectName.StartsWith('MigrateFromMediator.'))" />
   </ItemGroup>
   <ItemGroup Label="MigrateFromNServiceBus">
     <PackageVersion Include="NServiceBus" Version="10.2.9" />
@@ -66,7 +66,7 @@
     <PackageVersion Include="NServiceBus.Persistence.Sql" Version="9.0.6" />
     <PackageVersion Include="NServiceBus.Persistence.Sql.TransactionalSession" Version="9.0.6" />
     <PackageVersion Include="NServiceBus.RabbitMQ" Version="11.2.1" />
-    <PackageVersion Include="Npgsql" Version="10.0.3" />
+    <PackageVersion Include="Npgsql" Version="10.0.3" Condition="$(MSBuildProjectName.StartsWith('MigrateFromNServiceBus.'))" />
   </ItemGroup>
   <ItemGroup Label="MigrateFromWolverine">
     <PackageVersion Include="WolverineFx" Version="6.59.0" />
@@ -74,6 +74,6 @@
     <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="6.59.0" />
     <PackageVersion Include="WolverineFx.Postgresql" Version="6.59.0" />
     <PackageVersion Include="WolverineFx.RuntimeCompilation" Version="6.59.0" />
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" Condition="$(MSBuildProjectName.StartsWith('MigrateFromWolverine.'))" />
   </ItemGroup>
 </Project>
