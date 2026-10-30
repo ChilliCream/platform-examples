@@ -5,7 +5,8 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Mediator.Abstractions" />
+    <PackageReference Include="Mocha.Mediator" />
+    <PackageReference Include="Mocha.Analyzers" PrivateAssets="all" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Mocha.Analyzers" PrivateAssets="all" />
     <ProjectReference Include="../MigrateFromMediator.After.Ordering/MigrateFromMediator.After.Ordering.csproj" />
   </ItemGroup>
 </Project>

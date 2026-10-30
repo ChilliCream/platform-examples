@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using Mediator;
+using Mocha.Mediator;
 using Microsoft.EntityFrameworkCore;
-using Shop.Billing;
 using Shop.Ordering;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,21 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextFactory<OrderDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("orders")));
 
-builder.Services.AddMediator((MediatorOptions options) =>
-{
-    options.Assemblies = [typeof(PlaceOrder), typeof(OrderBillingHandler)];
-    options.ServiceLifetime = ServiceLifetime.Singleton;
-    options.NotificationPublisherType = typeof(TaskWhenAllPublisher);
-    options.PipelineBehaviors =
-    [
-        typeof(LoggingBehavior<,>),
-        typeof(StartingProcessor<,>),
-        typeof(ValidationBehavior<,>),
-        typeof(OrderNotFoundProcessor<,>),
-        typeof(TransactionBehavior<,>),
-        typeof(FinishedProcessor<,>)
-    ];
-});
+builder.Services
+    .AddMediator()
+    .ConfigureOptions(options => options.NotificationPublishMode = NotificationPublishMode.Concurrent)
+    .AddOrdering()
+    .AddBilling()
+    .Use(LoggingMiddleware.Create())
+    .Use(StartingMiddleware.Create())
+    .Use(ValidationMiddleware.Create())
+    .Use(OrderNotFoundMiddleware.Create())
+    .Use(TransactionMiddleware.Create())
+    .Use(FinishedMiddleware.Create());
 
 var app = builder.Build();
 
@@ -36,7 +31,7 @@ app.MapPost("/orders", async (PlaceOrder command, ISender sender, CancellationTo
 {
     try
     {
-        var id = await sender.Send(command, cancellationToken);
+        var id = await sender.SendAsync(command, cancellationToken);
         return Results.Created($"/orders/{id}", new { orderId = id });
     }
     catch (ValidationException exception)
@@ -47,7 +42,7 @@ app.MapPost("/orders", async (PlaceOrder command, ISender sender, CancellationTo
 
 app.MapGet("/orders/{id:guid}", async (Guid id, ISender sender, CancellationToken cancellationToken) =>
 {
-    var order = await sender.Send(new GetOrder(id), cancellationToken);
+    var order = await sender.QueryAsync(new GetOrder(id), cancellationToken);
     return order is null ? Results.NotFound() : Results.Ok(order);
 });
 
@@ -55,7 +50,7 @@ app.MapPost("/orders/{id:guid}/cancel", async (Guid id, ISender sender, Cancella
 {
     try
     {
-        await sender.Send(new CancelOrder(id), cancellationToken);
+        await sender.SendAsync(new CancelOrder(id), cancellationToken);
         return Results.NoContent();
     }
     catch (ValidationException exception)
