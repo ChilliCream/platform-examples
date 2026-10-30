@@ -3,6 +3,7 @@ using Mocha;
 using Mocha.EntityFrameworkCore;
 using Mocha.Mediator;
 using Mocha.Outbox;
+using Mocha.Sagas;
 using Mocha.Scheduling;
 using Mocha.Transport.RabbitMQ;
 using Npgsql;
@@ -20,7 +21,10 @@ builder.Services.AddMessageBus()
     .AddEntityFramework<OrderingDbContext>(p =>
     {
         p.UsePostgresOutbox(o => o.RequireTransaction = false);
+        p.AddPostgresSagas();
         p.UsePostgresScheduling();
+        p.UseResilience();
+        p.UseTransaction();
     })
     .AddRabbitMQ();
 

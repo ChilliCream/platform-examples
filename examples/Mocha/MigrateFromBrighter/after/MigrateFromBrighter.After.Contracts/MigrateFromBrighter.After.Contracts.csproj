@@ -5,6 +5,6 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Mocha.Abstractions" />
+    <PackageReference Include="Mocha" />
   </ItemGroup>
 </Project>

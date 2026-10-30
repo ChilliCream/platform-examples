@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Mocha;
 using Mocha.Mediator;
 using Mocha.Outbox;
+using Mocha.Sagas;
+using Mocha.Sagas.EfCore;
 using Mocha.Scheduling;
 using Npgsql;
 using Shop.Contracts;
@@ -26,48 +28,104 @@ public sealed class PlaceOrderHandler(
                 insert into orders (id, product) values ({command.OrderId}, {command.Product});
                 insert into order_processes (order_id, status) values ({command.OrderId}, 'Submitted');
                 """, cancellationToken);
-            await bus.PublishAsync(new OrderPlaced
+            await bus.SendAsync(new StartOrder
             {
                 OrderId = command.OrderId,
                 Product = command.Product,
-                ConfirmInvoice = command.ConfirmInvoice
+                ConfirmInvoice = command.ConfirmInvoice,
+                ExpiresAt = DateTimeOffset.UtcNow.AddSeconds(configuration.GetValue<int>("Scenario:OrderTimeoutSeconds"))
             }, cancellationToken);
             await db.SaveChangesAsync(cancellationToken);
             await transaction.CommitAsync(cancellationToken);
         });
 
-        await bus.ScheduleSendAsync(new ExpireOrder { OrderId = command.OrderId },
-            DateTimeOffset.UtcNow.AddSeconds(configuration.GetValue<int>("Scenario:OrderTimeoutSeconds")), cancellationToken);
         await bus.ScheduleSendAsync(new SendReminder { OrderId = command.OrderId },
             DateTimeOffset.UtcNow.AddSeconds(configuration.GetValue<int>("Scenario:ReminderDelaySeconds")), cancellationToken);
         logger.LogInformation("Order {OrderId} submitted", command.OrderId);
     }
 }
 
-public sealed class InvoiceConfirmedHandler(OrderingDataSource db, ILogger<InvoiceConfirmedHandler> logger)
-    : IEventHandler<InvoiceConfirmed>
+public sealed record StartOrder
 {
-    public async ValueTask HandleAsync(InvoiceConfirmed message, CancellationToken cancellationToken)
+    public Guid OrderId { get; init; }
+    public string Product { get; init; } = string.Empty;
+    public bool ConfirmInvoice { get; init; }
+    public DateTimeOffset ExpiresAt { get; init; }
+}
+
+public sealed record ScheduleOrderExpiry(Guid OrderId, DateTimeOffset ExpiresAt);
+public sealed record OrderProcessChanged(Guid OrderId, string Status);
+
+public sealed class OrderSagaState : SagaStateBase
+{
+    public string Product { get; set; } = string.Empty;
+    public bool ConfirmInvoice { get; set; }
+    public DateTimeOffset ExpiresAt { get; set; }
+}
+
+public sealed class OrderSaga : Saga<OrderSagaState>
+{
+    protected override void Configure(ISagaDescriptor<OrderSagaState> descriptor)
     {
-        await using var command = db.Value.CreateCommand("update order_processes set status = 'Accepted' where order_id = $1 and status = 'Submitted'");
-        command.Parameters.AddWithValue(message.OrderId);
-        if (await command.ExecuteNonQueryAsync(cancellationToken) == 1)
-        {
-            logger.LogInformation("Order {OrderId} accepted", message.OrderId);
-        }
+        descriptor.Initially()
+            .OnRequest<StartOrder>()
+            .StateFactory(message => new OrderSagaState
+            {
+                Id = message.OrderId,
+                Product = message.Product,
+                ConfirmInvoice = message.ConfirmInvoice,
+                ExpiresAt = message.ExpiresAt
+            })
+            .Publish((_, state) => new ScheduleOrderExpiry(state.Id, state.ExpiresAt))
+            .Publish((_, state) => new OrderPlaced
+            {
+                OrderId = state.Id,
+                Product = state.Product,
+                ConfirmInvoice = state.ConfirmInvoice
+            })
+            .TransitionTo("Submitted");
+
+        descriptor.During("Submitted")
+            .OnEvent<InvoiceConfirmed>()
+            .Publish((_, state) => new OrderProcessChanged(state.Id, "Accepted"))
+            .TransitionTo("Accepted");
+
+        descriptor.During("Submitted")
+            .OnRequest<ExpireOrder>()
+            .Publish((_, state) => new OrderProcessChanged(state.Id, "Expired"))
+            .TransitionTo("Expired");
+
+        descriptor.Finally("Accepted");
+        descriptor.Finally("Expired");
     }
 }
 
-public sealed class ExpireOrderHandler(OrderingDataSource db, ILogger<ExpireOrderHandler> logger)
-    : IEventRequestHandler<ExpireOrder>
+public sealed class ScheduleOrderExpiryHandler(IMessageBus bus) : IEventHandler<ScheduleOrderExpiry>
 {
-    public async ValueTask HandleAsync(ExpireOrder message, CancellationToken cancellationToken)
+    public async ValueTask HandleAsync(ScheduleOrderExpiry message, CancellationToken cancellationToken)
     {
-        await using var command = db.Value.CreateCommand("update order_processes set status = 'Expired' where order_id = $1 and status = 'Submitted'");
+        await bus.ScheduleSendAsync(new ExpireOrder { OrderId = message.OrderId }, message.ExpiresAt, cancellationToken);
+    }
+}
+
+public sealed class OrderProcessChangedHandler(OrderingDataSource db, ILogger<OrderProcessChangedHandler> logger)
+    : IEventHandler<OrderProcessChanged>
+{
+    public async ValueTask HandleAsync(OrderProcessChanged message, CancellationToken cancellationToken)
+    {
+        await using var command = db.Value.CreateCommand("update order_processes set status = $1 where order_id = $2 and status = 'Submitted'");
+        command.Parameters.AddWithValue(message.Status);
         command.Parameters.AddWithValue(message.OrderId);
         if (await command.ExecuteNonQueryAsync(cancellationToken) == 1)
         {
-            logger.LogInformation("Order {OrderId} expired", message.OrderId);
+            if (message.Status == "Accepted")
+            {
+                logger.LogInformation("Order {OrderId} accepted", message.OrderId);
+            }
+            else
+            {
+                logger.LogInformation("Order {OrderId} expired", message.OrderId);
+            }
         }
     }
 }
@@ -91,6 +149,7 @@ public sealed class OrderingDbContext(DbContextOptions<OrderingDbContext> option
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.AddPostgresOutbox();
+        modelBuilder.AddPostgresSagas();
         modelBuilder.AddPostgresScheduledMessages();
     }
 }

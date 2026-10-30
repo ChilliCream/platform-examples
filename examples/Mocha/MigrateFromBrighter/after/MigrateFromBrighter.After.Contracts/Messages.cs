@@ -1,4 +1,5 @@
 using Mocha;
+using Mocha.Sagas;
 
 namespace Shop.Contracts;
 
@@ -9,14 +10,16 @@ public sealed class OrderPlaced
     public bool ConfirmInvoice { get; set; }
 }
 
-public sealed class InvoiceConfirmed
+public sealed class InvoiceConfirmed : ICorrelatable
 {
     public Guid OrderId { get; set; }
+    Guid? ICorrelatable.CorrelationId => OrderId;
 }
 
-public sealed class ExpireOrder
+public sealed class ExpireOrder : ICorrelatable
 {
     public Guid OrderId { get; set; }
+    Guid? ICorrelatable.CorrelationId => OrderId;
 }
 
 public sealed class SendReminder

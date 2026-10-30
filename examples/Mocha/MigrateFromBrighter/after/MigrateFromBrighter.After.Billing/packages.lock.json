@@ -251,7 +251,7 @@
       "migratefrombrighter.after.contracts": {
         "type": "Project",
         "dependencies": {
-          "Mocha.Abstractions": "[16.7.3, )"
+          "Mocha": "[16.7.3, )"
         }
       },
       "Mocha.Abstractions": {
