@@ -2,7 +2,18 @@
 
 This example starts with an ASP.NET Core API using Mediator 3.0.2 and EF Core. Ordering and Billing are separate class libraries whose handlers are registered by the one mediator generated in the API project. It covers a command with a response, a command without one, a query, a notification with two handlers, pipeline behaviors, pre- and post-processors, an exception processor, and concurrent notification publishing.
 
-`PlaceOrder` and `GetOrder` use Mediator's `IRequest<T>` and `CancelOrder` uses `ICommand`. The command behaviors validate and wrap commands in an ambient transaction. Mediator and its handlers use the default singleton lifetime, so the handlers create and dispose EF Core contexts through `IDbContextFactory` rather than taking a scoped context. Notification handlers log concurrently and do not share a context. The notifications are in process, not durable messages, and there is no RabbitMQ broker or error queue in this example.
+`PlaceOrderCommand` and `GetOrderQuery` use Mediator's `IRequest<T>` and `CancelOrderCommand` uses `ICommand`. The command behaviors validate and wrap commands in an ambient transaction. Mediator and its handlers use the default singleton lifetime, so the handlers create and dispose EF Core contexts through `IDbContextFactory` rather than taking a scoped context. Notification handlers log concurrently and do not share a context. The notifications are in process, not durable messages, and there is no RabbitMQ broker or error queue in this example.
+
+## Structure
+
+Both apps have the same projects and folders:
+
+- `Ordering/Commands`, `Ordering/Queries`, and `Ordering/Notifications` contain each message and its handler. The query file also contains its response type.
+- `Ordering/Data` contains the EF Core context and order entity. `Ordering/Behaviors` in `before/` and `Ordering/Middleware` in `after/` contain the pipeline components.
+- `Billing/Notifications` contains the second notification handler in a separate assembly, demonstrating registration across projects.
+- `Api/Endpoints` maps the HTTP routes. Each `AppHost` starts its API and PostgreSQL.
+
+The application logs business and pipeline events using source-generated logging. It does not inspect framework retry or redelivery counters; there are no broker retries or redeliveries in this in-process example.
 
 ## Prerequisites
 
@@ -37,8 +48,8 @@ The API listens at `http://localhost:41153`. In `scenario.http`, change `@baseUr
 The [Mediator migration guide](https://chillicream.com/docs/mocha/migration/coming-from-mediator) describes the steps shown by `after/`:
 
 1. Install `Mocha.Mediator` and `Mocha.Analyzers` in the handler projects. The generator emits a registration method per project.
-2. Change the namespace to `Mocha.Mediator`. `PlaceOrder` becomes `ICommand<Guid>`, `GetOrder` becomes `IQuery<OrderDto?>`, and `CancelOrder` remains `ICommand`.
-3. Replace request handlers with command or query handlers, rename `Handle` to `HandleAsync`, and return `ValueTask` instead of `ValueTask<Unit>` for `CancelOrder`.
+2. Change the namespace to `Mocha.Mediator`. `PlaceOrderCommand` becomes `ICommand<Guid>`, `GetOrderQuery` becomes `IQuery<OrderDto?>`, and `CancelOrderCommand` remains `ICommand`.
+3. Replace request handlers with command or query handlers, rename `Handle` to `HandleAsync`, and return `ValueTask` instead of `ValueTask<Unit>` for `CancelOrderCommand`.
 4. Register the generated `AddOrdering()` and `AddBilling()` modules with `AddMediator()`. Mocha uses scoped handlers instead of Mediator's singleton handlers. Both versions retain the context factory and ambient transaction to keep the database code the same.
 5. Dispatch commands with `SendAsync`, queries with `QueryAsync`, and notifications with `PublishAsync`.
 6. Replace the logging, validation, and transaction behaviors with middleware. Filters keep command-only middleware on order commands and exclude notifications from request logging.
