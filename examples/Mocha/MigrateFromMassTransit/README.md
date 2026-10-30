@@ -30,13 +30,21 @@ Aspire starts both services and creates RabbitMQ and PostgreSQL containers. For 
 
 Run the requests in `scenario.http` in order. Set `@baseUrl` to the Ordering URL for the app you started and use fresh order IDs if the database already contains those IDs. The first order is initially `Submitted` and becomes `Accepted` after Billing confirms its invoice. The second becomes `Expired` after 30 seconds. The transient processing command is attempted three times, then scheduled for redelivery after 3 seconds and succeeds. The validation command is attempted once and sent to `process-invoice_error`. The reminder arrives after 10 seconds. Inspect the service logs and resource connection details in the Aspire dashboard. Wait for invoice creation before making an invoice-status request, and wait for the configured delays before checking the final saga states.
 
+## Structure
+
+Both apps use the same folders. `Contracts/` contains one message per file. `Ordering/Endpoints/` maps the HTTP API, `Ordering/Sagas/` contains the order saga, and each service keeps its EF Core context and entities in `Data/`. `Billing/Handlers/` contains the message consumers and a small simulated invoice processor. Each AppHost starts both services and their infrastructure.
+
+## The saga
+
+The MassTransit state machine and its state are in `before/Ordering/Sagas/`. The Mocha saga, state, and internal `StartOrder` message are in `after/Ordering/Sagas/`. Both track a submitted order until its invoice is confirmed or its timeout expires.
+
 ## What changed
 
 The numbered items correspond to the migration guide's steps.
 
 1. Replace the MassTransit and Quartz packages with Mocha, its analyzer, RabbitMQ transport, and PostgreSQL EF Core persistence packages.
 2. Replace `AddMassTransit` and its RabbitMQ configuration with `AddMessageBus`, generated service registrations, and `AddRabbitMQ`. Aspire supplies the RabbitMQ connection factory.
-3. Convert consumers to event, command, and request handlers. The process handler reads retry metadata from the consume context accessor.
+3. Convert consumers to event, command, and request handlers. The process handler uses the same simulated invoice processor on both sides.
 4. Replace publish, send, and request-client calls with `PublishAsync`, `SendAsync`, and `RequestAsync`.
 5. Replace retry and scheduled-redelivery middleware with exception policies on the Billing process endpoint. The before app uses Quartz-backed `UseScheduledRedelivery` instead of `UseDelayedRedelivery`, so RabbitMQ does not require the delayed-message exchange plugin. Validation failures go directly to the error endpoint. Ordering configures its own retry policy.
 6. Replace the EF Core bus outbox and consumer inbox with Mocha's PostgreSQL outbox, inbox, and transaction middleware. HTTP-originated sends and publishes use an explicit transaction on the same DbContext as the business write.
@@ -46,7 +54,7 @@ The numbered items correspond to the migration guide's steps.
 
 ## Behavior and storage differences
 
-The HTTP scenario, business records, and application log messages match. The before app publishes `OrderPlaced` directly from the HTTP endpoint. The after app publishes an uncorrelated `StartOrder` from the endpoint, then publishes `OrderPlaced` from the saga's initial transition in the same transaction as the saga state. Billing can therefore only receive `OrderPlaced` after the saga state is committed. The libraries use different message envelopes, endpoint names, inbox and outbox tables, and error-message metadata, so the two versions cannot exchange messages directly. Drain the MassTransit outbox before switching both services together.
+The HTTP scenario, business records, and application log messages match. The example deliberately removes the earlier application logs that read framework retry and redelivery metadata. Use framework logs and queue outcomes to observe the retry policy. The transient failure represents a one-second simulated dependency outage, shorter than the configured redelivery delay. The before app publishes `OrderPlaced` directly from the HTTP endpoint. The after app publishes an uncorrelated `StartOrder` from the endpoint, then publishes `OrderPlaced` from the saga's initial transition in the same transaction as the saga state. Billing can therefore only receive `OrderPlaced` after the saga state is committed. The libraries use different message envelopes, endpoint names, inbox and outbox tables, and error-message metadata, so the two versions cannot exchange messages directly. Drain the MassTransit outbox before switching both services together.
 
 MassTransit retains the `Accepted` and `Expired` saga rows. Mocha removes final saga instances; the migrated app stores the visible status separately in `OrderStates`. Both versions cancel the accepted order's scheduled expiry. The example disables Aspire's EF connection retry strategy in the Mocha services because the Mocha transaction middleware and the HTTP transactions otherwise fail with the retrying strategy. This changes database connection resilience and needs review for a production migration.
 

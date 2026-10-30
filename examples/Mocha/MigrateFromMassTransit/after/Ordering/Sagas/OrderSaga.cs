@@ -4,8 +4,7 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
-public sealed class OrderState : SagaStateBase;
-
+// Correlate invoice confirmations and scheduled expirations to the submitted order.
 public sealed class OrderSaga : Saga<OrderState>
 {
     private const string Submitted = nameof(Submitted);
@@ -35,6 +34,8 @@ public sealed class OrderSaga : Saga<OrderState>
     {
         var previousState = state.State;
         await base.OnHandleTransitionAsync(state, message, context);
+
+        // Publish the reply-producing event in the initial saga transaction.
         if (message is StartOrder startOrder)
         {
             var bus = context.Services.GetRequiredService<IMessageBus>();
@@ -49,6 +50,8 @@ public sealed class OrderSaga : Saga<OrderState>
                 context.CancellationToken);
             state.TimeoutToken = scheduled.Token;
         }
+
+        // Retain the visible status after the saga reaches a final state.
         var db = context.Services.GetRequiredService<OrderingDbContext>();
         var status = await db.OrderStates.FindAsync([state.Id], context.CancellationToken);
         if (status is null)
@@ -56,20 +59,34 @@ public sealed class OrderSaga : Saga<OrderState>
             status = new OrderStatus { CorrelationId = state.Id };
             db.OrderStates.Add(status);
         }
+
         status.CurrentState = state.State;
         await db.SaveChangesAsync(context.CancellationToken);
+
         var logger = context.Services.GetRequiredService<ILogger<OrderSaga>>();
         if (message is StartOrder)
         {
-            logger.LogInformation("Order {OrderId} saga submitted", state.Id);
+            Logs.SagaSubmitted(logger, state.Id);
         }
         else if (message is InvoiceConfirmed && state.State == Accepted)
         {
-            logger.LogInformation("Order {OrderId} saga accepted", state.Id);
+            Logs.SagaAccepted(logger, state.Id);
         }
         else if (message is OrderExpired && previousState == Submitted)
         {
-            logger.LogInformation("Order {OrderId} saga expired", state.Id);
+            Logs.SagaExpired(logger, state.Id);
         }
     }
+}
+
+internal static partial class Logs
+{
+    [LoggerMessage(Level = LogLevel.Information, Message = "Order {OrderId} saga submitted")]
+    public static partial void SagaSubmitted(ILogger logger, Guid orderId);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Order {OrderId} saga accepted")]
+    public static partial void SagaAccepted(ILogger logger, Guid orderId);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Order {OrderId} saga expired")]
+    public static partial void SagaExpired(ILogger logger, Guid orderId);
 }
