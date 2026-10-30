@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:41003
+@productId = 11111111-1111-1111-1111-111111111111
+@missingId = 00000000-0000-0000-0000-000000000001
+
+### Place an order, then publish OrderPlaced to both notification handlers
+# @name placeOrder
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "quantity": 2
+}
+
+### Read the submitted order
+@orderId = {{placeOrder.response.body.id}}
+GET {{baseUrl}}/orders/{{orderId}}
+
+### Cancel the order
+POST {{baseUrl}}/orders/{{orderId}}/cancel
+
+### Read the cancelled order
+GET {{baseUrl}}/orders/{{orderId}}
+
+### Reject an invalid command before opening a transaction
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "quantity": 0
+}
+
+### The query exception handler returns a missing result
+GET {{baseUrl}}/orders/{{missingId}}
+
+### The command exception action logs the failure
+POST {{baseUrl}}/orders/{{missingId}}/cancel
