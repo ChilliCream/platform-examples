@@ -17,14 +17,6 @@ public sealed class OrderSaga : Saga<OrderState>
         descriptor.Initially()
             .OnEvent<OrderPlaced>()
             .StateFactory(message => new OrderState { Id = message.OrderId })
-            .Publish((_, state) => new OrderExpired(state.Id), new SagaPublishOptions
-            {
-                ConfigureOptions = (context, _) => new PublishOptions
-                {
-                    ScheduledTime = DateTimeOffset.UtcNow.AddSeconds(
-                        context.Services.GetRequiredService<IConfiguration>().GetValue<int>("Scenario:SagaTimeoutSeconds"))
-                }
-            })
             .TransitionTo(Submitted);
 
         descriptor.During(Submitted)
@@ -43,6 +35,16 @@ public sealed class OrderSaga : Saga<OrderState>
     {
         var previousState = state.State;
         await base.OnHandleTransitionAsync(state, message, context);
+        if (message is OrderPlaced)
+        {
+            var timeout = context.Services.GetRequiredService<IConfiguration>()
+                .GetValue<int>("Scenario:SagaTimeoutSeconds");
+            var scheduled = await context.Services.GetRequiredService<IMessageBus>().SchedulePublishAsync(
+                new OrderExpired(state.Id),
+                DateTimeOffset.UtcNow.AddSeconds(timeout),
+                context.CancellationToken);
+            state.TimeoutToken = scheduled.Token;
+        }
         var db = context.Services.GetRequiredService<OrderingDbContext>();
         var status = await db.OrderStates.FindAsync([state.Id], context.CancellationToken);
         if (status is null)

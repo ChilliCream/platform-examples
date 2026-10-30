@@ -13,13 +13,6 @@ builder.AddNpgsqlDbContext<BillingDbContext>("billing-db", settings => settings.
 builder.AddRabbitMQClient("rabbitmq");
 builder.Services
     .AddMessageBus()
-    .AddResilience(policy =>
-    {
-        policy.On<ValidationException>().DeadLetter();
-        policy.Default()
-            .Retry([TimeSpan.Zero, TimeSpan.Zero])
-            .ThenRedeliver([TimeSpan.FromSeconds(builder.Configuration.GetValue<int>("Scenario:RedeliveryDelaySeconds"))]);
-    })
     .AddBilling()
     .AddEntityFramework<BillingDbContext>(p =>
     {
@@ -28,7 +21,14 @@ builder.Services
         p.UsePostgresInbox();
         p.UsePostgresScheduling();
     })
-    .AddRabbitMQ();
+    .AddRabbitMQ(rabbit => rabbit.Handler<ProcessInvoiceConsumer>().ConfigureEndpoint(endpoint =>
+        endpoint.AddResilience(policy =>
+        {
+            policy.On<ValidationException>().DeadLetter();
+            policy.Default()
+                .Retry([TimeSpan.Zero, TimeSpan.Zero])
+                .ThenRedeliver([TimeSpan.FromSeconds(builder.Configuration.GetValue<int>("Scenario:RedeliveryDelaySeconds"))]);
+        })));
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
