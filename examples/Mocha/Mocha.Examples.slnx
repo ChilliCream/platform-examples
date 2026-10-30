@@ -21,6 +21,12 @@
     <Project Path="MigrateFromMediator/before/MigrateFromMediator.Before.Ordering/MigrateFromMediator.Before.Ordering.csproj" />
     <Project Path="MigrateFromMediator/before/MigrateFromMediator.Before.Billing/MigrateFromMediator.Before.Billing.csproj" />
   </Folder>
+  <Folder Name="/MigrateFromMediator/after/">
+    <Project Path="MigrateFromMediator/after/MigrateFromMediator.After.AppHost/MigrateFromMediator.After.AppHost.csproj" />
+    <Project Path="MigrateFromMediator/after/MigrateFromMediator.After.Api/MigrateFromMediator.After.Api.csproj" />
+    <Project Path="MigrateFromMediator/after/MigrateFromMediator.After.Ordering/MigrateFromMediator.After.Ordering.csproj" />
+    <Project Path="MigrateFromMediator/after/MigrateFromMediator.After.Billing/MigrateFromMediator.After.Billing.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />
