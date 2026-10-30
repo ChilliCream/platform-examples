@@ -5,6 +5,8 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
+internal record StartOrderSaga(Guid OrderId, bool ConfirmInvoice);
+
 public class OrderSagaData : SagaStateBase;
 
 public class OrderSaga : Saga<OrderSagaData>
@@ -18,7 +20,7 @@ public class OrderSaga : Saga<OrderSagaData>
     {
         descriptor.Timeout(Timeout);
         descriptor.Initially()
-            .OnEvent<OrderPlaced>()
+            .OnSend<StartOrderSaga>()
             .StateFactory(message => new OrderSagaData { Id = message.OrderId })
             .TransitionTo(Submitted);
         descriptor.During(Submitted)
@@ -37,8 +39,11 @@ public class OrderSaga : Saga<OrderSagaData>
     {
         await base.OnHandleTransitionAsync(state, message, context);
         var logger = context.Services.GetRequiredService<ILogger<OrderSaga>>();
-        if (message is OrderPlaced)
+        if (message is StartOrderSaga start)
         {
+            await context.Services.GetRequiredService<IMessageBus>().PublishAsync(
+                new OrderPlaced(start.OrderId, start.ConfirmInvoice),
+                context.CancellationToken);
             logger.LogInformation("Order {OrderId} saga submitted", state.Id);
         }
         else if (message is InvoiceConfirmed or SagaTimedOutEvent)
