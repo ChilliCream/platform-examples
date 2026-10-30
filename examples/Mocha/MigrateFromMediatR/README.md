@@ -51,4 +51,4 @@ If multiple notification handlers fail, awaiting MediatR's `TaskWhenAllPublisher
 
 ## Mocha diagnostics
 
-The Mocha source generator reports `MO0001` as a warning when a message has no handler and `MO0002` as an error when more than one handler handles a command or query. Notifications can have multiple handlers. Fix these diagnostics before running the migrated app.
+The Mocha source generator reports `MO0001` as a warning when a command or query has no handler and `MO0002` as an error when more than one handler handles a command or query. Notifications can have multiple handlers. Fix these diagnostics before running the migrated app.
