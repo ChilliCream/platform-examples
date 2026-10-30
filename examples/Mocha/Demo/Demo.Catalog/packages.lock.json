@@ -46,80 +46,81 @@
       },
       "Mocha": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "/+iL7vz399ypLfr4CFvXtVknPa1P5e9EwD0e5g0dV7ZHubfHbg6Gjr193i9yPBR0SwYmtt2ZYQG6nbHTKTuCEQ==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "uJQujHiyZhMlejY8XsZlcZcP5h4L2mmSCL8G7bhbUTtvPCBNVUTQMS5BsVw21vqMrB+j10NKlSkIz6UBund28g==",
         "dependencies": {
-          "Mocha.Abstractions": "16.6.1",
-          "Mocha.Threading": "16.6.1",
-          "Mocha.Utilities": "16.6.1",
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Threading": "16.7.3",
+          "Mocha.Utilities": "16.7.3",
           "Npgsql": "8.0.7",
           "OpenTelemetry": "1.15.3",
           "Polly": "8.6.5",
-          "System.IO.Hashing": "11.0.0-preview.6.26359.118"
+          "System.IO.Hashing": "11.0.0-rc.1.26425.128"
         }
       },
       "Mocha.Analyzers": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "jmpI7RYq7MImZEXeFrnLHr4kCriMMh5oveDuum1CUYqRR+RHzDtNXpT2BucOMtpIAdz4Z+FPagdbFhft1Sz+rw=="
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "oM1RYUo2zVJHw4B8etmGi+wjO3Tw0YZIsv03bvlSpCigOzPglhZW/gSkxwKpzHmznkjsXjkq3nFWLoYdadlP2A=="
       },
       "Mocha.EntityFrameworkCore.Postgres": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "9vDUSm1cDYbX2S0/ZY6rNRio3yAskqV7s5mqnPEV920xsOn8VZY65iZ/oD+X5fzwZGMh4swnYTriPzEecmX4mw==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "62jvMS/xVd/+6bVxZDSCgYrYhXIwNpEuLiNpMS5Bnwmq+KUQnix4+SeFLNx2pvI56rI5W/TFhnx5+CaB5WjAlA==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "11.0.0-preview.6.26359.118",
-          "Mocha": "16.6.1",
-          "Mocha.EntityFrameworkCore": "16.6.1",
-          "Mocha.Inbox": "16.6.1",
-          "Mocha.Outbox": "16.6.1",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "11.0.0-preview.6"
+          "Microsoft.EntityFrameworkCore": "11.0.0-rc.1.26425.128",
+          "Mocha": "16.7.3",
+          "Mocha.EntityFrameworkCore": "16.7.3",
+          "Mocha.Inbox": "16.7.3",
+          "Mocha.Outbox": "16.7.3",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "11.0.0-rc.1.1"
         }
       },
       "Mocha.Hosting": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "AJ9e4lTMiEFEVXNKd7rloIiEVm0M5gFoifzmV9MQfE5EFr+XZT3uPq/h2VvaO2IUPMu/KOIjqXj/+V4hlIxtKg==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "qlxnIicGVAdWMtg69aswKUQT9KBc/n+PnwUGeUV1SC/tyCTt4XAlhHQDaZxXKUbzMitM6KiQxfmuxLOmTiC9xQ==",
         "dependencies": {
-          "Mocha": "16.6.1",
+          "Mocha": "16.7.3",
           "Npgsql": "8.0.7"
         }
       },
       "Mocha.Mediator": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "nj7ITLql0LMK0B5PwXtUjUgghdPIMv8GvrCMfSK9vOi/GWHvhoaAKm4J2vyViLyCOo+BiMDPbW5zjkJQTf0JWQ==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "zWh/4/sB/rvJu7+CEOCuMKe+u5RasRTKYIfrVcQ5SZSOXJmhqDprD9UcDcQjnrl22kK06D0iD/LIJhbop/ogxA==",
         "dependencies": {
-          "Mocha.Abstractions": "16.6.1",
-          "Mocha.Mediator.Abstractions": "16.6.1",
-          "Mocha.Utilities": "16.6.1"
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Mediator.Abstractions": "16.7.3",
+          "Mocha.Utilities": "16.7.3"
         }
       },
       "Mocha.Transport.InMemory": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "O8mCN9OhWNgRn/+ZUssDh318zBioqhNOJVbbkBGldt/McP+zsPn2kto6Yr0jqWKEAFgANc2YDV8wZcULhbZ7+Q==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "hcSoFeizIrd/pEJzLAGsiBOnQGUiOGqWFrWzIocda11OgkrXyjFP5lJfqhCgTogS6aLYCCGibE7EucF0mkZMvg==",
         "dependencies": {
-          "Mocha": "16.6.1",
-          "Mocha.Abstractions": "16.6.1"
+          "Mocha": "16.7.3",
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Outbox": "16.7.3"
         }
       },
       "Mocha.Transport.RabbitMQ": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "aqe0tsuwmiJkAtskmMuJYjEgkU2iAd7Lr42GcDyV6c1ggwLASXS9fehlawOS8rnkScwqOK5vHggbqBTPzif7Eg==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "dXR4yPQ7RZIsSA+8UOMa+fz7VFeADK7MnxPVb+CEcBplEu5Ki7Bk5kRePSPq8+yU7A3wzhIS7FkMrHzofvvFDQ==",
         "dependencies": {
-          "Mocha": "16.6.1",
-          "Mocha.Abstractions": "16.6.1",
+          "Mocha": "16.7.3",
+          "Mocha.Abstractions": "16.7.3",
           "RabbitMQ.Client": "7.2.0",
-          "System.IO.Hashing": "11.0.0-preview.6.26359.118"
+          "System.IO.Hashing": "11.0.0-rc.1.26425.128"
         }
       },
       "AspNetCore.HealthChecks.Rabbitmq": {
@@ -201,29 +202,29 @@
       },
       "Microsoft.EntityFrameworkCore": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "u5jtJTa7iU8K4qLuKjYYyDwglP1wRCVXV82m5ixygtJx0wYt0nERgc6eByRYrw9ZYeHg92t/gnrNaHyKT+VHPg==",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "nichlvtvebHy90cJoHQjTr6TvWhdxbUxK1mQac/6NJcVMz/HYRQF0ihJ1ZkE/JeKr2ys3jDjl1IdNhHiWpQ/HQ==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "[11.0.0-preview.6.26359.118, 12.0.0-a)",
-          "Microsoft.EntityFrameworkCore.Analyzers": "[11.0.0-preview.6.26359.118, 12.0.0-a)"
+          "Microsoft.EntityFrameworkCore.Abstractions": "[11.0.0-rc.1.26425.128, 12.0.0-a)",
+          "Microsoft.EntityFrameworkCore.Analyzers": "[11.0.0-rc.1.26425.128, 12.0.0-a)"
         }
       },
       "Microsoft.EntityFrameworkCore.Abstractions": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "vrXBdwCEW4eeiWHMxKUoNZRZwMCBb8/qm4w/1xU4SWmX2BXMjafJOaaScnNyREN0P8KwfCUO592LNNTzePE5Lg=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "WFsX+C+h2e/BKr//Cv9c82+zPweVUQN/dWXJiW8KvXwhkpJXB5tj3E3vgDmjX0nHbVnrrnE9G7iJlMSf0l2VoQ=="
       },
       "Microsoft.EntityFrameworkCore.Analyzers": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "OZA6GrdqAAbYHUaiLbPwXJJ4ClDRQDQfad6qxS2wcUMRRZcb/NTHtdLZvUPu8Wuc4nv8mIwXcBOJ8OIYbd9oVw=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "EC8SOxAcKbRGToF7MpHr0zPZ2QSZ3mkHuqI+rxu3ITz19ctvep0dzaHPN3F/JQ1vVQBbMr7gN0a9KxMqDhRcoQ=="
       },
       "Microsoft.EntityFrameworkCore.Relational": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "8TYNvO55Mn4gXxW0sjQisu4a3/+w3LEsi9PYqyJa8X3qE2uCouvhWcPCGyNg+62FkrqwDqWfC1/Ht+BZ3ciNvQ==",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "JOxKBGYUg8aj/flaHdvhkqsRO5iKKiROMjVt+25BzVvSzMb/y1SnuvlGnsDFjtTI9qlZ0+TLsmNe1WDKxBkUMw==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "[11.0.0-preview.6.26359.118, 12.0.0-a)"
+          "Microsoft.EntityFrameworkCore": "[11.0.0-rc.1.26425.128, 12.0.0-a)"
         }
       },
       "Microsoft.Extensions.AmbientMetadata.Application": {
@@ -308,50 +309,50 @@
       },
       "Mocha.EntityFrameworkCore": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "wKTewiAzeHLP6YrYgUB1O4cX/bb51qGKk3VXIHkRpvV0ybu6B0BzGeZno1eggKZj4WrN3WLPK9SMPu4VUqzRsQ==",
+        "resolved": "16.7.3",
+        "contentHash": "ktCOyEE32B4+fiHkkqU0J4LDPIDNZchAJaG4o3D/gY0Wal08yBSXedVm9VSxvMNY6tDSWfVchVR4GvCsgGxbrQ==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "11.0.0-preview.6.26359.118",
-          "Microsoft.EntityFrameworkCore.Relational": "11.0.0-preview.6.26359.118",
-          "Mocha": "16.6.1",
-          "Mocha.Abstractions": "16.6.1",
-          "Mocha.Mediator": "16.6.1",
-          "Mocha.Outbox": "16.6.1"
+          "Microsoft.EntityFrameworkCore": "11.0.0-rc.1.26425.128",
+          "Microsoft.EntityFrameworkCore.Relational": "11.0.0-rc.1.26425.128",
+          "Mocha": "16.7.3",
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Mediator": "16.7.3",
+          "Mocha.Outbox": "16.7.3"
         }
       },
       "Mocha.Inbox": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "CP9NSW/NYb+iZgRNYRBxDbTvRzqWMiTy3idX4SCX/1Ud0Q7TUwItb90MpfEMLQzsNkZuYtSii7GWtQsqvBB0Qw==",
+        "resolved": "16.7.3",
+        "contentHash": "lti7B3luA1R0FKEVu5W4QWVfeKe+H/x7uqVTLB63Ed0Shj33orYP83I0IRJrYaaQZFRbD8mEhI6ByMihFokK+g==",
         "dependencies": {
-          "Mocha": "16.6.1"
+          "Mocha": "16.7.3"
         }
       },
       "Mocha.Mediator.Abstractions": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "B1sl0kWXXFFzd0UOgGBLliQ2ZfT4/gwIGgGkHZV4ikesz9SA3jSZljEC1Fq47gMRWb7IPBF9JgBjlSmxhnG+5Q=="
+        "resolved": "16.7.3",
+        "contentHash": "A+MyRIc/bZfiLpLNwm1rbgLZuiaa10DdMao2X6a8o3MYs5uaIac162ENDXncYZ7HcypGM7guny8RrGxiCtXS0w=="
       },
       "Mocha.Outbox": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "ZY64N9lR4pPrIlclZnVcbI9bLH4LEhN6EyzWlnr5oWG61mClq5hJ5fVn/GBQpEf/zLDric9eMsDDKXBzDzw3Jw==",
+        "resolved": "16.7.3",
+        "contentHash": "cJbswyNWHChOHJi4iWVVjfxJ39FcsTD0F5Q/tCWsEbWU0mYhRUbE0pR2C82aQHZVUdABpcNTeKasxblVFzKe/w==",
         "dependencies": {
-          "Mocha": "16.6.1",
-          "Mocha.Threading": "16.6.1"
+          "Mocha": "16.7.3",
+          "Mocha.Threading": "16.7.3"
         }
       },
       "Mocha.Threading": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "M0h0oA8fmcscmJGkk7VsLNtAlT3FezKu7F+lQQXCmDnHTmbNHJR4oDB7dbzbl0dhitrMNrv5NccZiPw0CJP9EA=="
+        "resolved": "16.7.3",
+        "contentHash": "KSND9pdSfKfrx3FENSENeyTwQ/oAv3QmJHys5YtntrpttPb1Z9vmFROWOOsmqs4Lb6mQtfHHJh4oXiArg6T5dg=="
       },
       "Mocha.Utilities": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "dez7kdXXfTxnjSJyaoIttuCd0DPZHZEHFbUZuDGCd0A5UQ7wxjPpIF8OyRjLnl0/nH7ccIPuSHVDsVFDMazQ3g==",
+        "resolved": "16.7.3",
+        "contentHash": "zG1H28fKNKWxDGphtObX/0vadbbZJusBgc7J5MS8UbJy+22stpqwepX+jfdQ4TLgWrwgpRq/MHw46mScfknANQ==",
         "dependencies": {
-          "Mocha.Abstractions": "16.6.1"
+          "Mocha.Abstractions": "16.7.3"
         }
       },
       "Mono.TextTemplating": {
@@ -377,11 +378,11 @@
       },
       "Npgsql.EntityFrameworkCore.PostgreSQL": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6",
-        "contentHash": "XkdOFpq/HgimHeAARPmcfyMM+wdPk2gpvNgQq74k9OSZmxtTjH24s3l6ifsFIgyA18fo/rqYDi+tLhV/R7ihOQ==",
+        "resolved": "11.0.0-rc.1.1",
+        "contentHash": "uBtHFXI04DrFlRXJjDRr44kAJMdetNCIOjDDbNRKBvrPuIQ7TtVLUHzt5RdGTbXQ0++6Tk9101g0858imFQWHA==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "[11.0.0-preview.6.26359.118]",
-          "Microsoft.EntityFrameworkCore.Relational": "[11.0.0-preview.6.26359.118]",
+          "Microsoft.EntityFrameworkCore": "[11.0.0-rc.1.26425.128]",
+          "Microsoft.EntityFrameworkCore.Relational": "[11.0.0-rc.1.26425.128]",
           "Npgsql": "10.0.3"
         }
       },
@@ -504,13 +505,13 @@
       },
       "System.IO.Hashing": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "AUXAHNtNiizMfxE34EcXrP7Kn3rmEl77Uky5RIj6zgib/woHUpXmwyPb4PFhygaxMFdtXaOTD8rDk6Oo5V4OlA=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "k2EG0GriOm2mGO+V0/9tq9JBNDI/TREnc7lM1/raddxXBLtxmTy1GrcH0jh8I4PBHV8ajD/J6AVqADeivNUXLA=="
       },
       "demo.contracts": {
         "type": "Project",
         "dependencies": {
-          "Mocha": "[16.6.1, )"
+          "Mocha": "[16.7.3, )"
         }
       },
       "demo.servicedefaults": {
@@ -546,9 +547,9 @@
       },
       "Mocha.Abstractions": {
         "type": "CentralTransitive",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "q6nkncxDchnYh5mVLjYciActhB0/13iX+IGz5Q5QoZxKxsxTaE+4RQk/4/2P7+yhFSqjYxxV42n5oKl0wM6wkQ=="
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "vUUwJfHroTO7DkBwqF7rNY76lFAokFZCsRo0GrfuggLTTJRA3c/lFcptdFLWcLeRhe6Li9f8bryMTz0yO011mQ=="
       },
       "OpenTelemetry.Exporter.OpenTelemetryProtocol": {
         "type": "CentralTransitive",

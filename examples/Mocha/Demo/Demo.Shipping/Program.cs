@@ -34,6 +34,7 @@ builder
     {
         p.UsePostgresOutbox();
         p.UsePostgresInbox();
+        p.UseTransaction();
     })
     .AddRabbitMQ();
 

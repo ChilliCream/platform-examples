@@ -4,53 +4,54 @@
     "net11.0": {
       "Mocha": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "/+iL7vz399ypLfr4CFvXtVknPa1P5e9EwD0e5g0dV7ZHubfHbg6Gjr193i9yPBR0SwYmtt2ZYQG6nbHTKTuCEQ==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "uJQujHiyZhMlejY8XsZlcZcP5h4L2mmSCL8G7bhbUTtvPCBNVUTQMS5BsVw21vqMrB+j10NKlSkIz6UBund28g==",
         "dependencies": {
-          "Microsoft.Extensions.ObjectPool": "11.0.0-preview.6.26359.118",
-          "Mocha.Abstractions": "16.6.1",
-          "Mocha.Threading": "16.6.1",
-          "Mocha.Utilities": "16.6.1",
+          "Microsoft.Extensions.ObjectPool": "11.0.0-rc.1.26425.128",
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Threading": "16.7.3",
+          "Mocha.Utilities": "16.7.3",
           "Npgsql": "8.0.7",
           "OpenTelemetry": "1.15.3",
           "Polly": "8.6.5",
-          "System.IO.Hashing": "11.0.0-preview.6.26359.118"
+          "System.IO.Hashing": "11.0.0-rc.1.26425.128"
         }
       },
       "Mocha.Abstractions": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "q6nkncxDchnYh5mVLjYciActhB0/13iX+IGz5Q5QoZxKxsxTaE+4RQk/4/2P7+yhFSqjYxxV42n5oKl0wM6wkQ=="
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "vUUwJfHroTO7DkBwqF7rNY76lFAokFZCsRo0GrfuggLTTJRA3c/lFcptdFLWcLeRhe6Li9f8bryMTz0yO011mQ=="
       },
       "Mocha.Hosting": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "AJ9e4lTMiEFEVXNKd7rloIiEVm0M5gFoifzmV9MQfE5EFr+XZT3uPq/h2VvaO2IUPMu/KOIjqXj/+V4hlIxtKg==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "qlxnIicGVAdWMtg69aswKUQT9KBc/n+PnwUGeUV1SC/tyCTt4XAlhHQDaZxXKUbzMitM6KiQxfmuxLOmTiC9xQ==",
         "dependencies": {
-          "Mocha": "16.6.1",
+          "Mocha": "16.7.3",
           "Npgsql": "8.0.7"
         }
       },
       "Mocha.Transport.InMemory": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "O8mCN9OhWNgRn/+ZUssDh318zBioqhNOJVbbkBGldt/McP+zsPn2kto6Yr0jqWKEAFgANc2YDV8wZcULhbZ7+Q==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "hcSoFeizIrd/pEJzLAGsiBOnQGUiOGqWFrWzIocda11OgkrXyjFP5lJfqhCgTogS6aLYCCGibE7EucF0mkZMvg==",
         "dependencies": {
-          "Microsoft.AspNetCore.WebUtilities": "11.0.0-preview.6.26359.118",
-          "Mocha": "16.6.1",
-          "Mocha.Abstractions": "16.6.1"
+          "Microsoft.AspNetCore.WebUtilities": "11.0.0-rc.1.26425.128",
+          "Mocha": "16.7.3",
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Outbox": "16.7.3"
         }
       },
       "Microsoft.AspNetCore.WebUtilities": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "fP9UwL6wYqMATo82LphJYVTdfHWoj3GLxkcGf6m40WDtNv6NjKmo6yxcsBFuGm/8onnRe6/cyUUF3GrSyLXVqw==",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "QGWvyQXw5DFphaiWktPV3DTVW+gv2rAvVc3ub0rIATX3NW+cICmbw2+cZVBUWbi0Ko4O+3nAkJhoAXqXIclpBQ==",
         "dependencies": {
-          "Microsoft.Net.Http.Headers": "11.0.0-preview.6.26359.118"
+          "Microsoft.Net.Http.Headers": "11.0.0-rc.1.26425.128"
         }
       },
       "Microsoft.Extensions.Configuration": {
@@ -92,8 +93,8 @@
       },
       "Microsoft.Extensions.ObjectPool": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "wkd3wkioJWClzhHN0ulgLsWj2kE7UpEtewfTxjDdvGltY4nlvHoDEsCepnTx4JgiqUhHVmHfL4nICFS2bZkkvQ=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "M3MQ6utKSlsU0A3E1f63/xH9BB2nrx6UAnCAhEVsM3CMnhLIf2bvLux88hekLLibbjo4lyylRCRhpwvVPuGDdw=="
       },
       "Microsoft.Extensions.Options.ConfigurationExtensions": {
         "type": "Transitive",
@@ -105,20 +106,29 @@
       },
       "Microsoft.Net.Http.Headers": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "uvQy5Z0biDrEL0WWMgCVLbHucB1yFhR7BXSxuQD/lMBR1dDb96eFEp5sQKiLrxeTEupuGOlkw1k3gWDikWznNw=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "8u0zf6gNLLyiN7t/SrKK0R15h5m6aO1Ts8epu0a0hVosrJlovwfw3nEJIsohTbukDAcR5ouhCEMYX/Dge+GH1Q=="
+      },
+      "Mocha.Outbox": {
+        "type": "Transitive",
+        "resolved": "16.7.3",
+        "contentHash": "cJbswyNWHChOHJi4iWVVjfxJ39FcsTD0F5Q/tCWsEbWU0mYhRUbE0pR2C82aQHZVUdABpcNTeKasxblVFzKe/w==",
+        "dependencies": {
+          "Mocha": "16.7.3",
+          "Mocha.Threading": "16.7.3"
+        }
       },
       "Mocha.Threading": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "M0h0oA8fmcscmJGkk7VsLNtAlT3FezKu7F+lQQXCmDnHTmbNHJR4oDB7dbzbl0dhitrMNrv5NccZiPw0CJP9EA=="
+        "resolved": "16.7.3",
+        "contentHash": "KSND9pdSfKfrx3FENSENeyTwQ/oAv3QmJHys5YtntrpttPb1Z9vmFROWOOsmqs4Lb6mQtfHHJh4oXiArg6T5dg=="
       },
       "Mocha.Utilities": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "dez7kdXXfTxnjSJyaoIttuCd0DPZHZEHFbUZuDGCd0A5UQ7wxjPpIF8OyRjLnl0/nH7ccIPuSHVDsVFDMazQ3g==",
+        "resolved": "16.7.3",
+        "contentHash": "zG1H28fKNKWxDGphtObX/0vadbbZJusBgc7J5MS8UbJy+22stpqwepX+jfdQ4TLgWrwgpRq/MHw46mScfknANQ==",
         "dependencies": {
-          "Mocha.Abstractions": "16.6.1"
+          "Mocha.Abstractions": "16.7.3"
         }
       },
       "Npgsql": {
@@ -163,8 +173,8 @@
       },
       "System.IO.Hashing": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "AUXAHNtNiizMfxE34EcXrP7Kn3rmEl77Uky5RIj6zgib/woHUpXmwyPb4PFhygaxMFdtXaOTD8rDk6Oo5V4OlA=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "k2EG0GriOm2mGO+V0/9tq9JBNDI/TREnc7lM1/raddxXBLtxmTy1GrcH0jh8I4PBHV8ajD/J6AVqADeivNUXLA=="
       }
     }
   }
