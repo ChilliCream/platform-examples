@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <RootNamespace>Shop.Ordering</RootNamespace>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql" />
+    <PackageReference Include="Paramore.Brighter.BoxProvisioning.PostgreSql" />
+    <PackageReference Include="Paramore.Brighter.Extensions.DependencyInjection" />
+    <PackageReference Include="Paramore.Brighter.MessagingGateway.RMQ.Async" />
+    <PackageReference Include="Paramore.Brighter.Outbox.Hosting" />
+    <PackageReference Include="Paramore.Brighter.Outbox.PostgreSql" />
+    <PackageReference Include="Paramore.Brighter.PostgreSql" />
+    <PackageReference Include="Paramore.Brighter.ServiceActivator.Extensions.DependencyInjection" />
+    <PackageReference Include="Paramore.Brighter.ServiceActivator.Extensions.Hosting" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MigrateFromBrighter.After.Contracts/MigrateFromBrighter.After.Contracts.csproj" />
+  </ItemGroup>
+</Project>
