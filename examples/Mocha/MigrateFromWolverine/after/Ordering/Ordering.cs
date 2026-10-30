@@ -41,26 +41,27 @@ public sealed class Order
 }
 
 public record PlaceOrder(string Product, bool ConfirmInvoice = true) : ICommand<Guid>;
-public record OrderSubmitted(Guid Id);
-public record UpdateOrderStatus(Guid Id, string Status);
+public record OrderSubmitted(Guid Id, string Product, bool ConfirmInvoice);
 
-public class PlaceOrderHandler(OrderingDb db, IMessageBus bus, ILogger<PlaceOrder> logger, ILogger<OrderSaga> sagaLogger)
+public class PlaceOrderHandler(OrderingDb db, IMessageBus bus, ILogger<PlaceOrder> logger)
     : ICommandHandler<PlaceOrder, Guid>
 {
     public async ValueTask<Guid> HandleAsync(PlaceOrder command, CancellationToken cancellationToken)
     {
         var id = Guid.NewGuid();
         db.Orders.Add(new Order { Id = id, Product = command.Product });
-        await bus.PublishAsync(new OrderSubmitted(id), cancellationToken);
-        await bus.PublishAsync(new OrderPlaced(id, command.Product, command.ConfirmInvoice), cancellationToken);
+        await bus.PublishAsync(new OrderSubmitted(id, command.Product, command.ConfirmInvoice), cancellationToken);
         await db.SaveChangesAsync(cancellationToken);
         logger.LogInformation("Order {OrderId} submitted", id);
-        sagaLogger.LogInformation("Order {OrderId} saga submitted", id);
         return id;
     }
 }
 
-public class OrderState : SagaStateBase;
+public class OrderState : SagaStateBase
+{
+    public string Product { get; set; } = "";
+    public bool ConfirmInvoice { get; set; }
+}
 
 public class OrderSaga : Saga<OrderState>
 {
@@ -70,36 +71,49 @@ public class OrderSaga : Saga<OrderState>
     {
         descriptor.Timeout(Timeout);
         descriptor.Initially().OnEvent<OrderSubmitted>()
-            .StateFactory(message => new OrderState { Id = message.Id })
-            .TransitionTo("Submitted");
+            .StateFactory(message => new OrderState
+            {
+                Id = message.Id,
+                Product = message.Product,
+                ConfirmInvoice = message.ConfirmInvoice
+            })
+            .TransitionTo("Submitted")
+            .Publish((_, state) => new OrderPlaced(state.Id, state.Product, state.ConfirmInvoice));
         descriptor.During("Submitted").OnEvent<InvoiceConfirmed>()
-            .Send((_, state) => new UpdateOrderStatus(state.Id, "Accepted"))
             .TransitionTo("Accepted");
         descriptor.During("Submitted").OnTimeout()
-            .Send((_, state) => new UpdateOrderStatus(state.Id, "Expired"))
             .TransitionTo(StateNames.TimedOut);
         descriptor.Finally("Accepted");
     }
-}
 
-public class UpdateOrderStatusHandler(OrderingDb db, ILogger<OrderSaga> logger) : IEventRequestHandler<UpdateOrderStatus>
-{
-    public async ValueTask HandleAsync(UpdateOrderStatus message, CancellationToken cancellationToken)
+    protected override async Task OnEnterStateAsync(OrderState state, Mocha.Sagas.SagaState nextState, IConsumeContext context)
     {
-        var order = await db.Orders.FindAsync([message.Id], cancellationToken);
-        if (order is not null)
+        var logger = context.Services.GetRequiredService<ILogger<OrderSaga>>();
+        if (nextState.State == "Submitted")
         {
-            order.Status = message.Status;
+            logger.LogInformation("Order {OrderId} saga submitted", state.Id);
         }
-        if (message.Status == "Accepted")
+        else if (nextState.State is "Accepted" or StateNames.TimedOut)
         {
-            logger.LogInformation("Order {OrderId} accepted", message.Id);
+            var db = context.Services.GetRequiredService<OrderingDb>();
+            var order = await db.Orders.FindAsync([state.Id], context.CancellationToken);
+            var status = nextState.State == "Accepted" ? "Accepted" : "Expired";
+            if (order is not null)
+            {
+                order.Status = status;
+            }
+            if (status == "Accepted")
+            {
+                logger.LogInformation("Order {OrderId} accepted", state.Id);
+            }
+            else
+            {
+                logger.LogInformation("Order {OrderId} expired", state.Id);
+            }
+            await db.SaveChangesAsync(context.CancellationToken);
         }
-        else
-        {
-            logger.LogInformation("Order {OrderId} expired", message.Id);
-        }
-        await db.SaveChangesAsync(cancellationToken);
+
+        await base.OnEnterStateAsync(state, nextState, context);
     }
 }
 
