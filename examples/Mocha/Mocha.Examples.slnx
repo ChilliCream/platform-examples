@@ -15,6 +15,12 @@
   <Folder Name="/ExceptionPolicies/">
     <Project Path="ExceptionPolicies/ExceptionPolicies.csproj" />
   </Folder>
+  <Folder Name="/MigrateFromNServiceBus/after/">
+    <Project Path="MigrateFromNServiceBus/after/MigrateFromNServiceBus.After.AppHost/MigrateFromNServiceBus.After.AppHost.csproj" />
+    <Project Path="MigrateFromNServiceBus/after/MigrateFromNServiceBus.After.Billing/MigrateFromNServiceBus.After.Billing.csproj" />
+    <Project Path="MigrateFromNServiceBus/after/MigrateFromNServiceBus.After.Contracts/MigrateFromNServiceBus.After.Contracts.csproj" />
+    <Project Path="MigrateFromNServiceBus/after/MigrateFromNServiceBus.After.Ordering/MigrateFromNServiceBus.After.Ordering.csproj" />
+  </Folder>
   <Folder Name="/MigrateFromNServiceBus/before/">
     <Project Path="MigrateFromNServiceBus/before/MigrateFromNServiceBus.Before.AppHost/MigrateFromNServiceBus.Before.AppHost.csproj" />
     <Project Path="MigrateFromNServiceBus/before/MigrateFromNServiceBus.Before.Billing/MigrateFromNServiceBus.Before.Billing.csproj" />

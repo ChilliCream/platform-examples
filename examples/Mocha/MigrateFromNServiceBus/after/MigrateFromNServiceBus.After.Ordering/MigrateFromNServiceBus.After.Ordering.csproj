@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup><RootNamespace>Shop.Ordering</RootNamespace></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MigrateFromNServiceBus.After.Contracts/MigrateFromNServiceBus.After.Contracts.csproj" />
+    <PackageReference Include="NServiceBus" />
+    <PackageReference Include="NServiceBus.Callbacks" />
+    <PackageReference Include="NServiceBus.Extensions.Hosting" />
+    <PackageReference Include="NServiceBus.Persistence.Sql" />
+    <PackageReference Include="NServiceBus.Persistence.Sql.TransactionalSession" />
+    <PackageReference Include="NServiceBus.RabbitMQ" />
+    <PackageReference Include="Npgsql" />
+  </ItemGroup>
+</Project>
