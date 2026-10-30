@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Mocha;
+using Mocha.Inbox;
+using Mocha.Outbox;
 using Shop.Contracts;
 
 namespace Shop.Billing;
@@ -8,7 +11,11 @@ public sealed class BillingDb(DbContextOptions<BillingDb> options) : DbContext(o
     public DbSet<Invoice> Invoices => Set<Invoice>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-        => modelBuilder.Entity<Invoice>().HasKey(x => x.OrderId);
+    {
+        modelBuilder.Entity<Invoice>().HasKey(x => x.OrderId);
+        modelBuilder.AddPostgresOutbox();
+        modelBuilder.AddPostgresInbox();
+    }
 }
 
 public sealed class Invoice
@@ -17,21 +24,25 @@ public sealed class Invoice
     public string Status { get; set; } = "Created";
 }
 
-public static class OrderPlacedHandler
+public class OrderPlacedHandler(BillingDb db, IMessageBus bus, ILogger<OrderPlaced> logger) : IEventHandler<OrderPlaced>
 {
-    public static InvoiceConfirmed? Handle(OrderPlaced message, BillingDb db, ILogger<OrderPlaced> logger)
+    public async ValueTask HandleAsync(OrderPlaced message, CancellationToken cancellationToken)
     {
         db.Invoices.Add(new Invoice { OrderId = message.OrderId });
         logger.LogInformation("Invoice created for order {OrderId}", message.OrderId);
-        return message.ConfirmInvoice ? new InvoiceConfirmed(message.OrderId) : null;
+        if (message.ConfirmInvoice)
+        {
+            await bus.PublishAsync(new InvoiceConfirmed(message.OrderId), cancellationToken);
+        }
+        await db.SaveChangesAsync(cancellationToken);
     }
 }
 
-public static class CheckInvoiceStatusHandler
+public class CheckInvoiceStatusHandler(BillingDb db) : IEventRequestHandler<CheckInvoiceStatus, InvoiceStatus>
 {
-    public static async Task<InvoiceStatus> Handle(CheckInvoiceStatus message, BillingDb db)
+    public async ValueTask<InvoiceStatus> HandleAsync(CheckInvoiceStatus message, CancellationToken cancellationToken)
     {
-        var invoice = await db.Invoices.FindAsync(message.OrderId);
+        var invoice = await db.Invoices.FindAsync([message.OrderId], cancellationToken);
         return new InvoiceStatus(message.OrderId, invoice?.Status ?? "NotFound");
     }
 }

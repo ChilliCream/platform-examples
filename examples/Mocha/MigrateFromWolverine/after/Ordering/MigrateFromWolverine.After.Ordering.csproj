@@ -3,11 +3,12 @@
     <RootNamespace>Shop.Ordering</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="WolverineFx" />
-    <PackageReference Include="WolverineFx.RabbitMQ" />
-    <PackageReference Include="WolverineFx.EntityFrameworkCore" />
-    <PackageReference Include="WolverineFx.Postgresql" />
-    <PackageReference Include="WolverineFx.RuntimeCompilation" />
+    <PackageReference Include="Aspire.RabbitMQ.Client" />
+    <PackageReference Include="Mocha" />
+    <PackageReference Include="Mocha.Analyzers" />
+    <PackageReference Include="Mocha.EntityFrameworkCore.Postgres" />
+    <PackageReference Include="Mocha.Mediator" />
+    <PackageReference Include="Mocha.Transport.RabbitMQ" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
   <ItemGroup>
