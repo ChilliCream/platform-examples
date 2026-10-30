@@ -1,10 +1,13 @@
+// Define the shared broker and databases for both services.
 var builder = DistributedApplication.CreateBuilder(args);
 
-var rabbit = builder.AddRabbitMQ("rabbitmq").WithManagementPlugin();
+var rabbit = builder.AddRabbitMQ("rabbitmq")
+    .WithManagementPlugin();
 var postgres = builder.AddPostgres("postgres");
 var orderingDb = postgres.AddDatabase("ordering-db");
 var billingDb = postgres.AddDatabase("billing-db");
 
+// Start each service after its broker and database are ready.
 builder.AddProject<Projects.MigrateFromBrighter_Before_Ordering>("ordering")
     .WithReference(rabbit)
     .WithReference(orderingDb)
@@ -17,4 +20,5 @@ builder.AddProject<Projects.MigrateFromBrighter_Before_Billing>("billing")
     .WaitFor(rabbit)
     .WaitFor(billingDb);
 
-builder.Build().Run();
+builder.Build()
+    .Run();

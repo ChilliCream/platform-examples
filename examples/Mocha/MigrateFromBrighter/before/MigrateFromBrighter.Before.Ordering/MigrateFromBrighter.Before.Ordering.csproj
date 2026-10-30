@@ -6,12 +6,14 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Npgsql" />
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Paramore.Brighter.BoxProvisioning.PostgreSql" />
     <PackageReference Include="Paramore.Brighter.Extensions.DependencyInjection" />
     <PackageReference Include="Paramore.Brighter.MessagingGateway.RMQ.Async" />
     <PackageReference Include="Paramore.Brighter.Outbox.Hosting" />
     <PackageReference Include="Paramore.Brighter.Outbox.PostgreSql" />
     <PackageReference Include="Paramore.Brighter.PostgreSql" />
+    <PackageReference Include="Paramore.Brighter.PostgreSql.EntityFrameworkCore" />
     <PackageReference Include="Paramore.Brighter.ServiceActivator.Extensions.DependencyInjection" />
     <PackageReference Include="Paramore.Brighter.ServiceActivator.Extensions.Hosting" />
   </ItemGroup>
