@@ -255,7 +255,7 @@
       },
       "Mocha.Abstractions": {
         "type": "CentralTransitive",
-        "requested": "[16.6.1, )",
+        "requested": "[16.7.3, )",
         "resolved": "16.6.1-p.2",
         "contentHash": "+Zk5CHi5QTW54JNOlW1dOlysebumn64+YXaWbCR+lE240FbTVrY688Peocq7ym03Qf2hTm698RtDf9Rm217E8A==",
         "dependencies": {

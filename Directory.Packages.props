@@ -9,6 +9,8 @@
     <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="13.4.6" />
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.4.6" />
     <PackageVersion Include="Aspire.RabbitMQ.Client" Version="13.4.6" />
+    <!-- Aspire AppHost transitive dependency -->
+    <PackageVersion Include="MessagePack" Version="2.5.303" />
     <!-- Azure clients -->
     <!-- Service defaults (resilience, discovery, telemetry) -->
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.8.0" />
@@ -21,14 +23,14 @@
     <!-- EF Core -->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="11.0.0-preview.6.26359.118" />
     <!-- Mocha -->
-    <PackageVersion Include="Mocha" Version="16.6.1" />
-    <PackageVersion Include="Mocha.Abstractions" Version="16.6.1" />
-    <PackageVersion Include="Mocha.Analyzers" Version="16.6.1" />
-    <PackageVersion Include="Mocha.EntityFrameworkCore.Postgres" Version="16.6.1" />
-    <PackageVersion Include="Mocha.Hosting" Version="16.6.1" />
-    <PackageVersion Include="Mocha.Mediator" Version="16.6.1" />
-    <PackageVersion Include="Mocha.Transport.InMemory" Version="16.6.1" />
-    <PackageVersion Include="Mocha.Transport.Postgres" Version="16.6.1" />
-    <PackageVersion Include="Mocha.Transport.RabbitMQ" Version="16.6.1" />
+    <PackageVersion Include="Mocha" Version="16.7.3" />
+    <PackageVersion Include="Mocha.Abstractions" Version="16.7.3" />
+    <PackageVersion Include="Mocha.Analyzers" Version="16.7.3" />
+    <PackageVersion Include="Mocha.EntityFrameworkCore.Postgres" Version="16.7.3" />
+    <PackageVersion Include="Mocha.Hosting" Version="16.7.3" />
+    <PackageVersion Include="Mocha.Mediator" Version="16.7.3" />
+    <PackageVersion Include="Mocha.Transport.InMemory" Version="16.7.3" />
+    <PackageVersion Include="Mocha.Transport.Postgres" Version="16.7.3" />
+    <PackageVersion Include="Mocha.Transport.RabbitMQ" Version="16.7.3" />
   </ItemGroup>
 </Project>

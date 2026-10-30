@@ -4,82 +4,82 @@
     "net11.0": {
       "Microsoft.DotNet.ILCompiler": {
         "type": "Direct",
-        "requested": "[11.0.0-preview.7.26381.103, )",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "JyFcIYUfeHbgRbD2Ds7Xp1Che4yZ+IJifdQ9VSYnKX6GbUAymlnCb55xoPkOCIFIrAl/U6FLtym4luY2y0mnFw=="
+        "requested": "[11.0.0-rc.1.26425.128, )",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "q57ZvrTIRKI4s12hLMA3LN4Gh48CuiGMKGL0Pmz7YnGLIvkQVMX8T+DtI6VdqYaCnGTstiw1LdE2PRsd13WdNg=="
       },
       "Microsoft.NET.ILLink.Tasks": {
         "type": "Direct",
-        "requested": "[11.0.0-preview.7.26381.103, )",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "UpCNpEWY31Zr5mKOmgbIRFZCltcoin2vh6t7ENl1i94zW5LJZVLnsIAdpBNWVqpe03k3REzMkjhkO4GhxZl2mA=="
+        "requested": "[11.0.0-rc.1.26425.128, )",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "oMgihfjNcxZpR9B/O5Ke8Qmr8CJcpdzG4PnVYtA6Ja4g41NELxLRuiqqh5ys7w+ourEBNng2IIZnrlMJXfncmQ=="
       },
       "Mocha": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "/+iL7vz399ypLfr4CFvXtVknPa1P5e9EwD0e5g0dV7ZHubfHbg6Gjr193i9yPBR0SwYmtt2ZYQG6nbHTKTuCEQ==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "uJQujHiyZhMlejY8XsZlcZcP5h4L2mmSCL8G7bhbUTtvPCBNVUTQMS5BsVw21vqMrB+j10NKlSkIz6UBund28g==",
         "dependencies": {
-          "Mocha.Abstractions": "16.6.1",
-          "Mocha.Threading": "16.6.1",
-          "Mocha.Utilities": "16.6.1",
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Threading": "16.7.3",
+          "Mocha.Utilities": "16.7.3",
           "Npgsql": "8.0.7",
           "OpenTelemetry": "1.15.3",
           "Polly": "8.6.5",
-          "System.IO.Hashing": "11.0.0-preview.6.26359.118"
+          "System.IO.Hashing": "11.0.0-rc.1.26425.128"
         }
       },
       "Mocha.Abstractions": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "q6nkncxDchnYh5mVLjYciActhB0/13iX+IGz5Q5QoZxKxsxTaE+4RQk/4/2P7+yhFSqjYxxV42n5oKl0wM6wkQ=="
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "vUUwJfHroTO7DkBwqF7rNY76lFAokFZCsRo0GrfuggLTTJRA3c/lFcptdFLWcLeRhe6Li9f8bryMTz0yO011mQ=="
       },
       "Mocha.Analyzers": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "jmpI7RYq7MImZEXeFrnLHr4kCriMMh5oveDuum1CUYqRR+RHzDtNXpT2BucOMtpIAdz4Z+FPagdbFhft1Sz+rw=="
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "oM1RYUo2zVJHw4B8etmGi+wjO3Tw0YZIsv03bvlSpCigOzPglhZW/gSkxwKpzHmznkjsXjkq3nFWLoYdadlP2A=="
       },
       "Mocha.Mediator": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "nj7ITLql0LMK0B5PwXtUjUgghdPIMv8GvrCMfSK9vOi/GWHvhoaAKm4J2vyViLyCOo+BiMDPbW5zjkJQTf0JWQ==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "zWh/4/sB/rvJu7+CEOCuMKe+u5RasRTKYIfrVcQ5SZSOXJmhqDprD9UcDcQjnrl22kK06D0iD/LIJhbop/ogxA==",
         "dependencies": {
-          "Mocha.Abstractions": "16.6.1",
-          "Mocha.Mediator.Abstractions": "16.6.1",
-          "Mocha.Utilities": "16.6.1"
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Mediator.Abstractions": "16.7.3",
+          "Mocha.Utilities": "16.7.3"
         }
       },
       "Mocha.Transport.RabbitMQ": {
         "type": "Direct",
-        "requested": "[16.6.1, )",
-        "resolved": "16.6.1",
-        "contentHash": "aqe0tsuwmiJkAtskmMuJYjEgkU2iAd7Lr42GcDyV6c1ggwLASXS9fehlawOS8rnkScwqOK5vHggbqBTPzif7Eg==",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "dXR4yPQ7RZIsSA+8UOMa+fz7VFeADK7MnxPVb+CEcBplEu5Ki7Bk5kRePSPq8+yU7A3wzhIS7FkMrHzofvvFDQ==",
         "dependencies": {
-          "Mocha": "16.6.1",
-          "Mocha.Abstractions": "16.6.1",
+          "Mocha": "16.7.3",
+          "Mocha.Abstractions": "16.7.3",
           "RabbitMQ.Client": "7.2.0",
-          "System.IO.Hashing": "11.0.0-preview.6.26359.118"
+          "System.IO.Hashing": "11.0.0-rc.1.26425.128"
         }
       },
       "Mocha.Mediator.Abstractions": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "B1sl0kWXXFFzd0UOgGBLliQ2ZfT4/gwIGgGkHZV4ikesz9SA3jSZljEC1Fq47gMRWb7IPBF9JgBjlSmxhnG+5Q=="
+        "resolved": "16.7.3",
+        "contentHash": "A+MyRIc/bZfiLpLNwm1rbgLZuiaa10DdMao2X6a8o3MYs5uaIac162ENDXncYZ7HcypGM7guny8RrGxiCtXS0w=="
       },
       "Mocha.Threading": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "M0h0oA8fmcscmJGkk7VsLNtAlT3FezKu7F+lQQXCmDnHTmbNHJR4oDB7dbzbl0dhitrMNrv5NccZiPw0CJP9EA=="
+        "resolved": "16.7.3",
+        "contentHash": "KSND9pdSfKfrx3FENSENeyTwQ/oAv3QmJHys5YtntrpttPb1Z9vmFROWOOsmqs4Lb6mQtfHHJh4oXiArg6T5dg=="
       },
       "Mocha.Utilities": {
         "type": "Transitive",
-        "resolved": "16.6.1",
-        "contentHash": "dez7kdXXfTxnjSJyaoIttuCd0DPZHZEHFbUZuDGCd0A5UQ7wxjPpIF8OyRjLnl0/nH7ccIPuSHVDsVFDMazQ3g==",
+        "resolved": "16.7.3",
+        "contentHash": "zG1H28fKNKWxDGphtObX/0vadbbZJusBgc7J5MS8UbJy+22stpqwepX+jfdQ4TLgWrwgpRq/MHw46mScfknANQ==",
         "dependencies": {
-          "Mocha.Abstractions": "16.6.1"
+          "Mocha.Abstractions": "16.7.3"
         }
       },
       "Npgsql": {
@@ -128,94 +128,94 @@
       },
       "System.IO.Hashing": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.6.26359.118",
-        "contentHash": "AUXAHNtNiizMfxE34EcXrP7Kn3rmEl77Uky5RIj6zgib/woHUpXmwyPb4PFhygaxMFdtXaOTD8rDk6Oo5V4OlA=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "k2EG0GriOm2mGO+V0/9tq9JBNDI/TREnc7lM1/raddxXBLtxmTy1GrcH0jh8I4PBHV8ajD/J6AVqADeivNUXLA=="
       },
       "aotexample.contracts": {
         "type": "Project",
         "dependencies": {
-          "Mocha": "[16.6.1, )"
+          "Mocha": "[16.7.3, )"
         }
       }
     },
     "net11.0/linux-arm64": {
       "Microsoft.DotNet.ILCompiler": {
         "type": "Direct",
-        "requested": "[11.0.0-preview.7.26381.103, )",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "JyFcIYUfeHbgRbD2Ds7Xp1Che4yZ+IJifdQ9VSYnKX6GbUAymlnCb55xoPkOCIFIrAl/U6FLtym4luY2y0mnFw==",
+        "requested": "[11.0.0-rc.1.26425.128, )",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "q57ZvrTIRKI4s12hLMA3LN4Gh48CuiGMKGL0Pmz7YnGLIvkQVMX8T+DtI6VdqYaCnGTstiw1LdE2PRsd13WdNg==",
         "dependencies": {
-          "runtime.linux-arm64.Microsoft.DotNet.ILCompiler": "11.0.0-preview.7.26381.103"
+          "runtime.linux-arm64.Microsoft.DotNet.ILCompiler": "11.0.0-rc.1.26425.128"
         }
       },
       "runtime.linux-arm64.Microsoft.DotNet.ILCompiler": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "oFH/xnX3JDVSXiB9ry309imn33dt0Dv1cnwQJJFAMQ/xhnF7YdstAjRJGzshj3NIHczTga+/qp52063PMHw3xQ=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "pF009g+454ntFGfwZyLHub3Ou/EKUfk+xNE0oIzFmDSFSIuOXNm/t+mElrZTsIq4GGm/OeuMYW2qz339GEs2Kg=="
       }
     },
     "net11.0/linux-x64": {
       "Microsoft.DotNet.ILCompiler": {
         "type": "Direct",
-        "requested": "[11.0.0-preview.7.26381.103, )",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "JyFcIYUfeHbgRbD2Ds7Xp1Che4yZ+IJifdQ9VSYnKX6GbUAymlnCb55xoPkOCIFIrAl/U6FLtym4luY2y0mnFw==",
+        "requested": "[11.0.0-rc.1.26425.128, )",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "q57ZvrTIRKI4s12hLMA3LN4Gh48CuiGMKGL0Pmz7YnGLIvkQVMX8T+DtI6VdqYaCnGTstiw1LdE2PRsd13WdNg==",
         "dependencies": {
-          "runtime.linux-x64.Microsoft.DotNet.ILCompiler": "11.0.0-preview.7.26381.103"
+          "runtime.linux-x64.Microsoft.DotNet.ILCompiler": "11.0.0-rc.1.26425.128"
         }
       },
       "runtime.linux-x64.Microsoft.DotNet.ILCompiler": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "O81nefZQJn4+CL6/gipMtFYCgrqbGIYBy7uYfORpXz+gyKBUxbR1YyjvmL60vXBnGSgN78PXmviMYdUuDoymqQ=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "/mqTFMUrzKDQe0o542yw7OhwqjZFqJliVrvcpatiSFrem6NVmjsna38tYSDVX4rhjKFEOtgbJLWoo8Itoj2S1Q=="
       }
     },
     "net11.0/osx-arm64": {
       "Microsoft.DotNet.ILCompiler": {
         "type": "Direct",
-        "requested": "[11.0.0-preview.7.26381.103, )",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "JyFcIYUfeHbgRbD2Ds7Xp1Che4yZ+IJifdQ9VSYnKX6GbUAymlnCb55xoPkOCIFIrAl/U6FLtym4luY2y0mnFw==",
+        "requested": "[11.0.0-rc.1.26425.128, )",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "q57ZvrTIRKI4s12hLMA3LN4Gh48CuiGMKGL0Pmz7YnGLIvkQVMX8T+DtI6VdqYaCnGTstiw1LdE2PRsd13WdNg==",
         "dependencies": {
-          "runtime.osx-arm64.Microsoft.DotNet.ILCompiler": "11.0.0-preview.7.26381.103"
+          "runtime.osx-arm64.Microsoft.DotNet.ILCompiler": "11.0.0-rc.1.26425.128"
         }
       },
       "runtime.osx-arm64.Microsoft.DotNet.ILCompiler": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "i+EgxzfEuOf7bxL+El1vGmWWcwjzJbRD7g6VvZW6WR6NwbdBjfrFPEGy/4JdShLrHtTjlcmB/dcenskGzwpkqQ=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "Ou+tqxzOPntrv2mW1sXrhHdRdU4wW3Q4f846GCBQFY5kYJE206TmrLMG3XsqkfvoYkxxF13o4jqKE2bMaO8TQg=="
       }
     },
     "net11.0/osx-x64": {
       "Microsoft.DotNet.ILCompiler": {
         "type": "Direct",
-        "requested": "[11.0.0-preview.7.26381.103, )",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "JyFcIYUfeHbgRbD2Ds7Xp1Che4yZ+IJifdQ9VSYnKX6GbUAymlnCb55xoPkOCIFIrAl/U6FLtym4luY2y0mnFw==",
+        "requested": "[11.0.0-rc.1.26425.128, )",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "q57ZvrTIRKI4s12hLMA3LN4Gh48CuiGMKGL0Pmz7YnGLIvkQVMX8T+DtI6VdqYaCnGTstiw1LdE2PRsd13WdNg==",
         "dependencies": {
-          "runtime.osx-x64.Microsoft.DotNet.ILCompiler": "11.0.0-preview.7.26381.103"
+          "runtime.osx-x64.Microsoft.DotNet.ILCompiler": "11.0.0-rc.1.26425.128"
         }
       },
       "runtime.osx-x64.Microsoft.DotNet.ILCompiler": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "PdHvRyM/blBytHDlwCKiqfj1ipwwwYr8gQEK9YRmu/hvxPbDOEgPkv4EndN3p/gpO5/v13R/m1Ug4uPX4QUKlw=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "Vu6ad5BhASIsurldtv+3NLzEjy7Pebog278fZLJs52M7Rz6OalNH0nulAdJ1n3MEU5kJq2gGS6jI13LL9qCriA=="
       }
     },
     "net11.0/win-x64": {
       "Microsoft.DotNet.ILCompiler": {
         "type": "Direct",
-        "requested": "[11.0.0-preview.7.26381.103, )",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "JyFcIYUfeHbgRbD2Ds7Xp1Che4yZ+IJifdQ9VSYnKX6GbUAymlnCb55xoPkOCIFIrAl/U6FLtym4luY2y0mnFw==",
+        "requested": "[11.0.0-rc.1.26425.128, )",
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "q57ZvrTIRKI4s12hLMA3LN4Gh48CuiGMKGL0Pmz7YnGLIvkQVMX8T+DtI6VdqYaCnGTstiw1LdE2PRsd13WdNg==",
         "dependencies": {
-          "runtime.win-x64.Microsoft.DotNet.ILCompiler": "11.0.0-preview.7.26381.103"
+          "runtime.win-x64.Microsoft.DotNet.ILCompiler": "11.0.0-rc.1.26425.128"
         }
       },
       "runtime.win-x64.Microsoft.DotNet.ILCompiler": {
         "type": "Transitive",
-        "resolved": "11.0.0-preview.7.26381.103",
-        "contentHash": "duwdfiGoslGvBKpK7f1L9eR1SB+4ZtuTrO3I4psEdxrTR4t9mSEOkdYsdXIRSo0ojJeEWVzOgDwzFFT/3e52zw=="
+        "resolved": "11.0.0-rc.1.26425.128",
+        "contentHash": "0Frg4z5XxWgW6GxrjFX7NkROqkPbuA3f+0q9Di24jf27EOZ4KA3UaKl8QptT2XPspewfPO4buICFtFFc0ULWsA=="
       }
     }
   }
