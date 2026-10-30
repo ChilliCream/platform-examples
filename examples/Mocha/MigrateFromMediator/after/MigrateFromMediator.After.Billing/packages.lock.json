@@ -1,0 +1,93 @@
+{
+  "version": 2,
+  "dependencies": {
+    "net10.0": {
+      "Mocha.Analyzers": {
+        "type": "Direct",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "oM1RYUo2zVJHw4B8etmGi+wjO3Tw0YZIsv03bvlSpCigOzPglhZW/gSkxwKpzHmznkjsXjkq3nFWLoYdadlP2A=="
+      },
+      "Microsoft.EntityFrameworkCore": {
+        "type": "Transitive",
+        "resolved": "10.0.4",
+        "contentHash": "kzTsfFK2GCytp6DDTfQOmxPU4gbGdrIlP7PxrxF3ESNLtfXrC8BoUVZENBN2WORlZPAD7CVX6AYIglgkpXQooA==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.4",
+          "Microsoft.EntityFrameworkCore.Analyzers": "10.0.4"
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Abstractions": {
+        "type": "Transitive",
+        "resolved": "10.0.4",
+        "contentHash": "qDcJqCfN1XYyX0ID/Hd9/kQTRvlia8S+Yuwyl9uFhBIKnOCbl9WMdGQCzbZUKbkpkfvf3P9CDdXsnxHyE3O0Aw=="
+      },
+      "Microsoft.EntityFrameworkCore.Analyzers": {
+        "type": "Transitive",
+        "resolved": "10.0.4",
+        "contentHash": "pQeMHCyD3yTtCEGnHV4VsgKUvrESo3MR5mnh8sgQ1hWYmI1YFsUutDowBIxkobeWRtaRmBqQAtF7XQFW6FWuNA=="
+      },
+      "Microsoft.EntityFrameworkCore.Relational": {
+        "type": "Transitive",
+        "resolved": "10.0.4",
+        "contentHash": "DOTjTHy93W3TwpMLM4SCm0n57Sc0Jj3+m2S6LSTstKyBB34eT1UouaMS19mpWwvtj42+sRiEjA3+rOTNoNzXFQ==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.4"
+        }
+      },
+      "Mocha.Mediator.Abstractions": {
+        "type": "Transitive",
+        "resolved": "16.7.3",
+        "contentHash": "A+MyRIc/bZfiLpLNwm1rbgLZuiaa10DdMao2X6a8o3MYs5uaIac162ENDXncYZ7HcypGM7guny8RrGxiCtXS0w=="
+      },
+      "Mocha.Utilities": {
+        "type": "Transitive",
+        "resolved": "16.7.3",
+        "contentHash": "zG1H28fKNKWxDGphtObX/0vadbbZJusBgc7J5MS8UbJy+22stpqwepX+jfdQ4TLgWrwgpRq/MHw46mScfknANQ==",
+        "dependencies": {
+          "Mocha.Abstractions": "16.7.3"
+        }
+      },
+      "Npgsql": {
+        "type": "Transitive",
+        "resolved": "10.0.3",
+        "contentHash": "7nb5YzXuvWWJxB0J8DiyL3we+X4FOctZrt0fIBnucOIaIevFEEwGQVZKtiu9olXdlNAK1eNgqSral6r/jlhI4w=="
+      },
+      "migratefrommediator.after.ordering": {
+        "type": "Project",
+        "dependencies": {
+          "Mocha.Mediator": "[16.7.3, )",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "[10.0.3, )"
+        }
+      },
+      "Mocha.Abstractions": {
+        "type": "CentralTransitive",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "vUUwJfHroTO7DkBwqF7rNY76lFAokFZCsRo0GrfuggLTTJRA3c/lFcptdFLWcLeRhe6Li9f8bryMTz0yO011mQ=="
+      },
+      "Mocha.Mediator": {
+        "type": "CentralTransitive",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "zWh/4/sB/rvJu7+CEOCuMKe+u5RasRTKYIfrVcQ5SZSOXJmhqDprD9UcDcQjnrl22kK06D0iD/LIJhbop/ogxA==",
+        "dependencies": {
+          "Mocha.Abstractions": "16.7.3",
+          "Mocha.Mediator.Abstractions": "16.7.3",
+          "Mocha.Utilities": "16.7.3"
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL": {
+        "type": "CentralTransitive",
+        "requested": "[10.0.3, )",
+        "resolved": "10.0.3",
+        "contentHash": "IPGrrZnRkuW7OlHDhUESZz4G5DLkW7Nej/O3Cx+0iTsgyU5XJxBgpsvTHLloo3WWuAKKbDHXBvWPVkX1deRh1Q==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "[10.0.4, 11.0.0)",
+          "Microsoft.EntityFrameworkCore.Relational": "[10.0.4, 11.0.0)",
+          "Npgsql": "10.0.3"
+        }
+      }
+    }
+  }
+}
