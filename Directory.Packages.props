@@ -33,6 +33,12 @@
     <PackageVersion Include="Mocha.Transport.Postgres" Version="16.7.3" />
     <PackageVersion Include="Mocha.Transport.RabbitMQ" Version="16.7.3" />
   </ItemGroup>
+  <ItemGroup Label="MigrateFromMassTransit">
+    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.5.12" />
+    <PackageVersion Include="MassTransit.EntityFrameworkCore" Version="8.5.12" />
+    <PackageVersion Include="MassTransit.Quartz" Version="8.5.12" />
+    <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.22.0" />
+  </ItemGroup>
   <ItemGroup Label="MigrateFromMediatR">
     <PackageVersion Include="MediatR" Version="12.5.0" />
   </ItemGroup>
