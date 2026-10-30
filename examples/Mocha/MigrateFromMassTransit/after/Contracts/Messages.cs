@@ -3,6 +3,7 @@ using Mocha.Sagas;
 
 namespace Shop.Contracts;
 
+public record StartOrder(Guid OrderId, decimal Amount, bool ConfirmInvoice);
 public record OrderPlaced(Guid OrderId, decimal Amount, bool ConfirmInvoice);
 public record InvoiceConfirmed(Guid OrderId) : ICorrelatable
 {

@@ -37,7 +37,7 @@ app.MapPost("/orders", async (PlaceOrder request, OrderingDbContext db, IMessage
     await using var transaction = await db.Database.BeginTransactionAsync(ct);
     var order = new Order { Id = request.OrderId, Amount = request.Amount, ConfirmInvoice = request.ConfirmInvoice };
     db.Orders.Add(order);
-    await bus.PublishAsync(new OrderPlaced(order.Id, order.Amount, order.ConfirmInvoice), ct);
+    await bus.PublishAsync(new StartOrder(order.Id, order.Amount, order.ConfirmInvoice), ct);
     await db.SaveChangesAsync(ct);
     await transaction.CommitAsync(ct);
     app.Logger.LogInformation("Order {OrderId} placed", order.Id);

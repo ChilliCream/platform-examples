@@ -46,7 +46,7 @@ The numbered items correspond to the migration guide's steps.
 
 ## Behavior and storage differences
 
-The HTTP scenario, business records, and application log messages match. The libraries use different message envelopes, endpoint names, inbox and outbox tables, and error-message metadata, so the two versions cannot exchange messages directly. Drain the MassTransit outbox before switching both services together.
+The HTTP scenario, business records, and application log messages match. The before app publishes `OrderPlaced` directly from the HTTP endpoint. The after app publishes an uncorrelated `StartOrder` from the endpoint, then publishes `OrderPlaced` from the saga's initial transition in the same transaction as the saga state. Billing can therefore only receive `OrderPlaced` after the saga state is committed. The libraries use different message envelopes, endpoint names, inbox and outbox tables, and error-message metadata, so the two versions cannot exchange messages directly. Drain the MassTransit outbox before switching both services together.
 
 MassTransit retains the `Accepted` and `Expired` saga rows. Mocha removes final saga instances; the migrated app stores the visible status separately in `OrderStates`. Both versions cancel the accepted order's scheduled expiry. The example disables Aspire's EF connection retry strategy in the Mocha services because the Mocha transaction middleware and the HTTP transactions otherwise fail with the retrying strategy. This changes database connection resilience and needs review for a production migration.
 

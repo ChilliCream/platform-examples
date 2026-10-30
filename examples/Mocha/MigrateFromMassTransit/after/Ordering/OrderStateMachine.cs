@@ -15,7 +15,7 @@ public sealed class OrderSaga : Saga<OrderState>
     protected override void Configure(ISagaDescriptor<OrderState> descriptor)
     {
         descriptor.Initially()
-            .OnEvent<OrderPlaced>()
+            .OnEvent<StartOrder>()
             .StateFactory(message => new OrderState { Id = message.OrderId })
             .TransitionTo(Submitted);
 
@@ -35,11 +35,15 @@ public sealed class OrderSaga : Saga<OrderState>
     {
         var previousState = state.State;
         await base.OnHandleTransitionAsync(state, message, context);
-        if (message is OrderPlaced)
+        if (message is StartOrder startOrder)
         {
+            var bus = context.Services.GetRequiredService<IMessageBus>();
+            await bus.PublishAsync(
+                new OrderPlaced(startOrder.OrderId, startOrder.Amount, startOrder.ConfirmInvoice),
+                context.CancellationToken);
             var timeout = context.Services.GetRequiredService<IConfiguration>()
                 .GetValue<int>("Scenario:SagaTimeoutSeconds");
-            var scheduled = await context.Services.GetRequiredService<IMessageBus>().SchedulePublishAsync(
+            var scheduled = await bus.SchedulePublishAsync(
                 new OrderExpired(state.Id),
                 DateTimeOffset.UtcNow.AddSeconds(timeout),
                 context.CancellationToken);
@@ -55,7 +59,7 @@ public sealed class OrderSaga : Saga<OrderState>
         status.CurrentState = state.State;
         await db.SaveChangesAsync(context.CancellationToken);
         var logger = context.Services.GetRequiredService<ILogger<OrderSaga>>();
-        if (message is OrderPlaced)
+        if (message is StartOrder)
         {
             logger.LogInformation("Order {OrderId} saga submitted", state.Id);
         }
