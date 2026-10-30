@@ -13,6 +13,9 @@ builder.AddRabbitMQClient("rabbitmq");
 builder.Services
     .AddMessageBus()
     .Host(h => h.ServiceName("billing"))
+    .AddResilience(policy => policy.Default()
+        .Retry(5, TimeSpan.Zero)
+        .ThenRedeliver([TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(20), TimeSpan.FromSeconds(30)]))
     .AddBilling()
     .AddEntityFramework<BillingDbContext>(p =>
     {

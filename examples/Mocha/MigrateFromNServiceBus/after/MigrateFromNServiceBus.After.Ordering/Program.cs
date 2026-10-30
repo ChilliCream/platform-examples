@@ -21,7 +21,7 @@ builder.Services
     {
         policy.On<ValidationException>().DeadLetter();
         policy.Default()
-            .Retry(1)
+            .Retry(1, TimeSpan.Zero)
             .ThenRedeliver([TimeSpan.FromSeconds(builder.Configuration.GetValue<int>("Scenario:RedeliveryDelaySeconds"))]);
     })
     .AddOrdering()
