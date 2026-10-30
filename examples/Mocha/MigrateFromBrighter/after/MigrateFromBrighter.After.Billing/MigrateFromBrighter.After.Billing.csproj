@@ -6,10 +6,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Npgsql" />
-    <PackageReference Include="Paramore.Brighter.Extensions.DependencyInjection" />
-    <PackageReference Include="Paramore.Brighter.MessagingGateway.RMQ.Async" />
-    <PackageReference Include="Paramore.Brighter.ServiceActivator.Extensions.DependencyInjection" />
-    <PackageReference Include="Paramore.Brighter.ServiceActivator.Extensions.Hosting" />
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Aspire.RabbitMQ.Client" />
+    <PackageReference Include="Mocha" />
+    <PackageReference Include="Mocha.Analyzers" />
+    <PackageReference Include="Mocha.EntityFrameworkCore.Postgres" />
+    <PackageReference Include="Mocha.Transport.RabbitMQ" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../MigrateFromBrighter.After.Contracts/MigrateFromBrighter.After.Contracts.csproj" />

@@ -1,64 +1,46 @@
-using Paramore.Brighter;
+using Mocha;
 
 namespace Shop.Contracts;
 
-public sealed class OrderPlaced : Event
+public sealed class OrderPlaced
 {
-    public OrderPlaced() : base(Id.Random()) { }
-
     public Guid OrderId { get; set; }
     public string Product { get; set; } = string.Empty;
     public bool ConfirmInvoice { get; set; }
 }
 
-public sealed class InvoiceConfirmed : Event
+public sealed class InvoiceConfirmed
 {
-    public InvoiceConfirmed() : base(Id.Random()) { }
-
     public Guid OrderId { get; set; }
 }
 
-public sealed class ExpireOrder : Command
+public sealed class ExpireOrder
 {
-    public ExpireOrder() : base(Id.Random()) { }
-
     public Guid OrderId { get; set; }
 }
 
-public sealed class SendReminder : Command
+public sealed class SendReminder
 {
-    public SendReminder() : base(Id.Random()) { }
-
     public Guid OrderId { get; set; }
 }
 
-public sealed class ExerciseTransientFailure : Command
+public sealed class ExerciseTransientFailure
 {
-    public ExerciseTransientFailure() : base(Id.Random()) { }
-
     public Guid OrderId { get; set; }
 }
 
-public sealed class ExerciseValidationFailure : Command
+public sealed class ExerciseValidationFailure
 {
-    public ExerciseValidationFailure() : base(Id.Random()) { }
-
     public Guid OrderId { get; set; }
 }
 
-public sealed class CheckInvoiceStatus : Request
+public sealed class CheckInvoiceStatus : IEventRequest<InvoiceStatus>
 {
-    public CheckInvoiceStatus() : base(new ReplyAddress(string.Empty, string.Empty)) { }
-
-    public CheckInvoiceStatus(ReplyAddress address) : base(address) { }
-
     public Guid OrderId { get; set; }
 }
 
-public sealed class InvoiceStatus : Reply
+public sealed class InvoiceStatus
 {
-    public InvoiceStatus(ReplyAddress address) : base(address) { }
-
     public Guid OrderId { get; set; }
     public string Status { get; set; } = string.Empty;
 }

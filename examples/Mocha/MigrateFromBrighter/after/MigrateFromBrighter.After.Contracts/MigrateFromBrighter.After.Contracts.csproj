@@ -5,6 +5,6 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Paramore.Brighter" />
+    <PackageReference Include="Mocha.Abstractions" />
   </ItemGroup>
 </Project>

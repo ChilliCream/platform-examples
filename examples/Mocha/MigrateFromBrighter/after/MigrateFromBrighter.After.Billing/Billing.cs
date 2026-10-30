@@ -1,16 +1,16 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using Mocha;
+using Mocha.Scheduling;
 using Npgsql;
-using Paramore.Brighter;
-using Paramore.Brighter.Defer.Attributes;
-using Paramore.Brighter.Policies.Attributes;
 using Shop.Contracts;
 
 namespace Shop.Billing;
 
-public sealed class OrderPlacedHandler(NpgsqlDataSource db, IAmACommandProcessor processor, ILogger<OrderPlacedHandler> logger)
-    : RequestHandlerAsync<OrderPlaced>
+public sealed class OrderPlacedHandler(NpgsqlDataSource db, IMessageBus bus, ILogger<OrderPlacedHandler> logger)
+    : IEventHandler<OrderPlaced>
 {
-    public override async Task<OrderPlaced> HandleAsync(OrderPlaced message, CancellationToken cancellationToken = default)
+    public async ValueTask HandleAsync(OrderPlaced message, CancellationToken cancellationToken)
     {
         await using var command = db.CreateCommand("insert into invoices (order_id, status) values ($1, 'Created') on conflict do nothing");
         command.Parameters.AddWithValue(message.OrderId);
@@ -20,33 +20,29 @@ public sealed class OrderPlacedHandler(NpgsqlDataSource db, IAmACommandProcessor
         }
         if (message.ConfirmInvoice)
         {
-            await processor.PostAsync(new InvoiceConfirmed { OrderId = message.OrderId }, cancellationToken: cancellationToken);
+            await bus.PublishAsync(new InvoiceConfirmed { OrderId = message.OrderId }, cancellationToken);
         }
-        return await base.HandleAsync(message, cancellationToken);
     }
 }
 
-public sealed class CheckInvoiceStatusHandler(NpgsqlDataSource db, IAmACommandProcessor processor)
-    : RequestHandlerAsync<CheckInvoiceStatus>
+public sealed class CheckInvoiceStatusHandler(NpgsqlDataSource db)
+    : IEventRequestHandler<CheckInvoiceStatus, InvoiceStatus>
 {
-    public override async Task<CheckInvoiceStatus> HandleAsync(CheckInvoiceStatus message, CancellationToken cancellationToken = default)
+    public async ValueTask<InvoiceStatus> HandleAsync(CheckInvoiceStatus message, CancellationToken cancellationToken)
     {
         await using var command = db.CreateCommand("select status from invoices where order_id = $1");
         command.Parameters.AddWithValue(message.OrderId);
         var status = (string?)await command.ExecuteScalarAsync(cancellationToken) ?? "NotFound";
-        await processor.PostAsync(new InvoiceStatus(message.ReplyAddress) { OrderId = message.OrderId, Status = status }, cancellationToken: cancellationToken);
-        return await base.HandleAsync(message, cancellationToken);
+        return new InvoiceStatus { OrderId = message.OrderId, Status = status };
     }
 }
 
 public sealed class TransientException(string message) : Exception(message);
 
 public sealed class ExerciseTransientFailureHandler(NpgsqlDataSource db, ILogger<ExerciseTransientFailureHandler> logger)
-    : RequestHandlerAsync<ExerciseTransientFailure>
+    : IEventRequestHandler<ExerciseTransientFailure>
 {
-    [DeferMessageOnErrorAsync(step: 0, delayMilliseconds: 1000)]
-    [UseResiliencePipelineAsync("TransientRetry", step: 1)]
-    public override async Task<ExerciseTransientFailure> HandleAsync(ExerciseTransientFailure message, CancellationToken cancellationToken = default)
+    public async ValueTask HandleAsync(ExerciseTransientFailure message, CancellationToken cancellationToken)
     {
         await using var command = db.CreateCommand("""
             insert into attempts (order_id, count) values ($1, 1)
@@ -60,17 +56,24 @@ public sealed class ExerciseTransientFailureHandler(NpgsqlDataSource db, ILogger
         {
             throw new TransientException("Temporary billing failure");
         }
-        return await base.HandleAsync(message, cancellationToken);
     }
 }
 
 public sealed class ExerciseValidationFailureHandler(ILogger<ExerciseValidationFailureHandler> logger)
-    : RequestHandlerAsync<ExerciseValidationFailure>
+    : IEventRequestHandler<ExerciseValidationFailure>
 {
-    public override Task<ExerciseValidationFailure> HandleAsync(ExerciseValidationFailure message, CancellationToken cancellationToken = default)
+    public ValueTask HandleAsync(ExerciseValidationFailure message, CancellationToken cancellationToken)
     {
         logger.LogInformation("Validation failed for order {OrderId}", message.OrderId);
         throw new ValidationException("Invalid billing request");
+    }
+}
+
+public sealed class BillingDbContext(DbContextOptions<BillingDbContext> options) : DbContext(options)
+{
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.AddPostgresScheduledMessages();
     }
 }
 
