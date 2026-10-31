@@ -24,7 +24,8 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<OrderPlacedConsumer>();
     x.AddConsumer<CheckInvoiceStatusConsumer>();
     x.AddConsumer<SendReminderConsumer>();
-    x.AddConsumer<ProcessInvoiceConsumer>().Endpoint(e => e.Name = "process-invoice");
+    x.AddConsumer<ProcessInvoiceConsumer>()
+        .Endpoint(e => e.Name = "process-invoice");
     x.AddEntityFrameworkOutbox<BillingDbContext>(o =>
     {
         o.UsePostgres();

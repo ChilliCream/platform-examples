@@ -27,15 +27,17 @@ builder.Services
         p.UsePostgresScheduling();
     })
     // Retry transient processing failures, then redeliver; validation failures go to the error queue.
-    .AddRabbitMQ(rabbit => rabbit.Handler<ProcessInvoiceConsumer>().ConfigureEndpoint(endpoint =>
-        endpoint.AddResilience(policy =>
-        {
-            policy.On<ValidationException>().DeadLetter();
-            policy.Default()
-                .Retry([TimeSpan.Zero, TimeSpan.Zero])
-                .ThenRedeliver(
-                    [TimeSpan.FromSeconds(builder.Configuration.GetValue<int>("Scenario:RedeliveryDelaySeconds"))]);
-        })));
+    .AddRabbitMQ(rabbit => rabbit
+        .Handler<ProcessInvoiceConsumer>()
+        .ConfigureEndpoint(endpoint => endpoint
+            .AddResilience(policy =>
+            {
+                policy.On<ValidationException>().DeadLetter();
+                policy.Default()
+                    .Retry([TimeSpan.Zero, TimeSpan.Zero])
+                    .ThenRedeliver(
+                        [TimeSpan.FromSeconds(builder.Configuration.GetValue<int>("Scenario:RedeliveryDelaySeconds"))]);
+            })));
 
 var app = builder.Build();
 

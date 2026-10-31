@@ -39,7 +39,13 @@ public static class OrderEndpoints
                 return Results.NotFound();
             }
 
-            return Results.Ok(new { order.Id, order.Amount, order.ConfirmInvoice, Saga = saga?.CurrentState });
+            return Results.Ok(new
+            {
+                order.Id,
+                order.Amount,
+                order.ConfirmInvoice,
+                Saga = saga?.CurrentState
+            });
         });
 
         // The request client waits for Billing's invoice-status response.
