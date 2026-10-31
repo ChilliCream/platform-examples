@@ -6,7 +6,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
-// Store each reminder once, even when the message is delivered again.
+/// <summary>
+/// Stores each order reminder once, including on redelivery.
+/// </summary>
 public sealed class SendReminderHandler(OrderingDbContext db, ILogger<SendReminderHandler> logger)
     : IEventRequestHandler<SendReminder>
 {

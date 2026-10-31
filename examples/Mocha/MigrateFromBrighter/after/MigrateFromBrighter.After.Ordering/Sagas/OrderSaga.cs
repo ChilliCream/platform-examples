@@ -4,6 +4,9 @@ using Shop.Contracts;
 namespace Shop.Ordering;
 
 // Publish the reply-producing event from the initial transition with the saga state.
+/// <summary>
+/// Tracks an order from submission to acceptance or expiry.
+/// </summary>
 public sealed class OrderSaga : Saga<OrderSagaState>
 {
     protected override void Configure(ISagaDescriptor<OrderSagaState> descriptor)

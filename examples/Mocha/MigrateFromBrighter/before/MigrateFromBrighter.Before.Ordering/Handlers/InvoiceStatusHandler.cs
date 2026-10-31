@@ -3,7 +3,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
-// Brighter dispatches the RPC reply to this handler before returning it to the caller.
+/// <summary>
+/// Handles invoice status replies dispatched by Brighter before they are returned to the caller.
+/// </summary>
 public sealed class InvoiceStatusHandler : RequestHandler<InvoiceStatus>
 {
     public override InvoiceStatus Handle(InvoiceStatus message) => base.Handle(message);

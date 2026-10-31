@@ -8,6 +8,9 @@
     <PackageReference Include="Npgsql" />
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Aspire.RabbitMQ.Client" />
+    <PackageReference Include="ChilliCream.Nitro" />
+    <PackageReference Include="ChilliCream.Nitro.Mocha" />
+    <PackageReference Include="ChilliCream.Nitro.Mocha.Mediator" />
     <PackageReference Include="Mocha" />
     <PackageReference Include="Mocha.Analyzers" />
     <PackageReference Include="Mocha.EntityFrameworkCore.Postgres" />

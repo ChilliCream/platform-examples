@@ -5,8 +5,17 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Requests placement of an order.
+/// </summary>
+/// <param name="OrderId">The order identifier.</param>
+/// <param name="Product">The product to order.</param>
+/// <param name="ConfirmInvoice">Whether Billing should confirm the invoice.</param>
 public sealed record PlaceOrderCommand(Guid OrderId, string Product, bool ConfirmInvoice) : ICommand;
 
+/// <summary>
+/// Stores an order and starts its processing flow.
+/// </summary>
 public sealed class PlaceOrderCommandHandler(
     OrderingDbContext db,
     IMessageBus bus,

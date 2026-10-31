@@ -5,6 +5,9 @@ using Shop.Contracts;
 namespace Shop.Ordering;
 
 // Brighter has no saga abstraction, so this handler updates the order process directly.
+/// <summary>
+/// Updates a submitted order process to accepted.
+/// </summary>
 public sealed class InvoiceConfirmedHandler(OrderingDbContext db, ILogger<InvoiceConfirmedHandler> logger)
     : RequestHandlerAsync<InvoiceConfirmed>
 {

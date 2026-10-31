@@ -5,7 +5,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
-// Keep the terminal status after the completed saga state is removed.
+/// <summary>
+/// Stores the terminal status of an order after its completed saga state is removed.
+/// </summary>
 public sealed class OrderProcessChangedHandler(OrderingDbContext db, ILogger<OrderProcessChangedHandler> logger)
     : IEventHandler<OrderProcessChanged>
 {

@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Stores billing invoices and simulated failure attempts.
+/// </summary>
 public sealed class BillingDbContext(DbContextOptions<BillingDbContext> options) : DbContext(options)
 {
     public DbSet<Invoice> Invoices => Set<Invoice>();

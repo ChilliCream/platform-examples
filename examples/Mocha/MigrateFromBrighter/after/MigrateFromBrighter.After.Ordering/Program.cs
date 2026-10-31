@@ -13,6 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddNpgsqlDbContext<OrderingDbContext>("ordering-db");
 builder.AddRabbitMQClient("rabbitmq");
 
+// Export messaging and mediator resources for the visualizer.
+builder.Services.AddNitro().AddMocha().AddMochaMediator();
+
 // Register the in-process mediator and the message bus with PostgreSQL persistence.
 builder.Services
     .AddMediator()

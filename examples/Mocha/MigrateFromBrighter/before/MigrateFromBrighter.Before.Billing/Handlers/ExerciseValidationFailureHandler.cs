@@ -5,6 +5,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Rejects a billing request with a validation error.
+/// </summary>
 public sealed class ExerciseValidationFailureHandler(ILogger<ExerciseValidationFailureHandler> logger)
     : RequestHandlerAsync<ExerciseValidationFailure>
 {

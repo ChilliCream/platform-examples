@@ -4,6 +4,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Returns the invoice status for a <see cref="CheckInvoiceStatus"/> request.
+/// </summary>
 public sealed class CheckInvoiceStatusHandler(BillingDbContext db, IAmACommandProcessor processor)
     : RequestHandlerAsync<CheckInvoiceStatus>
 {

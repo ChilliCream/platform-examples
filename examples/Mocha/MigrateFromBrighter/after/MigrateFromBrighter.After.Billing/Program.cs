@@ -11,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddNpgsqlDbContext<BillingDbContext>("billing-db");
 builder.AddRabbitMQClient("rabbitmq");
 
+// Export messaging resources for the visualizer.
+builder.Services.AddNitro().AddMocha();
+
 // Validation failures go to the error queue; transient failures retry and redeliver.
 builder.Services
     .AddMessageBus()

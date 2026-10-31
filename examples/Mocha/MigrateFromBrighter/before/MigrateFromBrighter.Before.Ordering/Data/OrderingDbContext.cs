@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Stores orders, order process statuses and reminders.
+/// </summary>
 public sealed class OrderingDbContext(DbContextOptions<OrderingDbContext> options) : DbContext(options)
 {
     public DbSet<Order> Orders => Set<Order>();

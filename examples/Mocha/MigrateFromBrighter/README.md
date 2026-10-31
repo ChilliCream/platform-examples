@@ -22,7 +22,7 @@ Brighter has no saga abstraction. The before app keeps its hand-rolled process i
 - Docker running locally. Aspire starts RabbitMQ and PostgreSQL with dynamic container ports.
 - An HTTP client that supports `.http` files, or curl.
 
-The AppHost references the centrally pinned MessagePack 2.5.303 to avoid a vulnerability in an older transitive dependency. All package versions are in the root `Directory.Packages.props`.
+The AppHosts reference MessagePack to avoid a vulnerability in an older transitive dependency. The Mocha AppHost overrides the centrally pinned version with 2.5.307, required by the Nitro Aspire integration.
 
 ## Run the Brighter app
 
@@ -43,6 +43,8 @@ dotnet run --project examples/Mocha/MigrateFromBrighter/after/MigrateFromBrighte
 ```
 
 Open the Aspire dashboard using the login URL printed by the AppHost. Set `@baseUrl` in `scenario.http` to `http://localhost:41560`.
+
+The `nitro-resources` resource in the Aspire dashboard has a Visualizer link.
 
 ## Drive the scenario
 

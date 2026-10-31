@@ -3,6 +3,9 @@ using Paramore.Brighter;
 
 namespace Shop.Contracts;
 
+/// <summary>
+/// Maps <see cref="CheckInvoiceStatus"/> to and from a Brighter <see cref="Message"/>.
+/// </summary>
 public sealed class CheckInvoiceStatusMapper
     : IAmAMessageMapper<CheckInvoiceStatus>, IAmAMessageMapperAsync<CheckInvoiceStatus>
 {
@@ -40,5 +43,9 @@ public sealed class CheckInvoiceStatusMapper
     public Task<CheckInvoiceStatus> MapToRequestAsync(Message message, CancellationToken cancellationToken = default)
         => Task.FromResult(MapToRequest(message));
 
+    /// <summary>
+    /// Contains the serialized invoice status request.
+    /// </summary>
+    /// <param name="OrderId">The order identifier.</param>
     private sealed record RequestBody(Guid OrderId);
 }

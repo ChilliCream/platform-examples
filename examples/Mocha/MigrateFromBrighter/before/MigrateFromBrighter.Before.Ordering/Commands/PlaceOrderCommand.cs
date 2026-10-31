@@ -4,13 +4,31 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Requests placement of an order.
+/// </summary>
+/// <param name="orderId">The order identifier.</param>
+/// <param name="product">The product to order.</param>
+/// <param name="confirmInvoice">Whether Billing should confirm the invoice.</param>
 public sealed class PlaceOrderCommand(Guid orderId, string product, bool confirmInvoice) : Command(Id.Random())
 {
+    /// <summary>
+    /// Gets the order identifier.
+    /// </summary>
     public Guid OrderId { get; } = orderId;
+    /// <summary>
+    /// Gets the product to order.
+    /// </summary>
     public string Product { get; } = product;
+    /// <summary>
+    /// Gets whether Billing should confirm the invoice.
+    /// </summary>
     public bool ConfirmInvoice { get; } = confirmInvoice;
 }
 
+/// <summary>
+/// Stores an order and starts its processing flow.
+/// </summary>
 public sealed class PlaceOrderCommandHandler(
     OrderingDbContext db,
     IAmATransactionConnectionProvider transactionProvider,

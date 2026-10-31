@@ -6,6 +6,9 @@ using Shop.Contracts;
 namespace Shop.Ordering;
 
 // The initial saga transition requests scheduling after the saga state has been saved.
+/// <summary>
+/// Schedules an <see cref="ExpireOrder"/> request for the saga deadline.
+/// </summary>
 public sealed class ScheduleOrderExpiryHandler(IMessageBus bus) : IEventHandler<ScheduleOrderExpiry>
 {
     public async ValueTask HandleAsync(ScheduleOrderExpiry message, CancellationToken cancellationToken)

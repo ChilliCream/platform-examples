@@ -6,6 +6,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Simulates a billing dependency that fails twice before succeeding.
+/// </summary>
 public sealed class ExerciseTransientFailureHandler(BillingDbContext db)
     : RequestHandlerAsync<ExerciseTransientFailure>
 {

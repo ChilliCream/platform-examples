@@ -2,7 +2,9 @@ using Mocha.Sagas;
 
 namespace Shop.Ordering;
 
-// Stores the order details and expiry for the saga.
+/// <summary>
+/// Stores the order details and expiry for the saga.
+/// </summary>
 public sealed class OrderSagaState : SagaStateBase
 {
     public string Product { get; set; } = string.Empty;

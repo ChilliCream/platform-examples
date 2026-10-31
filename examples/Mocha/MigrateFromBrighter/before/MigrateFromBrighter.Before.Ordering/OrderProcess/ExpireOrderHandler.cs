@@ -5,6 +5,9 @@ using Shop.Contracts;
 namespace Shop.Ordering;
 
 // Brighter has no saga abstraction, so this handler updates the order process directly.
+/// <summary>
+/// Updates a submitted order process to expired.
+/// </summary>
 public sealed class ExpireOrderHandler(OrderingDbContext db, ILogger<ExpireOrderHandler> logger)
     : RequestHandlerAsync<ExpireOrder>
 {
