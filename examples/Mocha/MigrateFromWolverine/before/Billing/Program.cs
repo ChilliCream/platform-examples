@@ -25,7 +25,8 @@ builder.Host.UseWolverine(opts =>
         .AutoProvision();
 
     opts.ListenToRabbitQueue("wolverine-billing");
-    opts.PublishMessage<InvoiceConfirmed>().ToRabbitQueue("wolverine-ordering");
+    opts.PublishMessage<InvoiceConfirmed>()
+        .ToRabbitQueue("wolverine-ordering");
 });
 
 var app = builder.Build();

@@ -24,12 +24,14 @@ builder.Services.AddDbContext<OrderingDb>(x => x.UseNpgsql(database));
 builder.AddRabbitMQClient("rabbitmq");
 
 // The mediator runs the local command in an EF transaction.
-builder.Services.AddMediator()
+builder.Services
+    .AddMediator()
     .AddOrdering()
     .UseEntityFrameworkTransactions<OrderingDb>();
 
 // Configure durable messaging, batching, and exception policies.
-builder.Services.AddMessageBus()
+builder.Services
+    .AddMessageBus()
     .AddResilience(policy =>
     {
         // Validation fails immediately; transient failures retry and then redeliver.

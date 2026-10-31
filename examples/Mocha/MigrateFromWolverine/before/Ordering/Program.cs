@@ -32,12 +32,18 @@ builder.Host.UseWolverine(opts =>
         .AutoProvision();
 
     opts.ListenToRabbitQueue("wolverine-ordering");
-    opts.PublishMessage<OrderSubmitted>().ToRabbitQueue("wolverine-ordering");
-    opts.PublishMessage<InvoiceConfirmed>().ToRabbitQueue("wolverine-ordering");
-    opts.PublishMessage<FailOrder>().ToRabbitQueue("wolverine-ordering");
-    opts.PublishMessage<AuditOrder>().ToRabbitQueue("wolverine-ordering");
-    opts.PublishMessage<OrderPlaced>().ToRabbitQueue("wolverine-billing");
-    opts.PublishMessage<CheckInvoiceStatus>().ToRabbitQueue("wolverine-billing");
+    opts.PublishMessage<OrderSubmitted>()
+        .ToRabbitQueue("wolverine-ordering");
+    opts.PublishMessage<InvoiceConfirmed>()
+        .ToRabbitQueue("wolverine-ordering");
+    opts.PublishMessage<FailOrder>()
+        .ToRabbitQueue("wolverine-ordering");
+    opts.PublishMessage<AuditOrder>()
+        .ToRabbitQueue("wolverine-ordering");
+    opts.PublishMessage<OrderPlaced>()
+        .ToRabbitQueue("wolverine-billing");
+    opts.PublishMessage<CheckInvoiceStatus>()
+        .ToRabbitQueue("wolverine-billing");
 
     opts.BatchMessagesOf<AuditOrder>(batch =>
     {
@@ -46,7 +52,8 @@ builder.Host.UseWolverine(opts =>
     });
 
     // Validation fails immediately; transient failures retry and then redeliver.
-    opts.Policies.OnException<ValidationException>().MoveToErrorQueue();
+    opts.Policies.OnException<ValidationException>()
+        .MoveToErrorQueue();
     opts.Policies.OnAnyException()
         .RetryTimes(2)
         .Then.ScheduleRetry(TimeSpan.FromSeconds(scenario.RetryDelaySeconds))

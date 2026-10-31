@@ -14,7 +14,8 @@ builder.Services.AddDbContext<BillingDb>(x => x.UseNpgsql(database));
 builder.AddRabbitMQClient("rabbitmq");
 
 // Configure durable messaging and route confirmations back to Ordering.
-builder.Services.AddMessageBus()
+builder.Services
+    .AddMessageBus()
     .AddBilling()
     .AddEntityFramework<BillingDb>(p =>
     {
