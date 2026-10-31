@@ -1,5 +1,3 @@
-
-
 namespace Shop.Ordering;
 
 public sealed class Order

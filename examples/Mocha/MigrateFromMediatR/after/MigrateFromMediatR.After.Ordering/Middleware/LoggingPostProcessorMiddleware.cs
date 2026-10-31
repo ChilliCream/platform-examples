@@ -16,7 +16,7 @@ public sealed class LoggingPostProcessorMiddleware
     public static MediatorMiddlewareConfiguration Create()
         => new(static (factoryCtx, next) =>
         {
-            // Notifications do not use the request pipeline.
+            // This request-only pipeline intentionally excludes notifications.
             if (factoryCtx.IsNotification())
             {
                 return next;

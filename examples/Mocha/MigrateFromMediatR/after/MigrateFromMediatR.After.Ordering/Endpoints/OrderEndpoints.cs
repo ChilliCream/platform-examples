@@ -17,7 +17,7 @@ public static class OrderEndpoints
             {
                 var id = await sender.SendAsync(command, ct);
 
-                // Request behaviors do not run for notifications, so log at the publish call.
+                // Log notifications at the publish call, outside the request-only pipeline.
                 Logs.HandlingNotification(app.Logger, nameof(OrderPlacedNotification));
 
                 await publisher.PublishAsync(new OrderPlacedNotification(id, command.ProductId, command.Quantity), ct);
