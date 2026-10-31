@@ -5,10 +5,16 @@ using Quartz;
 using Shop.Billing;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Store invoices and outgoing messages in PostgreSQL.
 builder.AddNpgsqlDbContext<BillingDbContext>("billing-db");
+builder.Services.AddSingleton<InvoiceProcessor>();
+
+// Quartz delivers scheduled confirmations and redeliveries.
 builder.Services.AddQuartz();
 builder.Services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
+// Register consumers and the transactional outbox.
 var rabbit = new Uri(builder.Configuration.GetConnectionString("rabbitmq")!);
 var credentials = rabbit.UserInfo.Split(':', 2);
 builder.Services.AddMassTransit(x =>
@@ -24,6 +30,7 @@ builder.Services.AddMassTransit(x =>
         o.UsePostgres();
         o.UseBusOutbox();
     });
+    // Retry transient processing failures, then redeliver; validation failures go to the error queue.
     x.AddConfigureEndpointsCallback((context, name, cfg) =>
     {
         if (name == "process-invoice")
@@ -57,9 +64,14 @@ builder.Services.AddMassTransit(x =>
 });
 
 var app = builder.Build();
+
+// Create the example schema before receiving messages.
 using (var scope = app.Services.CreateScope())
 {
     await scope.ServiceProvider.GetRequiredService<BillingDbContext>().Database.EnsureCreatedAsync();
 }
+
+// Expose the service endpoint.
 app.MapGet("/", () => "Billing");
+
 app.Run();

@@ -20,16 +20,3 @@ public sealed class OrderingDbContext(DbContextOptions<OrderingDbContext> option
         modelBuilder.Entity<OrderStatus>().HasKey(x => x.CorrelationId);
     }
 }
-
-public sealed class OrderStatus
-{
-    public Guid CorrelationId { get; set; }
-    public string CurrentState { get; set; } = null!;
-}
-
-public sealed class Order
-{
-    public Guid Id { get; set; }
-    public decimal Amount { get; set; }
-    public bool ConfirmInvoice { get; set; }
-}

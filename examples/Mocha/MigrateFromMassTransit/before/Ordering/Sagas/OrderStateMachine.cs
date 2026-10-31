@@ -1,27 +1,9 @@
 using MassTransit;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Contracts;
 
 namespace Shop.Ordering;
 
-public sealed class OrderState : SagaStateMachineInstance
-{
-    public Guid CorrelationId { get; set; }
-    public string CurrentState { get; set; } = null!;
-    public Guid? TimeoutTokenId { get; set; }
-    public uint RowVersion { get; set; }
-}
-
-public sealed class OrderStateMap : SagaClassMap<OrderState>
-{
-    protected override void Configure(EntityTypeBuilder<OrderState> entity, ModelBuilder model)
-    {
-        entity.Property(x => x.CurrentState).HasMaxLength(64);
-        entity.Property(x => x.RowVersion).HasColumnName("xmin").HasColumnType("xid").IsRowVersion();
-    }
-}
-
+// Correlate invoice confirmations and scheduled expirations to the submitted order.
 public sealed class OrderStateMachine : MassTransitStateMachine<OrderState>
 {
     public State Submitted { get; private set; } = null!;
@@ -43,17 +25,29 @@ public sealed class OrderStateMachine : MassTransitStateMachine<OrderState>
         });
 
         Initially(When(OrderPlaced)
-            .Then(c => logger.LogInformation("Order {OrderId} saga submitted", c.Saga.CorrelationId))
+            .Then(c => Logs.SagaSubmitted(logger, c.Saga.CorrelationId))
             .Schedule(Timeout, c => Task.FromResult(new OrderExpired(c.Saga.CorrelationId)))
             .TransitionTo(Submitted));
 
         During(Submitted,
             When(InvoiceConfirmed)
                 .Unschedule(Timeout)
-                .Then(c => logger.LogInformation("Order {OrderId} saga accepted", c.Saga.CorrelationId))
+                .Then(c => Logs.SagaAccepted(logger, c.Saga.CorrelationId))
                 .TransitionTo(Accepted),
             When(Timeout.Received)
-                .Then(c => logger.LogInformation("Order {OrderId} saga expired", c.Saga.CorrelationId))
+                .Then(c => Logs.SagaExpired(logger, c.Saga.CorrelationId))
                 .TransitionTo(Expired));
     }
+}
+
+internal static partial class Logs
+{
+    [LoggerMessage(Level = LogLevel.Information, Message = "Order {OrderId} saga submitted")]
+    public static partial void SagaSubmitted(ILogger logger, Guid orderId);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Order {OrderId} saga accepted")]
+    public static partial void SagaAccepted(ILogger logger, Guid orderId);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Order {OrderId} saga expired")]
+    public static partial void SagaExpired(ILogger logger, Guid orderId);
 }
