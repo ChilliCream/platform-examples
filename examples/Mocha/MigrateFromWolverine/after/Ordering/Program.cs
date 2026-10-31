@@ -8,22 +8,34 @@ using Mocha.Outbox;
 using Mocha.Sagas;
 using Mocha.Scheduling;
 using Mocha.Transport.RabbitMQ;
-using Shop.Contracts;
 using Shop.Ordering;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure the scenario and its simulated external dependency.
 var database = builder.Configuration.GetConnectionString("ordering-db")!;
 var scenario = builder.Configuration.GetSection("Scenario").Get<ScenarioOptions>() ?? new ScenarioOptions();
 OrderSaga.Timeout = TimeSpan.FromSeconds(scenario.SagaTimeoutSeconds);
-builder.Services.AddDbContext<OrderingDb>(x => x.UseNpgsql(database));
 builder.Services.Configure<ScenarioOptions>(builder.Configuration.GetSection("Scenario"));
+builder.Services.AddSingleton<SimulatedOrderService>();
+
+// Store orders and Mocha's durable messages in PostgreSQL.
+builder.Services.AddDbContext<OrderingDb>(x => x.UseNpgsql(database));
 builder.AddRabbitMQClient("rabbitmq");
-builder.Services.AddMediator().AddOrdering().UseEntityFrameworkTransactions<OrderingDb>();
+
+// The mediator runs the local command in an EF transaction.
+builder.Services.AddMediator()
+    .AddOrdering()
+    .UseEntityFrameworkTransactions<OrderingDb>();
+
+// Configure durable messaging, batching, and exception policies.
 builder.Services.AddMessageBus()
     .AddResilience(policy =>
     {
+        // Validation fails immediately; transient failures retry and then redeliver.
         policy.On<ValidationException>().DeadLetter();
-        policy.Default().Retry([TimeSpan.Zero, TimeSpan.Zero])
+        policy.Default()
+            .Retry([TimeSpan.Zero, TimeSpan.Zero])
             .ThenRedeliver([TimeSpan.FromSeconds(scenario.RetryDelaySeconds)]);
     })
     .AddOrdering()
@@ -43,34 +55,14 @@ builder.Services.AddMessageBus()
     .AddRabbitMQ();
 
 var app = builder.Build();
+
+// This example creates its business tables without migrations.
 using (var scope = app.Services.CreateScope())
 {
     await scope.ServiceProvider.GetRequiredService<OrderingDb>().Database.EnsureCreatedAsync();
 }
 
-app.MapPost("/orders", async (PlaceOrder command, ISender sender, CancellationToken ct) =>
-    Results.Ok(await sender.SendAsync(command, ct)));
-app.MapGet("/orders/{id:guid}", async (Guid id, OrderingDb db, CancellationToken ct) =>
-    await db.Orders.FindAsync([id], ct) is { } order ? Results.Ok(order) : Results.NotFound());
-app.MapGet("/orders/{id:guid}/invoice", async (Guid id, IMessageBus bus, CancellationToken ct) =>
-    Results.Ok(await bus.RequestAsync(new CheckInvoiceStatus(id), ct)));
-app.MapPost("/orders/{id:guid}/reminder", async (Guid id, IMessageBus bus, Microsoft.Extensions.Options.IOptions<ScenarioOptions> options, CancellationToken ct) =>
-{
-    await bus.ScheduleSendAsync(new PaymentReminder(id), DateTimeOffset.UtcNow.AddSeconds(options.Value.ReminderSeconds), ct);
-    return Results.Accepted();
-});
-app.MapPost("/orders/{id:guid}/fail/{failure}", async (Guid id, string failure, IMessageBus bus, CancellationToken ct) =>
-{
-    await bus.SendAsync(new FailOrder(id, failure), ct);
-    return Results.Accepted();
-});
-app.MapPost("/orders/{id:guid}/audit", async (Guid id, IMessageBus bus, CancellationToken ct) =>
-{
-    for (var i = 0; i < 5; i++)
-    {
-        await bus.SendAsync(new AuditOrder(id), ct);
-    }
-    return Results.Accepted();
-});
+// Expose the same HTTP scenario before and after migration.
+app.MapOrderEndpoints();
 
 await app.RunAsync();

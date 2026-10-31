@@ -492,7 +492,10 @@
         }
       },
       "migratefromwolverine.before.contracts": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "WolverineFx": "[6.59.0, )"
+        }
       },
       "Microsoft.EntityFrameworkCore.Design": {
         "type": "CentralTransitive",

@@ -43,6 +43,29 @@ is 10 seconds, and the redelivery delay is 2 seconds. Polling and processing can
 add time. Inspect the logs and RabbitMQ management UI through the Aspire
 dashboard.
 
+## Structure
+
+Each side has the same projects and folders:
+
+- `AppHost/` starts the services and their infrastructure.
+- `Contracts/` contains the messages exchanged between services and the
+  Wolverine timeout message. The Wolverine project references `WolverineFx`
+  because that timeout derives from `TimeoutMessage`.
+- `Ordering/Commands/` contains `PlaceOrderCommand` and its local handler.
+  `Ordering/Endpoints/`, `Ordering/Handlers/`, `Ordering/Sagas/`, and
+  `Ordering/Data/` hold the HTTP routes, bus handlers, saga, and EF Core model.
+  `Ordering/Services/` contains the simulated dependency used for retries.
+- `Billing/Handlers/` handles orders and invoice status requests, and
+  `Billing/Data/` contains the invoice model and context.
+
+## The saga
+
+Wolverine's `before/Ordering/Sagas/OrderSaga.cs` persists the saga itself and
+returns a timeout message. Mocha's `after/Ordering/Sagas/OrderSaga.cs` configures
+transitions over the separate `OrderState.cs` and publishes `OrderPlaced` from
+its initial transition. Both update the order when confirmation arrives or the
+saga times out.
+
 ## What changed
 
 The numbered items correspond to the migration guide.
@@ -55,7 +78,7 @@ The numbered items correspond to the migration guide.
 3. Replace convention handlers and method injection with Mocha handler
    interfaces and constructor injection. Explicitly publish `InvoiceConfirmed`
    instead of returning it as a cascading message.
-4. Move the local `PlaceOrder` invocation to the Mocha mediator, including its
+4. Move the local `PlaceOrderCommand` invocation to the Mocha mediator, including its
    Entity Framework transaction middleware.
 5. Replace remote `InvokeAsync<InvoiceStatus>` with `RequestAsync` and update
    publish and send calls. The `OrderPlaced` and `InvoiceConfirmed` contracts
@@ -89,6 +112,10 @@ Wolverine retries an event for an unknown saga through its error policies.
 Mocha 16.7.3 ignores an event for a saga that does not exist yet. The Mocha
 example commits saga creation and the `OrderPlaced` outbox message together so
 Billing cannot produce a confirmation before the saga exists.
+
+Both sides omit the earlier application log that reported framework retry
+attempts. The simulated order service fails three times and then recovers; use
+the framework logs and queue outcomes to observe retries and redelivery.
 
 Wolverine's remote invocation times out after five seconds by default; Mocha's
 request waits up to two minutes unless the caller cancels it. Delivery and
