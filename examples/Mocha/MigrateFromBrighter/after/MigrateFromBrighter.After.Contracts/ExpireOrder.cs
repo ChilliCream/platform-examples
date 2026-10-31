@@ -11,7 +11,8 @@ public sealed record ExpireOrder : ICorrelatable
     /// <summary>
     /// Gets the order identifier.
     /// </summary>
-    public Guid OrderId { get; set; }
+    public Guid OrderId { get; init; }
+
     /// <summary>
     /// Gets the order identifier used to correlate the message.
     /// </summary>

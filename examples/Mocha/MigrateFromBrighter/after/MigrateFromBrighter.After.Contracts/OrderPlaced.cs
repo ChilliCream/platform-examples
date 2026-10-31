@@ -11,13 +11,15 @@ public sealed record OrderPlaced
     /// <summary>
     /// Gets the order identifier.
     /// </summary>
-    public Guid OrderId { get; set; }
+    public Guid OrderId { get; init; }
+
     /// <summary>
     /// Gets or sets the product to order.
     /// </summary>
-    public string Product { get; set; } = string.Empty;
+    public string Product { get; init; } = string.Empty;
+
     /// <summary>
     /// Gets or sets whether Billing should confirm the invoice.
     /// </summary>
-    public bool ConfirmInvoice { get; set; }
+    public bool ConfirmInvoice { get; init; }
 }

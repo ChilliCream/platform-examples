@@ -11,5 +11,5 @@ public sealed record ExerciseValidationFailure
     /// <summary>
     /// Gets the order identifier.
     /// </summary>
-    public Guid OrderId { get; set; }
+    public Guid OrderId { get; init; }
 }

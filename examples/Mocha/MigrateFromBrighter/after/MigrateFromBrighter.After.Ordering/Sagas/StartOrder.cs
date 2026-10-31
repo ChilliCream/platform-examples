@@ -12,14 +12,17 @@ public sealed record StartOrder
     /// Gets the order identifier.
     /// </summary>
     public Guid OrderId { get; init; }
+
     /// <summary>
     /// Gets the product to order.
     /// </summary>
     public string Product { get; init; } = string.Empty;
+
     /// <summary>
     /// Gets whether Billing should confirm the invoice.
     /// </summary>
     public bool ConfirmInvoice { get; init; }
+
     /// <summary>
     /// Gets the time at which the order expires.
     /// </summary>
