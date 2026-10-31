@@ -4,7 +4,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
-// Mocha persists the state and correlates later messages by the saga Id.
+/// <summary>
+/// Tracks an order until its invoice is confirmed or the saga times out, correlating messages by the order ID.
+/// </summary>
 public class OrderSaga : Saga<OrderState>
 {
     public static TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(30);

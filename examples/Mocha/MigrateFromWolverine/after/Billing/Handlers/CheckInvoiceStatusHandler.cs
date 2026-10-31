@@ -3,6 +3,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Returns the <see cref="InvoiceStatus"/> for a <see cref="CheckInvoiceStatus"/> request.
+/// </summary>
 public class CheckInvoiceStatusHandler(BillingDb db) : IEventRequestHandler<CheckInvoiceStatus, InvoiceStatus>
 {
     // Mocha sends the return value back to the requesting service.

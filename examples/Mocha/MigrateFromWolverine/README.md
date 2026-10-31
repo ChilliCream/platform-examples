@@ -31,8 +31,9 @@ dotnet run --project examples/Mocha/MigrateFromWolverine/after/AppHost/MigrateFr
 ```
 
 The Wolverine dashboard uses port 41400 and Ordering uses port 41410. The Mocha
-dashboard uses port 41450 and Ordering uses port 41460. Stop the AppHost to
-remove its ephemeral containers and data.
+dashboard uses port 41450 and Ordering uses port 41460. In the Mocha dashboard,
+the `nitro-resources` resource has a Visualizer link. Stop the AppHost to remove
+its ephemeral containers and data.
 
 Open `scenario.http` in an HTTP client that supports named requests and response
 variables, such as the VS Code REST Client extension. For Mocha, change `baseUrl`
@@ -71,8 +72,9 @@ saga times out.
 The numbered items correspond to the migration guide.
 
 1. Replace Wolverine packages with Mocha, its analyzer, RabbitMQ, mediator, and
-   PostgreSQL persistence packages. Both AppHosts reference MessagePack 2.5.303
-   to avoid a vulnerable transitive version from Aspire.
+   PostgreSQL persistence packages. The AppHosts reference patched MessagePack
+   versions to avoid a vulnerable transitive version from Aspire; the Mocha
+   AppHost uses 2.5.307 for the Nitro integration.
 2. Replace Wolverine host configuration with the generated Mocha registration
    and an Aspire-provided RabbitMQ connection factory.
 3. Replace convention handlers and method injection with Mocha handler

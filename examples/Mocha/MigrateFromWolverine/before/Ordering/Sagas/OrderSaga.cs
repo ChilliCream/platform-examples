@@ -4,7 +4,9 @@ using Wolverine;
 
 namespace Shop.Ordering;
 
-// Wolverine persists this saga and correlates later messages by its Id.
+/// <summary>
+/// Tracks an order until its invoice is confirmed or the saga times out, correlating messages by the order ID.
+/// </summary>
 public class OrderSaga : Saga
 {
     public Guid Id { get; set; }

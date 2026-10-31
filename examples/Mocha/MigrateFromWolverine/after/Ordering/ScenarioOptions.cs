@@ -1,5 +1,8 @@
 namespace Shop.Ordering;
 
+/// <summary>
+/// Configures the timing of saga, reminder, and retry behavior.
+/// </summary>
 public sealed class ScenarioOptions
 {
     public int SagaTimeoutSeconds { get; set; } = 30;

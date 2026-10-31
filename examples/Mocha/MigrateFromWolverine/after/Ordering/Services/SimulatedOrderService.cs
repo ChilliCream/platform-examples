@@ -2,6 +2,9 @@ using System.Collections.Concurrent;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Simulates order processing with transient failures before recovery.
+/// </summary>
 public sealed class SimulatedOrderService
 {
     private readonly ConcurrentDictionary<Guid, int> _failures = new();

@@ -3,6 +3,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Processes <see cref="FailOrder"/> messages with simulated failures.
+/// </summary>
 public static class FailOrderHandler
 {
     // Validation errors are terminal; transient dependency errors use the retry policy.

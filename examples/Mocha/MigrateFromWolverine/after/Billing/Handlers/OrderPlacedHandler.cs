@@ -3,6 +3,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Creates an invoice for <see cref="OrderPlaced"/> and publishes confirmation when requested.
+/// </summary>
 public class OrderPlacedHandler(BillingDb db, IMessageBus bus, ILogger<OrderPlaced> logger) : IEventHandler<OrderPlaced>
 {
     // The outbox publishes the confirmation after the invoice transaction commits.

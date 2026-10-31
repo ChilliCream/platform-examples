@@ -3,8 +3,16 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-public record PlaceOrderCommand(string Product, bool ConfirmInvoice = true) : ICommand<Guid>;
+/// <summary>
+/// Requests an order for a product.
+/// </summary>
+/// <param name="Product">The product to order.</param>
+/// <param name="ConfirmInvoice">Whether Billing should confirm the invoice.</param>
+public sealed record PlaceOrderCommand(string Product, bool ConfirmInvoice = true) : ICommand<Guid>;
 
+/// <summary>
+/// Stores an order and starts its saga for a <see cref="PlaceOrderCommand"/>.
+/// </summary>
 public class PlaceOrderCommandHandler(OrderingDb db, IMessageBus bus, ILogger<PlaceOrderCommand> logger)
     : ICommandHandler<PlaceOrderCommand, Guid>
 {

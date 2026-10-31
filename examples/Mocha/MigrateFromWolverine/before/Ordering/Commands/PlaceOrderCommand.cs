@@ -3,8 +3,16 @@ using Wolverine.EntityFrameworkCore;
 
 namespace Shop.Ordering;
 
-public record PlaceOrderCommand(string Product, bool ConfirmInvoice = true);
+/// <summary>
+/// Requests an order for a product.
+/// </summary>
+/// <param name="Product">The product to order.</param>
+/// <param name="ConfirmInvoice">Whether Billing should confirm the invoice.</param>
+public sealed record PlaceOrderCommand(string Product, bool ConfirmInvoice = true);
 
+/// <summary>
+/// Stores an order and starts its saga for a <see cref="PlaceOrderCommand"/>.
+/// </summary>
 public static class PlaceOrderCommandHandler
 {
     // The order and outgoing events are saved together through Wolverine's EF outbox.

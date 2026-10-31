@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ChilliCream.Nitro;
 using Microsoft.EntityFrameworkCore;
 using Mocha;
 using Mocha.EntityFrameworkCore;
@@ -22,6 +23,9 @@ builder.Services.AddSingleton<SimulatedOrderService>();
 // Store orders and Mocha's durable messages in PostgreSQL.
 builder.Services.AddDbContext<OrderingDb>(x => x.UseNpgsql(database));
 builder.AddRabbitMQClient("rabbitmq");
+
+// Export messaging and mediator resources for the visualizer.
+builder.Services.AddNitro().AddMocha().AddMochaMediator();
 
 // The mediator runs the local command in an EF transaction.
 builder.Services

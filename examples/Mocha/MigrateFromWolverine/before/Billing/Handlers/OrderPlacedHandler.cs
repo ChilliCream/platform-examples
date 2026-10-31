@@ -2,6 +2,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Creates an invoice for <see cref="OrderPlaced"/> and publishes confirmation when requested.
+/// </summary>
 public static class OrderPlacedHandler
 {
     // The returned message cascades after Wolverine saves the invoice.

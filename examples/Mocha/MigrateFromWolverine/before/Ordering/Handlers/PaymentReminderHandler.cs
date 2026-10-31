@@ -2,6 +2,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Logs a <see cref="PaymentReminder"/> for an order.
+/// </summary>
 public static class PaymentReminderHandler
 {
     // Wolverine invokes this handler when the scheduled reminder is due.

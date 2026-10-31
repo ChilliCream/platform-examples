@@ -4,6 +4,9 @@ using Wolverine;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Maps the HTTP endpoints for orders and messaging scenarios.
+/// </summary>
 public static class OrderEndpoints
 {
     public static void MapOrderEndpoints(this WebApplication app)

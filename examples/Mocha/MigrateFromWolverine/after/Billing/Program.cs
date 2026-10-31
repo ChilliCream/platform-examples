@@ -1,3 +1,4 @@
+using ChilliCream.Nitro;
 using Microsoft.EntityFrameworkCore;
 using Mocha;
 using Mocha.EntityFrameworkCore;
@@ -12,6 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 var database = builder.Configuration.GetConnectionString("billing-db")!;
 builder.Services.AddDbContext<BillingDb>(x => x.UseNpgsql(database));
 builder.AddRabbitMQClient("rabbitmq");
+
+// Export messaging resources for the visualizer.
+builder.Services.AddNitro().AddMocha();
 
 // Configure durable messaging and route confirmations back to Ordering.
 builder.Services

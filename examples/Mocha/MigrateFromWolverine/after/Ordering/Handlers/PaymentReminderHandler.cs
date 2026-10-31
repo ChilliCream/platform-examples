@@ -3,6 +3,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Logs a <see cref="PaymentReminder"/> for an order.
+/// </summary>
 public class PaymentReminderHandler(ILogger<PaymentReminder> logger) : IEventRequestHandler<PaymentReminder>
 {
     // Mocha invokes this handler when the scheduled reminder is due.

@@ -3,6 +3,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Logs batches of <see cref="AuditOrder"/> messages.
+/// </summary>
 public class AuditOrderHandler(ILogger<AuditOrder> logger) : IBatchEventHandler<AuditOrder>
 {
     // Mocha supplies a message batch when it is full or its timeout expires.
