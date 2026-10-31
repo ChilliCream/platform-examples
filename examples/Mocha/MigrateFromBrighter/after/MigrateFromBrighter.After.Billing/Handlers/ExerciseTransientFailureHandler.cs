@@ -4,7 +4,8 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
-public sealed class ExerciseTransientFailureHandler(BillingDbContext db) : IEventRequestHandler<ExerciseTransientFailure>
+public sealed class ExerciseTransientFailureHandler(BillingDbContext db)
+    : IEventRequestHandler<ExerciseTransientFailure>
 {
     public async ValueTask HandleAsync(ExerciseTransientFailure message, CancellationToken cancellationToken)
     {

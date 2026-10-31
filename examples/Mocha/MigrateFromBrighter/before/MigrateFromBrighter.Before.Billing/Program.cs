@@ -21,7 +21,8 @@ var rabbit = new RmqMessagingGatewayConnection
     AmpqUri = new AmqpUriSpecification(new Uri(builder.Configuration.GetConnectionString("rabbitmq")!)),
     Exchange = new Exchange("shop")
 };
-var pipelines = new ResiliencePipelineRegistry<string>().AddBrighterDefault();
+var pipelines = new ResiliencePipelineRegistry<string>()
+    .AddBrighterDefault();
 pipelines.TryAddBuilder("TransientRetry", (pipeline, _) => pipeline.AddRetry(new RetryStrategyOptions
 {
     MaxRetryAttempts = 1,

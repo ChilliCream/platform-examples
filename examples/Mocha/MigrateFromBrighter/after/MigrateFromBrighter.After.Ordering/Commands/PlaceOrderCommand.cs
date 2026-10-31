@@ -20,8 +20,16 @@ public sealed class PlaceOrderCommandHandler(
         await strategy.ExecuteAsync(async () =>
         {
             await using var transaction = await db.Database.BeginTransactionAsync(cancellationToken);
-            db.Orders.Add(new Order { Id = command.OrderId, Product = command.Product });
-            db.OrderProcesses.Add(new OrderProcess { OrderId = command.OrderId, Status = "Submitted" });
+            db.Orders.Add(new Order
+            {
+                Id = command.OrderId,
+                Product = command.Product
+            });
+            db.OrderProcesses.Add(new OrderProcess
+            {
+                OrderId = command.OrderId,
+                Status = "Submitted"
+            });
             await bus.SendAsync(new StartOrder
             {
                 OrderId = command.OrderId,

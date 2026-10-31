@@ -11,13 +11,19 @@ public sealed class OrderPlacedHandler(
     ILogger<OrderPlacedHandler> logger)
     : RequestHandlerAsync<OrderPlaced>
 {
-    public override async Task<OrderPlaced> HandleAsync(OrderPlaced message, CancellationToken cancellationToken = default)
+    public override async Task<OrderPlaced> HandleAsync(
+        OrderPlaced message,
+        CancellationToken cancellationToken = default)
     {
         // A redelivered event must not create a second invoice.
         var invoice = await db.Invoices.FindAsync([message.OrderId], cancellationToken);
         if (invoice is null)
         {
-            invoice = new Invoice { OrderId = message.OrderId, Status = "Created" };
+            invoice = new Invoice
+            {
+                OrderId = message.OrderId,
+                Status = "Created"
+            };
             db.Invoices.Add(invoice);
             try
             {

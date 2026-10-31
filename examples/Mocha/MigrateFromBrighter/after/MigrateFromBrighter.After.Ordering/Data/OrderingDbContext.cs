@@ -17,14 +17,16 @@ public sealed class OrderingDbContext(DbContextOptions<OrderingDbContext> option
         {
             entity.ToTable("orders");
             entity.HasKey(x => x.Id);
-            entity.Property(x => x.Id).HasColumnName("id").ValueGeneratedNever();
+            entity.Property(x => x.Id).HasColumnName("id")
+                .ValueGeneratedNever();
             entity.Property(x => x.Product).HasColumnName("product");
         });
         modelBuilder.Entity<OrderProcess>(entity =>
         {
             entity.ToTable("order_processes");
             entity.HasKey(x => x.OrderId);
-            entity.Property(x => x.OrderId).HasColumnName("order_id").ValueGeneratedNever();
+            entity.Property(x => x.OrderId).HasColumnName("order_id")
+                .ValueGeneratedNever();
             entity.Property(x => x.Status).HasColumnName("status");
             entity.HasOne<Order>()
                 .WithOne()
@@ -35,7 +37,8 @@ public sealed class OrderingDbContext(DbContextOptions<OrderingDbContext> option
         {
             entity.ToTable("reminders");
             entity.HasKey(x => x.OrderId);
-            entity.Property(x => x.OrderId).HasColumnName("order_id").ValueGeneratedNever();
+            entity.Property(x => x.OrderId).HasColumnName("order_id")
+                .ValueGeneratedNever();
             entity.HasOne<Order>()
                 .WithOne()
                 .HasForeignKey<Reminder>(x => x.OrderId)

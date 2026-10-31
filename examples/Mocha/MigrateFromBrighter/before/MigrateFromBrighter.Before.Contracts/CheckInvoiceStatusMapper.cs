@@ -3,7 +3,8 @@ using Paramore.Brighter;
 
 namespace Shop.Contracts;
 
-public sealed class CheckInvoiceStatusMapper : IAmAMessageMapper<CheckInvoiceStatus>, IAmAMessageMapperAsync<CheckInvoiceStatus>
+public sealed class CheckInvoiceStatusMapper
+    : IAmAMessageMapper<CheckInvoiceStatus>, IAmAMessageMapperAsync<CheckInvoiceStatus>
 {
     public IRequestContext? Context { get; set; }
 

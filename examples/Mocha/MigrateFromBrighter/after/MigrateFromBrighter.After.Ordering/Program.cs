@@ -14,9 +14,11 @@ builder.AddNpgsqlDbContext<OrderingDbContext>("ordering-db");
 builder.AddRabbitMQClient("rabbitmq");
 
 // Register the in-process mediator and the message bus with PostgreSQL persistence.
-builder.Services.AddMediator()
+builder.Services
+    .AddMediator()
     .AddOrdering();
-builder.Services.AddMessageBus()
+builder.Services
+    .AddMessageBus()
     .AddOrdering()
     .AddEntityFramework<OrderingDbContext>(p =>
     {

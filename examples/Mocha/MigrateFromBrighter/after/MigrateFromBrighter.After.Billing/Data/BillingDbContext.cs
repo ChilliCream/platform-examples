@@ -14,14 +14,16 @@ public sealed class BillingDbContext(DbContextOptions<BillingDbContext> options)
         {
             entity.ToTable("invoices");
             entity.HasKey(x => x.OrderId);
-            entity.Property(x => x.OrderId).HasColumnName("order_id").ValueGeneratedNever();
+            entity.Property(x => x.OrderId).HasColumnName("order_id")
+                .ValueGeneratedNever();
             entity.Property(x => x.Status).HasColumnName("status");
         });
         modelBuilder.Entity<Attempt>(entity =>
         {
             entity.ToTable("attempts");
             entity.HasKey(x => x.OrderId);
-            entity.Property(x => x.OrderId).HasColumnName("order_id").ValueGeneratedNever();
+            entity.Property(x => x.OrderId).HasColumnName("order_id")
+                .ValueGeneratedNever();
             entity.Property(x => x.Count).HasColumnName("count");
         });
 

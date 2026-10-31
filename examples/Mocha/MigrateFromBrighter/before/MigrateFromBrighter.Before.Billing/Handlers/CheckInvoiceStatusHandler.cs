@@ -10,10 +10,15 @@ public sealed class CheckInvoiceStatusHandler(BillingDbContext db, IAmACommandPr
     public override async Task<CheckInvoiceStatus> HandleAsync(
         CheckInvoiceStatus message, CancellationToken cancellationToken = default)
     {
+        // Send the invoice status to the request's reply address.
         var invoice = await db.Invoices.FindAsync([message.OrderId], cancellationToken);
         var status = invoice?.Status ?? "NotFound";
         await processor.PostAsync(
-            new InvoiceStatus(message.ReplyAddress) { OrderId = message.OrderId, Status = status },
+            new InvoiceStatus(message.ReplyAddress)
+            {
+                OrderId = message.OrderId,
+                Status = status
+            },
             cancellationToken: cancellationToken);
 
         return await base.HandleAsync(message, cancellationToken);

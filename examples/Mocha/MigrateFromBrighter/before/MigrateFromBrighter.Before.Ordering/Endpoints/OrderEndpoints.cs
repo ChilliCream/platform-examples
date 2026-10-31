@@ -20,7 +20,12 @@ public static class OrderEndpoints
             var order = await (from o in db.Orders
                                join process in db.OrderProcesses on o.Id equals process.OrderId
                                where o.Id == orderId
-                               select new { orderId, product = o.Product, status = process.Status })
+                               select new
+                               {
+                                   orderId,
+                                   product = o.Product,
+                                   status = process.Status
+                               })
                 .SingleOrDefaultAsync(ct);
             if (order is null)
             {
@@ -40,16 +45,26 @@ public static class OrderEndpoints
                 return Results.StatusCode(504);
             }
 
-            return Results.Ok(new { result.OrderId, result.Status });
+            return Results.Ok(new
+            {
+                result.OrderId,
+                result.Status
+            });
         });
 
-        app.MapPost("/orders/{orderId:guid}/transient", async (Guid orderId, IAmACommandProcessor processor, CancellationToken ct) =>
+        app.MapPost("/orders/{orderId:guid}/transient", async (
+            Guid orderId,
+            IAmACommandProcessor processor,
+            CancellationToken ct) =>
         {
             await processor.PostAsync(new ExerciseTransientFailure { OrderId = orderId }, cancellationToken: ct);
             return Results.Accepted();
         });
 
-        app.MapPost("/orders/{orderId:guid}/invalid", async (Guid orderId, IAmACommandProcessor processor, CancellationToken ct) =>
+        app.MapPost("/orders/{orderId:guid}/invalid", async (
+            Guid orderId,
+            IAmACommandProcessor processor,
+            CancellationToken ct) =>
         {
             await processor.PostAsync(new ExerciseValidationFailure { OrderId = orderId }, cancellationToken: ct);
             return Results.Accepted();

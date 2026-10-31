@@ -12,10 +12,12 @@ builder.AddNpgsqlDbContext<BillingDbContext>("billing-db");
 builder.AddRabbitMQClient("rabbitmq");
 
 // Validation failures go to the error queue; transient failures retry and redeliver.
-builder.Services.AddMessageBus()
+builder.Services
+    .AddMessageBus()
     .AddResilience(policy =>
     {
-        policy.On<ValidationException>().DeadLetter();
+        policy.On<ValidationException>()
+            .DeadLetter();
         policy.On<TransientException>()
             .Retry(1, TimeSpan.FromMilliseconds(100))
             .ThenRedeliver(3, TimeSpan.FromSeconds(1));

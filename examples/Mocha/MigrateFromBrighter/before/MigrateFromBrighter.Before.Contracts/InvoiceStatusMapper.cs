@@ -27,7 +27,10 @@ public sealed class InvoiceStatusMapper : IAmAMessageMapper<InvoiceStatus>, IAmA
         };
     }
 
-    public Task<Message> MapToMessageAsync(InvoiceStatus request, Publication publication, CancellationToken cancellationToken = default)
+    public Task<Message> MapToMessageAsync(
+        InvoiceStatus request,
+        Publication publication,
+        CancellationToken cancellationToken = default)
         => Task.FromResult(MapToMessage(request, publication));
 
     public Task<InvoiceStatus> MapToRequestAsync(Message message, CancellationToken cancellationToken = default)

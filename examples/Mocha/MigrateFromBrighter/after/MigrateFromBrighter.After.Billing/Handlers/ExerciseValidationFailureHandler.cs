@@ -10,6 +10,7 @@ public sealed class ExerciseValidationFailureHandler(ILogger<ExerciseValidationF
 {
     public ValueTask HandleAsync(ExerciseValidationFailure message, CancellationToken cancellationToken)
     {
+        // Validation failures are handled without retrying the message.
         Logs.ValidationFailed(logger, message.OrderId);
         throw new ValidationException("Invalid billing request");
     }

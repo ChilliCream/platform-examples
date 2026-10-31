@@ -21,7 +21,12 @@ public static class OrderEndpoints
             var order = await (from o in db.Orders
                                join process in db.OrderProcesses on o.Id equals process.OrderId
                                where o.Id == orderId
-                               select new { orderId, product = o.Product, status = process.Status })
+                               select new
+                               {
+                                   orderId,
+                                   product = o.Product,
+                                   status = process.Status
+                               })
                 .SingleOrDefaultAsync(ct);
             if (order is null)
             {
@@ -39,7 +44,11 @@ public static class OrderEndpoints
             try
             {
                 var result = await bus.RequestAsync(new CheckInvoiceStatus { OrderId = orderId }, timeout.Token);
-                return Results.Ok(new { result.OrderId, result.Status });
+                return Results.Ok(new
+                {
+                    result.OrderId,
+                    result.Status
+                });
             }
             catch (OperationCanceledException) when (!ct.IsCancellationRequested)
             {

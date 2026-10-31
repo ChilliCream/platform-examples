@@ -17,7 +17,11 @@ public sealed class OrderPlacedHandler(
         var invoice = await db.Invoices.FindAsync([message.OrderId], cancellationToken);
         if (invoice is null)
         {
-            invoice = new Invoice { OrderId = message.OrderId, Status = "Created" };
+            invoice = new Invoice
+            {
+                OrderId = message.OrderId,
+                Status = "Created"
+            };
             db.Invoices.Add(invoice);
             try
             {
