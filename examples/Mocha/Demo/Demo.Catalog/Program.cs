@@ -1,3 +1,4 @@
+using ChilliCream.Nitro;
 using Demo.Catalog.Commands;
 using Demo.Catalog.Data;
 using Demo.Catalog.Queries;
@@ -19,6 +20,9 @@ builder.AddNpgsqlDbContext<CatalogDbContext>("catalog-db", x => x.DisableTracing
 
 // RabbitMQ
 builder.AddRabbitMQClient("rabbitmq", x => x.DisableTracing = true);
+
+// Export messaging and mediator resources for the visualizer.
+builder.Services.AddNitro().AddMocha().AddMochaMediator();
 
 // Mocha.Mediator
 builder.Services.AddMediator()

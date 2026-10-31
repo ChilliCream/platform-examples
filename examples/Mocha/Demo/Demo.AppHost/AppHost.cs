@@ -1,3 +1,5 @@
+using ChilliCream.Nitro.Aspire;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 // Infrastructure
@@ -12,25 +14,31 @@ var billingDb = db.AddDatabase("billing-db");
 var shippingDb = db.AddDatabase("shipping-db");
 
 // Services
-builder
+var catalog = builder
     .AddProject<Projects.Demo_Catalog>("catalog")
     .WithReference(rabbitmq)
     .WithReference(catalogDb)
     .WaitFor(rabbitmq)
     .WaitFor(catalogDb);
 
-builder
+var billing = builder
     .AddProject<Projects.Demo_Billing>("billing")
     .WithReference(rabbitmq)
     .WithReference(billingDb)
     .WaitFor(rabbitmq)
     .WaitFor(billingDb);
 
-builder
+var shipping = builder
     .AddProject<Projects.Demo_Shipping>("shipping")
     .WithReference(rabbitmq)
     .WithReference(shippingDb)
     .WaitFor(rabbitmq)
     .WaitFor(shippingDb);
+
+// Collect Nitro resources from each service for local visualization.
+builder.AddNitroResources(port: 5106)
+    .WithReference(catalog)
+    .WithReference(billing)
+    .WithReference(shipping);
 
 builder.Build().Run();
