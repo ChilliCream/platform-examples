@@ -3,7 +3,9 @@ using MediatR.Pipeline;
 
 namespace Shop.Ordering;
 
-// Run before the request pipeline begins.
+/// <summary>
+/// Logs before the request pipeline begins.
+/// </summary>
 public sealed class LoggingPreProcessor<TRequest>(ILogger<LoggingPreProcessor<TRequest>> logger)
     : IRequestPreProcessor<TRequest> where TRequest : notnull
 {

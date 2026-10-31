@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Ordering;
 
-// Commit command changes together after the handler succeeds.
+/// <summary>
+/// Commits command changes together after the handler succeeds.
+/// </summary>
 public sealed class TransactionMiddleware
 {
     public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

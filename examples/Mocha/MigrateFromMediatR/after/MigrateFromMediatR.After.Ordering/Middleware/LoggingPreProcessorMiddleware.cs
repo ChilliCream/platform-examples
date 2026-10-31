@@ -2,7 +2,9 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-// Run before the request pipeline begins.
+/// <summary>
+/// Logs before the request pipeline begins.
+/// </summary>
 public sealed class LoggingPreProcessorMiddleware
 {
     public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

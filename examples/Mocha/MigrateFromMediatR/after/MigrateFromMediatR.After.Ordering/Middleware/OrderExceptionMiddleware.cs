@@ -2,7 +2,9 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-// Recover a missing query and log a missing cancellation without handling it.
+/// <summary>
+/// Returns an empty result for a missing order query and logs a missing cancellation without handling it.
+/// </summary>
 public sealed class OrderExceptionMiddleware
 {
     public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

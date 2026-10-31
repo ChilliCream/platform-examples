@@ -1,3 +1,4 @@
+using ChilliCream.Nitro;
 using Mocha.Mediator;
 using Microsoft.EntityFrameworkCore;
 using Shop.Ordering;
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Register the ordering database.
 builder.AddNpgsqlDbContext<OrderingDbContext>("ordering-db");
+
+// Export mediator resources to Nitro.
+builder.Services.AddNitro().AddMochaMediator();
 
 // Register the mediator, its request pipeline, and concurrent notification publishing.
 builder.Services

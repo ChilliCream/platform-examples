@@ -2,9 +2,15 @@ using MediatR;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Requests cancellation of an existing <see cref="Order"/>.
+/// </summary>
+/// <param name="OrderId">The ID of the order to cancel.</param>
 public sealed record CancelOrderCommand(Guid OrderId) : IRequest, IOrderCommand;
 
-// Cancel an existing order within the command transaction.
+/// <summary>
+/// Cancels an existing order within the command transaction.
+/// </summary>
 public sealed class CancelOrderHandler(OrderingDbContext db) : IRequestHandler<CancelOrderCommand>
 {
     public async Task Handle(CancelOrderCommand request, CancellationToken cancellationToken)

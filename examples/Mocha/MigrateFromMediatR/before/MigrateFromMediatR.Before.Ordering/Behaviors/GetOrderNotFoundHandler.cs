@@ -3,7 +3,9 @@ using MediatR.Pipeline;
 
 namespace Shop.Ordering;
 
-// Recover a missing query with an empty result.
+/// <summary>
+/// Returns an empty result when a <see cref="GetOrderQuery"/> cannot find the order.
+/// </summary>
 public sealed class GetOrderNotFoundHandler(ILogger<GetOrderNotFoundHandler> logger)
     : IRequestExceptionHandler<GetOrderQuery, OrderResult, OrderNotFoundException>
 {

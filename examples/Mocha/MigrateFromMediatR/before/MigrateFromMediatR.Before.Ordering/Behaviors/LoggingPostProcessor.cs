@@ -3,7 +3,9 @@ using MediatR.Pipeline;
 
 namespace Shop.Ordering;
 
-// Run after a request completes successfully.
+/// <summary>
+/// Logs when a request completes successfully.
+/// </summary>
 public sealed class LoggingPostProcessor<TRequest, TResponse>(ILogger<LoggingPostProcessor<TRequest, TResponse>> logger)
     : IRequestPostProcessor<TRequest, TResponse> where TRequest : notnull
 {

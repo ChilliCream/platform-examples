@@ -2,7 +2,9 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-// Log each request before invoking the next middleware.
+/// <summary>
+/// Logs each request before invoking the next pipeline component.
+/// </summary>
 public sealed class LoggingMiddleware
 {
     public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

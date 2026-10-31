@@ -5,6 +5,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="ChilliCream.Nitro" />
+    <PackageReference Include="ChilliCream.Nitro.Mocha.Mediator" />
     <PackageReference Include="Mocha.Analyzers" PrivateAssets="all" />
     <PackageReference Include="Mocha.Mediator" />
   </ItemGroup>

@@ -2,6 +2,9 @@ using MediatR;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Maps the HTTP endpoints for placing, retrieving, and cancelling orders.
+/// </summary>
 public static class OrderEndpoints
 {
     // Dispatch requests through the mediator and publish the notification after the order is saved.

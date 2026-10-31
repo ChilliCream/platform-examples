@@ -2,7 +2,9 @@ using MediatR;
 
 namespace Shop.Ordering;
 
-// Reject invalid order commands before a transaction is opened.
+/// <summary>
+/// Rejects an invalid <see cref="PlaceOrderCommand"/> before a transaction is opened.
+/// </summary>
 public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
 {

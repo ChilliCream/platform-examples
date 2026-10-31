@@ -2,7 +2,9 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-// Run after a request completes successfully.
+/// <summary>
+/// Logs when a request completes successfully.
+/// </summary>
 public sealed class LoggingPostProcessorMiddleware
 {
     public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

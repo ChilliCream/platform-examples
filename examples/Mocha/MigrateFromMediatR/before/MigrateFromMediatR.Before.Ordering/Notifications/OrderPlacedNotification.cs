@@ -2,9 +2,18 @@ using MediatR;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Announces that an <see cref="Order"/> has been saved.
+/// </summary>
+/// <param name="OrderId">The ID of the saved order.</param>
+/// <param name="ProductId">The ID of the ordered product.</param>
+/// <param name="Quantity">The number of units ordered.</param>
 public sealed record OrderPlacedNotification(Guid OrderId, Guid ProductId, int Quantity) : INotification;
 
 // Each notification handler receives the same published event.
+/// <summary>
+/// Logs receipt preparation for each <see cref="OrderPlacedNotification"/>.
+/// </summary>
 public sealed class OrderReceiptHandler(ILogger<OrderReceiptHandler> logger)
     : INotificationHandler<OrderPlacedNotification>
 {
@@ -16,6 +25,9 @@ public sealed class OrderReceiptHandler(ILogger<OrderReceiptHandler> logger)
 }
 
 // Each notification handler receives the same published event.
+/// <summary>
+/// Logs inventory notification for each <see cref="OrderPlacedNotification"/>.
+/// </summary>
 public sealed class OrderInventoryHandler(ILogger<OrderInventoryHandler> logger)
     : INotificationHandler<OrderPlacedNotification>
 {

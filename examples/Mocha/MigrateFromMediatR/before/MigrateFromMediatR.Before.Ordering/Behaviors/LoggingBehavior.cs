@@ -2,7 +2,9 @@ using MediatR;
 
 namespace Shop.Ordering;
 
-// Log each request before invoking the next behavior.
+/// <summary>
+/// Logs each request before invoking the next pipeline component.
+/// </summary>
 public sealed class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
     : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {

@@ -3,7 +3,9 @@ using MediatR.Pipeline;
 
 namespace Shop.Ordering;
 
-// Log a missing cancellation and leave the exception unhandled.
+/// <summary>
+/// Logs when a <see cref="CancelOrderCommand"/> cannot find the order, without handling the exception.
+/// </summary>
 public sealed class CancelOrderNotFoundAction(ILogger<CancelOrderNotFoundAction> logger)
     : IRequestExceptionAction<CancelOrderCommand, OrderNotFoundException>
 {
