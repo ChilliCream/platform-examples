@@ -3,6 +3,8 @@
     <RootNamespace>PostgresTransport.OrderService</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="ChilliCream.Nitro" />
+    <PackageReference Include="ChilliCream.Nitro.Mocha" />
     <PackageReference Include="Mocha.Abstractions" />
     <PackageReference Include="Mocha" />
     <ProjectReference Include="..\PostgresTransport.ServiceDefaults\PostgresTransport.ServiceDefaults.csproj" />

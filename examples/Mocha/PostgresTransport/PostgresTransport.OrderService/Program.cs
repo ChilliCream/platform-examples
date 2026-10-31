@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using ChilliCream.Nitro;
 using Mocha;
 using Mocha.Transport.Postgres;
 using PostgresTransport.Contracts.Commands;
@@ -14,6 +15,9 @@ builder.AddServiceDefaults();
 var messagingConnectionString =
     builder.Configuration.GetConnectionString("messaging-db")
     ?? "Host=localhost;Database=mocha_messaging;Username=postgres;Password=postgres";
+
+// Export messaging resources for the visualizer.
+builder.Services.AddNitro().AddMocha();
 
 builder
     .Services.AddMessageBus()

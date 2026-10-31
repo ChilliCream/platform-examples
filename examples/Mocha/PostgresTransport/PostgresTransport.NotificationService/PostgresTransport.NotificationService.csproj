@@ -5,6 +5,8 @@
   <ItemGroup>
     <ProjectReference Include="..\PostgresTransport.ServiceDefaults\PostgresTransport.ServiceDefaults.csproj" />
     <ProjectReference Include="..\PostgresTransport.Contracts\PostgresTransport.Contracts.csproj" />
+    <PackageReference Include="ChilliCream.Nitro" />
+    <PackageReference Include="ChilliCream.Nitro.Mocha" />
     <PackageReference Include="Mocha" />
     <PackageReference Include="Mocha.Transport.Postgres" />
     <PackageReference Include="Mocha.Hosting" />
