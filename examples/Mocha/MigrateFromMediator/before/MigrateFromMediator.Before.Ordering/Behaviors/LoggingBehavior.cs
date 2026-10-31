@@ -3,7 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Shop.Ordering;
 
-// Log requests around the rest of the mediator pipeline; notifications have their own handlers.
+/// <summary>
+/// Logs requests before the rest of the mediator pipeline. Notifications have their own handlers.
+/// </summary>
 public sealed class LoggingBehavior<TMessage, TResponse>(ILogger<LoggingBehavior<TMessage, TResponse>> logger)
     : IPipelineBehavior<TMessage, TResponse> where TMessage : IMessage
 {

@@ -1,5 +1,8 @@
 namespace Shop.Ordering;
 
+/// <summary>
+/// Represents a stored product order.
+/// </summary>
 public sealed class Order
 {
     public Guid Id { get; set; }

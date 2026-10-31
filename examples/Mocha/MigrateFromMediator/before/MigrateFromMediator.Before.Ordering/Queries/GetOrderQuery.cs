@@ -3,11 +3,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Requests the details of an order.
+/// </summary>
+/// <param name="OrderId">The identifier of the order to retrieve.</param>
 public sealed record GetOrderQuery(Guid OrderId) : IRequest<OrderDto?>;
 
+/// <summary>
+/// Contains the details of an order returned by a <see cref="GetOrderQuery"/>.
+/// </summary>
+/// <param name="OrderId">The identifier of the order.</param>
+/// <param name="ProductId">The identifier of the ordered product.</param>
+/// <param name="Quantity">The number of units ordered.</param>
+/// <param name="Status">The current order status.</param>
 public sealed record OrderDto(Guid OrderId, Guid ProductId, int Quantity, string Status);
 
 // Queries read without tracking because they do not change the order.
+/// <summary>
+/// Returns the requested order, or null when it does not exist.
+/// </summary>
 public sealed class GetOrderHandler(IDbContextFactory<OrderDbContext> factory)
     : IRequestHandler<GetOrderQuery, OrderDto?>
 {

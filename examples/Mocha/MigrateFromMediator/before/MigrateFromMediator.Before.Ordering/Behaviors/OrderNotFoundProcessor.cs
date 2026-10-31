@@ -3,7 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Shop.Ordering;
 
-// Observe a missing order and leave the exception unhandled for the API.
+/// <summary>
+/// Logs an <see cref="OrderNotFoundException"/> and leaves it unhandled.
+/// </summary>
 public sealed class OrderNotFoundProcessor<TMessage, TResponse>(
     ILogger<OrderNotFoundProcessor<TMessage, TResponse>> logger)
     : MessageExceptionHandler<TMessage, TResponse, OrderNotFoundException> where TMessage : IOrderCommand

@@ -4,6 +4,8 @@
     <RootNamespace>Shop.Api</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="ChilliCream.Nitro" />
+    <PackageReference Include="ChilliCream.Nitro.Mocha.Mediator" />
     <ProjectReference Include="../MigrateFromMediator.After.Ordering/MigrateFromMediator.After.Ordering.csproj" />
     <ProjectReference Include="../MigrateFromMediator.After.Billing/MigrateFromMediator.After.Billing.csproj" />
   </ItemGroup>

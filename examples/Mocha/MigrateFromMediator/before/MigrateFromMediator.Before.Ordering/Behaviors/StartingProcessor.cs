@@ -3,7 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Shop.Ordering;
 
-// Run this pre-processing step before the request handler.
+/// <summary>
+/// Logs before a request handler runs.
+/// </summary>
 public sealed class StartingProcessor<TMessage, TResponse>(ILogger<StartingProcessor<TMessage, TResponse>> logger)
     : MessagePreProcessor<TMessage, TResponse> where TMessage : IMessage
 {

@@ -4,7 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Shop.Ordering;
 
-// Wrap order commands in an ambient transaction that completes only on success.
+/// <summary>
+/// Wraps order commands in an ambient transaction that completes on success.
+/// </summary>
 public sealed class TransactionBehavior<TMessage, TResponse>(ILogger<TransactionBehavior<TMessage, TResponse>> logger)
     : IPipelineBehavior<TMessage, TResponse> where TMessage : IOrderCommand
 {

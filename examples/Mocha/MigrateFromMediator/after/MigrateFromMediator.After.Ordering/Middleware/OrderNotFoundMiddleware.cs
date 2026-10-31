@@ -4,7 +4,9 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-// Observe a missing order and leave the exception unhandled for the API.
+/// <summary>
+/// Logs an <see cref="OrderNotFoundException"/> and leaves it unhandled.
+/// </summary>
 public sealed class OrderNotFoundMiddleware
 {
     public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

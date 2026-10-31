@@ -4,7 +4,9 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-// Run this post-processing step only after the request handler succeeds.
+/// <summary>
+/// Logs completion after a request handler succeeds.
+/// </summary>
 public sealed class FinishedMiddleware
 {
     public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

@@ -4,6 +4,9 @@ using Shop.Ordering;
 
 namespace Shop.Api.Endpoints;
 
+/// <summary>
+/// Maps the HTTP endpoints for placing, reading, and cancelling orders.
+/// </summary>
 public static class OrderEndpoints
 {
     // The HTTP contract stays the same while the mediator dispatch methods change.

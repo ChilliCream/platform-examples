@@ -3,7 +3,9 @@ using Mediator;
 
 namespace Shop.Ordering;
 
-// Reject invalid order commands before a transaction begins.
+/// <summary>
+/// Rejects invalid order commands before a transaction begins.
+/// </summary>
 public sealed class ValidationBehavior<TMessage, TResponse> : IPipelineBehavior<TMessage, TResponse>
     where TMessage : IOrderCommand
 {

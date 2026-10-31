@@ -4,7 +4,9 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-// Run this pre-processing step before the request handler.
+/// <summary>
+/// Logs before a request handler runs.
+/// </summary>
 public sealed class StartingMiddleware
 {
     public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

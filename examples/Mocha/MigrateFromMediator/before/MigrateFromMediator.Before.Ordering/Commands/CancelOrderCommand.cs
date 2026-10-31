@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Requests cancellation of an order.
+/// </summary>
+/// <param name="OrderId">The identifier of the order to cancel.</param>
 public sealed record CancelOrderCommand(Guid OrderId) : ICommand, IOrderCommand
 {
     public string? Validate()
@@ -17,6 +21,9 @@ public sealed record CancelOrderCommand(Guid OrderId) : ICommand, IOrderCommand
 }
 
 // The exception processor or middleware observes a missing order before it reaches the API.
+/// <summary>
+/// Cancels the order identified by a <see cref="CancelOrderCommand"/>.
+/// </summary>
 public sealed class CancelOrderHandler(IDbContextFactory<OrderDbContext> factory) : ICommandHandler<CancelOrderCommand>
 {
     public async ValueTask<Unit> Handle(CancelOrderCommand message, CancellationToken cancellationToken)

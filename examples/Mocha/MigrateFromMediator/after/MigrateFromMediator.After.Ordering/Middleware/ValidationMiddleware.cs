@@ -3,7 +3,9 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-// Reject invalid order commands before a transaction begins.
+/// <summary>
+/// Rejects invalid order commands before a transaction begins.
+/// </summary>
 public sealed class ValidationMiddleware
 {
     public ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

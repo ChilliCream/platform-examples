@@ -3,6 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Requests placement of an order and returns its identifier.
+/// </summary>
+/// <param name="ProductId">The identifier of the product to order.</param>
+/// <param name="Quantity">The number of units to order.</param>
 public sealed record PlaceOrderCommand(Guid ProductId, int Quantity) : IRequest<Guid>, IOrderCommand
 {
     public string? Validate()
@@ -21,7 +26,9 @@ public sealed record PlaceOrderCommand(Guid ProductId, int Quantity) : IRequest<
     }
 }
 
-// A request that changes state saves the order and publishes an in-process notification.
+/// <summary>
+/// Saves an order and publishes an <see cref="OrderPlacedNotification"/>.
+/// </summary>
 public sealed class PlaceOrderHandler(IDbContextFactory<OrderDbContext> factory, IPublisher publisher)
     : IRequestHandler<PlaceOrderCommand, Guid>
 {

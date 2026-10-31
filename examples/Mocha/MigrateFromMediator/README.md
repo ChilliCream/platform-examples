@@ -43,6 +43,8 @@ dotnet run --project examples/Mocha/MigrateFromMediator/after/MigrateFromMediato
 
 The API listens at `http://localhost:41153`. In `scenario.http`, change `@baseUrl` to that address, then run the requests in order. An HTTP client with named-request support can substitute the `placeOrder` response automatically. Otherwise, copy the returned `orderId` into the subsequent requests. The requests cover placing and reading an order, invalid input, a missing order, and cancellation.
 
+The Aspire dashboard's `nitro-resources` resource provides a Visualizer link for the Mocha app.
+
 ## What changed
 
 The [Mediator migration guide](https://chillicream.com/docs/mocha/migration/coming-from-mediator) describes the steps shown by `after/`:

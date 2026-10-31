@@ -5,7 +5,9 @@ using Mocha.Mediator;
 
 namespace Shop.Ordering;
 
-// Wrap order commands in an ambient transaction that completes only on success.
+/// <summary>
+/// Wraps order commands in an ambient transaction that completes on success.
+/// </summary>
 public sealed class TransactionMiddleware
 {
     public async ValueTask InvokeAsync(IMediatorContext context, MediatorDelegate next)

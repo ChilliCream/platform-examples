@@ -3,7 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Shop.Ordering;
 
-// Run this post-processing step only after the request handler succeeds.
+/// <summary>
+/// Logs completion after a request handler succeeds.
+/// </summary>
 public sealed class FinishedProcessor<TMessage, TResponse>(ILogger<FinishedProcessor<TMessage, TResponse>> logger)
     : MessagePostProcessor<TMessage, TResponse> where TMessage : IMessage
 {

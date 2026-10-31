@@ -22,6 +22,9 @@ builder.Services
     .Use(TransactionMiddleware.Create())
     .Use(FinishedMiddleware.Create());
 
+// Export mediator resources for the visualizer.
+builder.Services.AddNitro().AddMochaMediator();
+
 // Create the business tables before accepting requests.
 var app = builder.Build();
 

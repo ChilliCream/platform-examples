@@ -4,7 +4,9 @@ using Shop.Ordering;
 
 namespace Shop.Billing;
 
-// Billing handles the same in-process notification in its own assembly.
+/// <summary>
+/// Logs billing notification for an <see cref="OrderPlacedNotification"/> in the Billing assembly.
+/// </summary>
 public sealed class OrderBillingHandler(ILogger<OrderBillingHandler> logger)
     : INotificationHandler<OrderPlacedNotification>
 {
