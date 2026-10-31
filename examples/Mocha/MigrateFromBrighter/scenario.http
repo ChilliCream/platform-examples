@@ -32,7 +32,10 @@ Content-Type: application/json
   "confirmInvoice": false
 }
 
-### Check before and after the 30-second timeout
+### Check immediately, before the 30-second timeout
+GET {{baseUrl}}/orders/{{unconfirmedOrder.response.body.orderId}}
+
+### Wait until 30 seconds after submission, then check the expired order
 GET {{baseUrl}}/orders/{{unconfirmedOrder.response.body.orderId}}
 
 ### Both orders generate a reminder after 10 seconds; inspect the Ordering logs and reminders table

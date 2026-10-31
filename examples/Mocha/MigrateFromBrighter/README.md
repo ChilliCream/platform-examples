@@ -6,6 +6,16 @@ Brighter has no saga abstraction. The before app tracks the order process in a P
 
 A validation failure is acknowledged and dropped by Brighter when the handler neither requeues nor rejects it. Mocha sends an unhandled failed message to the endpoint's error queue instead. The transient failure example retries once in process and then defers the message for redelivery; it succeeds on the third attempt.
 
+## Structure
+
+Both apps contain an Aspire AppHost, a Contracts project, an Ordering service, and a Billing service. Each service keeps its EF Core context and entities in `Data/` and its broker handlers in `Handlers/`. Ordering keeps the in-process `PlaceOrderCommand` and its handler in `Commands/`, and the HTTP API in `Endpoints/`.
+
+The example no longer logs retry or redelivery counters from framework internals. Use the framework's logs and the queue outcomes to inspect those flows.
+
+## The saga
+
+Brighter has no saga abstraction. The before app keeps its hand-rolled process in `before/MigrateFromBrighter.Before.Ordering/OrderProcess/`. The Mocha app uses `after/MigrateFromBrighter.After.Ordering/Sagas/OrderSaga.cs` and `OrderSagaState.cs`, with the saga's bus messages in the Contracts project. The initial transition publishes `OrderPlaced` together with the new saga state, before Billing can send a confirmation.
+
 ## Prerequisites
 
 - The .NET SDK pinned in the repository's `global.json` and a trusted ASP.NET Core development certificate.
@@ -38,16 +48,16 @@ Open the Aspire dashboard using the login URL printed by the AppHost. Set `@base
 
 Run the requests in `scenario.http` in order. The first request returns an order ID, and the named requests use it for follow-up calls. Wait for Billing to confirm the first order before checking its status. Check the second order both before and after the 30-second timeout. Both orders produce reminders after 10 seconds.
 
-Inspect the Ordering service's `orders`, `order_processes`, and `reminders` tables and the Billing service's `invoices` and `attempts` tables. The service logs show the submitted, accepted, expired, and reminder events, invoice creation, three transient attempts, and the validation failure. In RabbitMQ, Brighter acknowledges and drops the invalid message, while Mocha leaves it in `exercise-validation-failure_error`.
+Inspect the Ordering service's `orders`, `order_processes`, and `reminders` tables and the Billing service's `invoices` and `attempts` tables. The service logs show the submitted, accepted, expired, and reminder events, invoice creation, and the validation failure. The attempts table records three simulated dependency attempts; use the framework logs and queue outcomes to inspect retry and redelivery. In RabbitMQ, Brighter acknowledges and drops the invalid message, while Mocha leaves it in `exercise-validation-failure_error`.
 
 ## What changed
 
 The [Brighter migration guide](https://chillicream.com/docs/mocha/migration/coming-from-brighter) describes these steps:
 
 1. Install the Mocha mediator, bus, analyzer, RabbitMQ, and PostgreSQL EF Core packages in place of the Brighter packages.
-2. Sort in-process handlers from subscription handlers. `PlaceOrder` runs in process, while the other messages travel over RabbitMQ.
+2. Sort in-process handlers from subscription handlers. `PlaceOrderCommand` runs in process, while the other messages travel over RabbitMQ.
 3. Replace the producer registry, subscriptions, mappers, and service activator with generated mediator and bus registrations and RabbitMQ conventions.
-4. Replace the command processor's `SendAsync` and `RequestHandlerAsync<PlaceOrder>` with `ISender` and `ICommandHandler<PlaceOrder>`.
+4. Replace the command processor's `SendAsync` and `RequestHandlerAsync<PlaceOrderCommand>` with `ISender` and `ICommandHandler<PlaceOrderCommand>`.
 5. Replace subscription handlers with bus handlers. In the Mocha app, an order saga replaces the Brighter confirmation and expiry handlers; it persists its state in PostgreSQL and projects the terminal status to `order_processes`.
 6. Replace `PostAsync` with bus sends or publishes, and replace Brighter `Call` with `IMessageBus.RequestAsync`.
 7. Replace the Polly resilience pipeline and deferred requeue attribute with Mocha exception policies. Validation failures go directly to the error queue; transient failures retry once and can be redelivered.
