@@ -3,6 +3,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Records delivery of a scheduled <see cref="SendReminder"/> event.
+/// </summary>
 public sealed class SendReminderConsumer(ILogger<SendReminderConsumer> logger) : IConsumer<SendReminder>
 {
     public Task Consume(ConsumeContext<SendReminder> context)

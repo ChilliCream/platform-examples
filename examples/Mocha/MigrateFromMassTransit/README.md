@@ -28,6 +28,8 @@ dotnet run --project examples/Mocha/MigrateFromMassTransit/after/AppHost --launc
 
 Aspire starts both services and creates RabbitMQ and PostgreSQL containers. For `before`, Ordering listens on `http://localhost:41210` and the Aspire dashboard is at `https://localhost:41200`. For `after`, Ordering listens on `http://localhost:41260` and the dashboard is at `https://localhost:41250`. Aspire uses the local development certificate for the dashboard.
 
+For `after`, the Aspire dashboard's `nitro-resources` resource has a Visualizer link.
+
 Run the requests in `scenario.http` in order. Set `@baseUrl` to the Ordering URL for the app you started and use fresh order IDs if the database already contains those IDs. The first order is initially `Submitted` and becomes `Accepted` after Billing confirms its invoice. The second becomes `Expired` after 30 seconds. The transient processing command is attempted three times, then scheduled for redelivery after 3 seconds and succeeds. The validation command is attempted once and sent to `process-invoice_error`. The reminder arrives after 10 seconds. Inspect the service logs and resource connection details in the Aspire dashboard. Wait for invoice creation before making an invoice-status request, and wait for the configured delays before checking the final saga states.
 
 ## Structure

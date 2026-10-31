@@ -2,6 +2,9 @@ using MassTransit;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Stores the state of an order awaiting invoice confirmation or expiration.
+/// </summary>
 public sealed class OrderState : SagaStateMachineInstance
 {
     public Guid CorrelationId { get; set; }

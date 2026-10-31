@@ -4,6 +4,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Maps HTTP endpoints for orders, invoice status, processing, and reminders.
+/// </summary>
 public static class OrderEndpoints
 {
     public static void MapOrderEndpoints(this WebApplication app)

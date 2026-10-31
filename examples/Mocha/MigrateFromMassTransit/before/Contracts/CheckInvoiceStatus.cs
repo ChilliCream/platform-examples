@@ -1,3 +1,7 @@
 namespace Shop.Contracts;
 
-public record CheckInvoiceStatus(Guid OrderId);
+/// <summary>
+/// Requests the status of an order’s invoice.
+/// </summary>
+/// <param name="OrderId">The order identifier.</param>
+public sealed record CheckInvoiceStatus(Guid OrderId);

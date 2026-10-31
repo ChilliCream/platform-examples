@@ -4,6 +4,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Responds to <see cref="CheckInvoiceStatus"/> with the current invoice status.
+/// </summary>
 public sealed class CheckInvoiceStatusConsumer(BillingDbContext db) : IConsumer<CheckInvoiceStatus>
 {
     public async Task Consume(ConsumeContext<CheckInvoiceStatus> context)

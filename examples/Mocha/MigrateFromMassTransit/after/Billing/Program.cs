@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ChilliCream.Nitro;
 using Microsoft.EntityFrameworkCore;
 using Mocha;
 using Mocha.EntityFrameworkCore;
@@ -16,6 +17,10 @@ builder.Services.AddSingleton<InvoiceProcessor>();
 
 // Register consumers, scheduling, and the transactional outbox.
 builder.AddRabbitMQClient("rabbitmq");
+
+// Export messaging resources for the visualizer.
+builder.Services.AddNitro().AddMocha();
+
 builder.Services
     .AddMessageBus()
     .AddBilling()

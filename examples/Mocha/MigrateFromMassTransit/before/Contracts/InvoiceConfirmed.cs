@@ -1,3 +1,7 @@
 namespace Shop.Contracts;
 
-public record InvoiceConfirmed(Guid OrderId);
+/// <summary>
+/// Signals that an order’s invoice has been confirmed.
+/// </summary>
+/// <param name="OrderId">The order identifier.</param>
+public sealed record InvoiceConfirmed(Guid OrderId);

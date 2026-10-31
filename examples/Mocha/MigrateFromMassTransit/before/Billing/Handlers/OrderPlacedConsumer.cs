@@ -3,6 +3,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Creates an invoice for an <see cref="OrderPlaced"/> event and schedules its confirmation when requested.
+/// </summary>
 public sealed class OrderPlacedConsumer(
     BillingDbContext db,
     IConfiguration configuration,

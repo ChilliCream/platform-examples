@@ -8,7 +8,8 @@
     <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" />
     <PackageReference Include="Aspire.Hosting.RabbitMQ" />
-    <PackageReference Include="MessagePack" />
+    <PackageReference Include="ChilliCream.Nitro.Aspire" />
+    <PackageReference Include="MessagePack" VersionOverride="2.5.307" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../Ordering/MigrateFromMassTransit.After.Ordering.csproj" />

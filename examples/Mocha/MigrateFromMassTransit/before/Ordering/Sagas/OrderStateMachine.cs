@@ -3,7 +3,9 @@ using Shop.Contracts;
 
 namespace Shop.Ordering;
 
-// Correlate invoice confirmations and scheduled expirations to the submitted order.
+/// <summary>
+/// Tracks a submitted order until its invoice is confirmed or its confirmation period expires.
+/// </summary>
 public sealed class OrderStateMachine : MassTransitStateMachine<OrderState>
 {
     public State Submitted { get; private set; } = null!;

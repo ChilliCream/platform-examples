@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Ordering;
 
+/// <summary>
+/// Stores orders, order status, and messaging state for the Ordering service.
+/// </summary>
 public sealed class OrderingDbContext(DbContextOptions<OrderingDbContext> options) : SagaDbContext(options)
 {
     public DbSet<Order> Orders => Set<Order>();

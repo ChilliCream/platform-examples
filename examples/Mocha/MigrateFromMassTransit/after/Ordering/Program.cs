@@ -1,3 +1,4 @@
+using ChilliCream.Nitro;
 using Microsoft.EntityFrameworkCore;
 using Mocha;
 using Mocha.EntityFrameworkCore;
@@ -15,6 +16,10 @@ builder.AddNpgsqlDbContext<OrderingDbContext>("ordering-db", settings => setting
 
 // Register the saga, request client, scheduler, and transactional outbox.
 builder.AddRabbitMQClient("rabbitmq");
+
+// Export messaging resources for the visualizer.
+builder.Services.AddNitro().AddMocha();
+
 builder.Services
     .AddMessageBus()
     // Retry saga messages before routing failures to the error endpoint.

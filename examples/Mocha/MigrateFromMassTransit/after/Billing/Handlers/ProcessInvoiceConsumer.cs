@@ -4,6 +4,9 @@ using Shop.Contracts;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Processes a <see cref="ProcessInvoice"/> request with the specified failure mode.
+/// </summary>
 public sealed class ProcessInvoiceConsumer(
     InvoiceProcessor processor,
     ILogger<ProcessInvoiceConsumer> logger) : IEventRequestHandler<ProcessInvoice>

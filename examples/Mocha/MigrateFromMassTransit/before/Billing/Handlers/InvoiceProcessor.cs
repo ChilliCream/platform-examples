@@ -2,6 +2,9 @@ using System.Collections.Concurrent;
 
 namespace Shop.Billing;
 
+/// <summary>
+/// Simulates a temporary invoice processing dependency outage.
+/// </summary>
 public sealed class InvoiceProcessor(IConfiguration configuration)
 {
     private readonly ConcurrentDictionary<Guid, DateTimeOffset> _unavailableUntil = new();
