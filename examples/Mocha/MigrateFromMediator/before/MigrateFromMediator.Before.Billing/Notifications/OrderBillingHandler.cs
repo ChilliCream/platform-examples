@@ -1,0 +1,24 @@
+using Mediator;
+using Microsoft.Extensions.Logging;
+using Shop.Ordering;
+
+namespace Shop.Billing;
+
+/// <summary>
+/// Logs billing notification for an <see cref="OrderPlacedNotification"/> in the Billing assembly.
+/// </summary>
+public sealed class OrderBillingHandler(ILogger<OrderBillingHandler> logger)
+    : INotificationHandler<OrderPlacedNotification>
+{
+    public ValueTask Handle(OrderPlacedNotification notification, CancellationToken cancellationToken)
+    {
+        Logs.BillingNotified(logger, notification.OrderId);
+        return ValueTask.CompletedTask;
+    }
+}
+
+internal static partial class Logs
+{
+    [LoggerMessage(Level = LogLevel.Information, Message = "Billing notified for order {OrderId}")]
+    internal static partial void BillingNotified(ILogger logger, Guid orderId);
+}
