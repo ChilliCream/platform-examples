@@ -22,6 +22,11 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
     <!-- EF Core -->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="11.0.0-preview.6.26359.118" />
+    <!-- Nitro -->
+    <PackageVersion Include="ChilliCream.Nitro" Version="16.7.3" />
+    <PackageVersion Include="ChilliCream.Nitro.Aspire" Version="16.7.3" />
+    <PackageVersion Include="ChilliCream.Nitro.Mocha" Version="16.7.3" />
+    <PackageVersion Include="ChilliCream.Nitro.Mocha.Mediator" Version="16.7.3" />
     <!-- Mocha -->
     <PackageVersion Include="Mocha" Version="16.7.3" />
     <PackageVersion Include="Mocha.Abstractions" Version="16.7.3" />

@@ -5,6 +5,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Demo.ServiceDefaults\Demo.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Demo.Contracts\Demo.Contracts.csproj" />
+    <PackageReference Include="ChilliCream.Nitro" />
+    <PackageReference Include="ChilliCream.Nitro.Mocha" />
+    <PackageReference Include="ChilliCream.Nitro.Mocha.Mediator" />
     <PackageReference Include="Mocha" />
     <PackageReference Include="Mocha.Mediator" />
     <PackageReference Include="Mocha.Analyzers" PrivateAssets="all" />

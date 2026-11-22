@@ -38,4 +38,7 @@ lcov.info
 .DS_Store
 Thumbs.db
 
+# Nitro collector output
+**/data/nitro-resources/
+
 # Build artifacts
