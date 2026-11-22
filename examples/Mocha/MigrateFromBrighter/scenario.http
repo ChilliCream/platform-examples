@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:41510
+
+### Submit an order that Billing confirms
+# @name confirmedOrder
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "product": "Book",
+  "confirmInvoice": true
+}
+
+### Check the accepted order after Billing confirms it
+GET {{baseUrl}}/orders/{{confirmedOrder.response.body.orderId}}
+
+### Request the invoice status from Billing
+GET {{baseUrl}}/orders/{{confirmedOrder.response.body.orderId}}/invoice
+
+### Retry and redeliver a transient failure
+POST {{baseUrl}}/orders/{{confirmedOrder.response.body.orderId}}/transient
+
+### Send a validation failure
+POST {{baseUrl}}/orders/{{confirmedOrder.response.body.orderId}}/invalid
+
+### Submit an order without a confirmation
+# @name unconfirmedOrder
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "product": "Pen",
+  "confirmInvoice": false
+}
+
+### Check immediately, before the 30-second timeout
+GET {{baseUrl}}/orders/{{unconfirmedOrder.response.body.orderId}}
+
+### Wait until 30 seconds after submission, then check the expired order
+GET {{baseUrl}}/orders/{{unconfirmedOrder.response.body.orderId}}
+
+### Both orders generate a reminder after 10 seconds; inspect the Ordering logs and reminders table

@@ -32,6 +32,10 @@ examples/HotChocolate/StatefulDataLoader/
 examples/Architecture/Bookshop/
 ```
 
+Mocha migration examples show before-and-after implementations of the same scenario:
+
+- `examples/Mocha/MigrateFromBrighter/` shows an ordering and billing workflow using an outbox, requests, and scheduled messages.
+
 `examples/HotChocolate/` contains the source code of the
 [ChilliCream TV](https://chillicream.com/videos) episodes. Each example pins the Hot Chocolate version
 used in its episode through its own `Directory.Packages.props`, so the code matches the video.

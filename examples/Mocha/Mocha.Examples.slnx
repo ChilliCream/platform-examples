@@ -15,6 +15,18 @@
   <Folder Name="/ExceptionPolicies/">
     <Project Path="ExceptionPolicies/ExceptionPolicies.csproj" />
   </Folder>
+  <Folder Name="/MigrateFromBrighter/after/">
+    <Project Path="MigrateFromBrighter/after/MigrateFromBrighter.After.AppHost/MigrateFromBrighter.After.AppHost.csproj" />
+    <Project Path="MigrateFromBrighter/after/MigrateFromBrighter.After.Billing/MigrateFromBrighter.After.Billing.csproj" />
+    <Project Path="MigrateFromBrighter/after/MigrateFromBrighter.After.Contracts/MigrateFromBrighter.After.Contracts.csproj" />
+    <Project Path="MigrateFromBrighter/after/MigrateFromBrighter.After.Ordering/MigrateFromBrighter.After.Ordering.csproj" />
+  </Folder>
+  <Folder Name="/MigrateFromBrighter/before/">
+    <Project Path="MigrateFromBrighter/before/MigrateFromBrighter.Before.AppHost/MigrateFromBrighter.Before.AppHost.csproj" />
+    <Project Path="MigrateFromBrighter/before/MigrateFromBrighter.Before.Billing/MigrateFromBrighter.Before.Billing.csproj" />
+    <Project Path="MigrateFromBrighter/before/MigrateFromBrighter.Before.Contracts/MigrateFromBrighter.Before.Contracts.csproj" />
+    <Project Path="MigrateFromBrighter/before/MigrateFromBrighter.Before.Ordering/MigrateFromBrighter.Before.Ordering.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />

@@ -1,0 +1,314 @@
+{
+  "version": 2,
+  "dependencies": {
+    "net11.0": {
+      "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL": {
+        "type": "Direct",
+        "requested": "[13.4.6, )",
+        "resolved": "13.4.6",
+        "contentHash": "Lt92FuyX4JkKwrAgrOsVARpmk3U9vBGBq784ZEO3hR2vC74o8VS/VWBJHYrRBYTXapuj+mwwPzvcUICmbB43Zg==",
+        "dependencies": {
+          "Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore": "10.0.8",
+          "Npgsql.DependencyInjection": "10.0.2",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
+          "Npgsql.OpenTelemetry": "10.0.2",
+          "OpenTelemetry.Extensions.Hosting": "1.15.3"
+        }
+      },
+      "Npgsql": {
+        "type": "Direct",
+        "requested": "[10.0.3, )",
+        "resolved": "10.0.3",
+        "contentHash": "7nb5YzXuvWWJxB0J8DiyL3we+X4FOctZrt0fIBnucOIaIevFEEwGQVZKtiu9olXdlNAK1eNgqSral6r/jlhI4w=="
+      },
+      "Paramore.Brighter.BoxProvisioning.PostgreSql": {
+        "type": "Direct",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "GmMmzmLhAIb/lW99DEjGu6pv8orJ9dE3KpjAKl5620ieoCXUGBv/Q5J42mXJ9c/HKozcU4KCSMTdOixuSb1mYA==",
+        "dependencies": {
+          "Npgsql": "10.0.3",
+          "Paramore.Brighter": "10.8.1",
+          "Paramore.Brighter.BoxProvisioning": "10.8.1",
+          "Paramore.Brighter.Inbox.Postgres": "10.8.1",
+          "Paramore.Brighter.Outbox.PostgreSql": "10.8.1"
+        }
+      },
+      "Paramore.Brighter.Extensions.DependencyInjection": {
+        "type": "Direct",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "3HId3TRnZwCqkxwIySn2wWGF6LYj/ZoiwpQIFDSvf65ME/QG3dfhWCMLpLEmtDs7ZS/UIbW2shKL5le8bhpf6A==",
+        "dependencies": {
+          "Paramore.Brighter": "10.8.1"
+        }
+      },
+      "Paramore.Brighter.MessagingGateway.RMQ.Async": {
+        "type": "Direct",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "bkJ9wUluY0XGYUOi/rjNGi3xRfeW7tX/RIgoWlZGslv0h8QqgUT1VVjy03qBM27cMznmccC155Rus0/d+kTfUA==",
+        "dependencies": {
+          "Paramore.Brighter": "10.8.1",
+          "RabbitMQ.Client": "7.2.2"
+        }
+      },
+      "Paramore.Brighter.Outbox.Hosting": {
+        "type": "Direct",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "/HDy4Gko4K0m+PcgtEVdBflwVwaSIA4uurSHwfLw3rGWYmYXrfMultDNP2ZvClAhECcFQnUof5/3bFfPSIn9xQ==",
+        "dependencies": {
+          "Paramore.Brighter": "10.8.1",
+          "Paramore.Brighter.Extensions.DependencyInjection": "10.8.1"
+        }
+      },
+      "Paramore.Brighter.Outbox.PostgreSql": {
+        "type": "Direct",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "+omAsAIgrTnVc5YsRSB9O6XW9WS+aMxrnx9xD6lyB9Q86tIMflJFuV+uvIP1tIHsuwgd5RAGMyDea9UWagUMSA==",
+        "dependencies": {
+          "Npgsql": "10.0.3",
+          "Paramore.Brighter": "10.8.1",
+          "Paramore.Brighter.Extensions.DependencyInjection": "10.8.1",
+          "Paramore.Brighter.PostgreSql": "10.8.1"
+        }
+      },
+      "Paramore.Brighter.PostgreSql": {
+        "type": "Direct",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "CRNd4XWSavNCCAug92gTJVEpdr4Z8qtOroO3KHjg32014ER1ikUE0fjzLq54K/ZOo0B8DkcY51Sp3F1/7fdmBQ==",
+        "dependencies": {
+          "Npgsql": "10.0.3",
+          "Paramore.Brighter": "10.8.1"
+        }
+      },
+      "Paramore.Brighter.PostgreSql.EntityFrameworkCore": {
+        "type": "Direct",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "CsP/+VdgMetTkP/TYFzDWV2x3tEn9gyZD2iePfsPlwl7qErwvLxLokycEVH87lMvaq9LdzYcOdEGoI630g+DBw==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.12",
+          "Microsoft.EntityFrameworkCore.Relational": "10.0.12",
+          "Npgsql": "10.0.3",
+          "Paramore.Brighter.PostgreSql": "10.8.1"
+        }
+      },
+      "Paramore.Brighter.ServiceActivator.Extensions.DependencyInjection": {
+        "type": "Direct",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "YX/+p75qqjXm98XoVZN8mkm6eHKog4yYyzzO+iAnm3uDvg6XJxTdDcghxzUoBgi2CsPMj5S5a9u0eh3lak8Mhg==",
+        "dependencies": {
+          "Paramore.Brighter.Extensions.DependencyInjection": "10.8.1",
+          "Paramore.Brighter.ServiceActivator": "10.8.1"
+        }
+      },
+      "Paramore.Brighter.ServiceActivator.Extensions.Hosting": {
+        "type": "Direct",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "RkT+wLtATL/B1E6uIy1jkw7RQpijkW6KRd5NnrzSt/mbFrPNKXl7oWtowHFo8MvA2yvmzycRrDLa4GVgBpkb2A==",
+        "dependencies": {
+          "Paramore.Brighter.Extensions.DependencyInjection": "10.8.1",
+          "Paramore.Brighter.ServiceActivator": "10.8.1"
+        }
+      },
+      "Microsoft.Bcl.HashCode": {
+        "type": "Transitive",
+        "resolved": "6.0.0",
+        "contentHash": "GI4jcoi6eC9ZhNOQylIBaWOQjyGaR8T6N3tC1u8p3EXfndLCVNNWa+Zp+ocjvvS3kNBN09Zma2HXL0ezO0dRfw=="
+      },
+      "Microsoft.Bcl.TimeProvider": {
+        "type": "Transitive",
+        "resolved": "10.0.12",
+        "contentHash": "YgZ5iXpo16E5nqvIqNiJXzyG8DiBsx3wg4jcwz8zxnxDV798izSzJn/PBg7s+xLU57+myilIxEg2RhQmNCcl0w=="
+      },
+      "Microsoft.EntityFrameworkCore": {
+        "type": "Transitive",
+        "resolved": "10.0.12",
+        "contentHash": "e7OrVN8U5yr4kuwdTHWBHGVQIVsGfMkAr0Ej1/BnrS989Q0XBVANpIzNZ2bc1GvMZ0/XwMt5InTnmKskxGy99Q==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.12",
+          "Microsoft.EntityFrameworkCore.Analyzers": "10.0.12"
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Abstractions": {
+        "type": "Transitive",
+        "resolved": "10.0.12",
+        "contentHash": "kDrux7T6C3V/YYYe2LXr7x6AEsVyq5Y2YoTE9er1SwbDtap3z1g8RgxNh5eKQVyB4T+DKvBBJ4Ezd/VZzJQJZg=="
+      },
+      "Microsoft.EntityFrameworkCore.Analyzers": {
+        "type": "Transitive",
+        "resolved": "10.0.12",
+        "contentHash": "Kd4o2oO1A6dfKxjz5LS16QyLtpCFTUiFWwmBABETAXRsSImBdRdWeKjSgbbRhAMiV3a3/nWr95ZtzClT4uaADQ=="
+      },
+      "Microsoft.EntityFrameworkCore.Relational": {
+        "type": "Transitive",
+        "resolved": "10.0.12",
+        "contentHash": "OiHmr8XzX96dbgMsYGe8qoqg4KxibdZG2r0QUVJBGktFInOp8IrABe8jvcbo5hrqeWfbwpK7fCEBiEPbY/ik4A==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.12"
+        }
+      },
+      "Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore": {
+        "type": "Transitive",
+        "resolved": "10.0.8",
+        "contentHash": "VyjlpOHGpT9xoNFKNd/27FBF4eBimMcCCIfMxkeju/8uUnugwsxHfzZX2iP+ilYeoYB4HeT5gAoswTIKD6SYJw==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "10.0.8"
+        }
+      },
+      "Namotion.Reflection": {
+        "type": "Transitive",
+        "resolved": "3.5.0",
+        "contentHash": "FnASiAaTGSmB4SaSroIwnK4ph9noFIXZpPOMezDqWw5S/TNakzSnawPeM7u0Auq1/EqJXeqG4s6UjfrGBH33Ow=="
+      },
+      "Newtonsoft.Json": {
+        "type": "Transitive",
+        "resolved": "13.0.4",
+        "contentHash": "pdgNNMai3zv51W5aq268sujXUyx7SNdE2bj1wZcWjAQrKMFZV260lbqYop1d2GM67JI1huLRwxo9ZqnfF/lC6A=="
+      },
+      "NJsonSchema": {
+        "type": "Transitive",
+        "resolved": "11.6.1",
+        "contentHash": "miqvNY4OSXCWVqaMqt0A8VUkij0UH1oPosHMLP+t6/nWNSSzWDPmm7G2DjVW7M9evy0x5DE2pS/DDTtKCpbzSQ==",
+        "dependencies": {
+          "NJsonSchema.Annotations": "11.6.1",
+          "Namotion.Reflection": "3.5.0",
+          "Newtonsoft.Json": "13.0.3"
+        }
+      },
+      "NJsonSchema.Annotations": {
+        "type": "Transitive",
+        "resolved": "11.6.1",
+        "contentHash": "WA4z8iK+0SOh2/qoo7rtEanj/LjJZ8oWWoXI8u1xcYMk6VzHONqpabJBYGrzqDO41ld+VQHOFL+B8MXncIVSSA=="
+      },
+      "Npgsql.DependencyInjection": {
+        "type": "Transitive",
+        "resolved": "10.0.2",
+        "contentHash": "/Efri6iP5Z2kj3amM/WPMoa0pzOBaIM+C+uMXltaBMu2hVZciNluuK51Mn2FmWKhqwTcMZdwHYUfbm8LbKRJMQ==",
+        "dependencies": {
+          "Npgsql": "10.0.2"
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "E2+uSWxSB8LdsUVwPaqRWOcGOP92biry2JEwc0KJMdLJF+aZdczeIdEXVwEyv4nSVMQJH0o8tLhyAMiR6VF0lw==",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "[10.0.0, 11.0.0)",
+          "Microsoft.EntityFrameworkCore.Relational": "[10.0.0, 11.0.0)",
+          "Npgsql": "10.0.0"
+        }
+      },
+      "Npgsql.OpenTelemetry": {
+        "type": "Transitive",
+        "resolved": "10.0.2",
+        "contentHash": "kjc+3DzqjaFk0L3cmR92emyJd7GAgwSiiyuzvumHFEp0EVp6GbrtdIe0jD8NANdPVqYM8prH9ND8GQsQAFXCKA==",
+        "dependencies": {
+          "Npgsql": "10.0.2",
+          "OpenTelemetry.API": "1.14.0"
+        }
+      },
+      "OpenTelemetry": {
+        "type": "Transitive",
+        "resolved": "1.19.1",
+        "contentHash": "6ywhc3upf+dq8EsOohj7I7zS3l4yX9vfbtFkvyEC8xIUY4Z9iDIOVuke356eCAzIZaWtmwmmyl2UXYCp5n7I3Q==",
+        "dependencies": {
+          "OpenTelemetry.Api.ProviderBuilderExtensions": "1.19.1"
+        }
+      },
+      "OpenTelemetry.Api": {
+        "type": "Transitive",
+        "resolved": "1.19.1",
+        "contentHash": "9JKIH+xrV0HNTFjQC8zrx9gZpDOMEljN5Htg/U0VE2IvO3N+7bKALCCsGy5tp09marX5dd8UkrgQFoLaulIBRw=="
+      },
+      "OpenTelemetry.Api.ProviderBuilderExtensions": {
+        "type": "Transitive",
+        "resolved": "1.19.1",
+        "contentHash": "HtGe72B/IhzKqdU0a3fNE5osax/Cegwxd+p4u6lOFy20nsgmeaFuP2NRyFs1WvrOv/bpkII3IvvBkKoZXG8BLg==",
+        "dependencies": {
+          "OpenTelemetry.Api": "1.19.1"
+        }
+      },
+      "Paramore.Brighter.BoxProvisioning": {
+        "type": "Transitive",
+        "resolved": "10.8.1",
+        "contentHash": "Ds79BAYQjKyY11CHj4rRF47CIYkoNFBZ548grflyeINbwnsLiMgZpIhwkuD8mCxYznEqrfLJfgY287wqIS3wzQ==",
+        "dependencies": {
+          "Paramore.Brighter": "10.8.1",
+          "Paramore.Brighter.Extensions.DependencyInjection": "10.8.1"
+        }
+      },
+      "Paramore.Brighter.Inbox.Postgres": {
+        "type": "Transitive",
+        "resolved": "10.8.1",
+        "contentHash": "DYLzvn2BCzUL58AvdzrXq8NoqWf5+8VZxCjhucDM4ZtTrTigv1aDflCBWxXeBCuKnWuSEJAdd2pH5yXikn6H/Q==",
+        "dependencies": {
+          "Npgsql": "10.0.3",
+          "Paramore.Brighter": "10.8.1",
+          "Paramore.Brighter.PostgreSql": "10.8.1"
+        }
+      },
+      "Paramore.Brighter.ServiceActivator": {
+        "type": "Transitive",
+        "resolved": "10.8.1",
+        "contentHash": "YfTMsGBERubwZRMXQBZR52PgNGbDSqM+/oyAqqygG55DAbpQeMTNco1oZeUqzqwXBwrOpHLhhEjfj1j1s4Udkw==",
+        "dependencies": {
+          "Paramore.Brighter": "10.8.1"
+        }
+      },
+      "Polly": {
+        "type": "Transitive",
+        "resolved": "8.8.0",
+        "contentHash": "1/jm0wQA0hjcY8OcGx2HLzj4Tx33IpmEWWPUcekt07V7VO8suAUmeDRD7VM5wy9614pJMI2M0TB1pwKVflh4CQ==",
+        "dependencies": {
+          "Polly.Core": "8.8.0"
+        }
+      },
+      "Polly.Core": {
+        "type": "Transitive",
+        "resolved": "8.8.0",
+        "contentHash": "TewV9uNFsoRFggoFbTAGFwsMYPuckA+wTIpQPyhLL9BANRPQRENz2S4bwATrB3HBOakN5oKLFIllPiDnVecmJg=="
+      },
+      "RabbitMQ.Client": {
+        "type": "Transitive",
+        "resolved": "7.2.2",
+        "contentHash": "k4b6RnTXpLbsF96V93ooNYxgPMnoA2tEm24B6AXNJr1mG8wwNYdA1XJtgU66L5xqeGyveS7SJriRzlX3cbqQNA=="
+      },
+      "migratefrombrighter.before.contracts": {
+        "type": "Project",
+        "dependencies": {
+          "Paramore.Brighter": "[10.8.1, )"
+        }
+      },
+      "OpenTelemetry.Extensions.Hosting": {
+        "type": "CentralTransitive",
+        "requested": "[1.17.0, )",
+        "resolved": "1.15.3",
+        "contentHash": "u8n/W8yIlqv0BXZmvId1iVaeWXG42tGKdTkuLYg5g57Y/r9CeUNzqtrSHNdG5IoO8iPX79w3v+WsbAHgUQbfeg==",
+        "dependencies": {
+          "OpenTelemetry": "1.15.3"
+        }
+      },
+      "Paramore.Brighter": {
+        "type": "CentralTransitive",
+        "requested": "[10.8.1, )",
+        "resolved": "10.8.1",
+        "contentHash": "pXCkFKpqwreP0nSCt2NsjNXv886bBQQK5d+tCxGaBp5Fm1MMUR2H3Hvpeg3mHFW9ZDagK9vHwatmLov6X7dYMw==",
+        "dependencies": {
+          "Microsoft.Bcl.HashCode": "6.0.0",
+          "Microsoft.Bcl.TimeProvider": "10.0.12",
+          "NJsonSchema": "11.6.1",
+          "Newtonsoft.Json": "13.0.4",
+          "OpenTelemetry": "1.19.1",
+          "Polly": "8.8.0"
+        }
+      }
+    }
+  }
+}

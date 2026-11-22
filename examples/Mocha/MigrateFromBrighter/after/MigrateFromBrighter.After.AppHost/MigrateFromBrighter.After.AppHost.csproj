@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Aspire.AppHost.Sdk" Version="13.1.0" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net11.0</TargetFramework>
+    <RootNamespace>Shop.AppHost</RootNamespace>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" />
+    <PackageReference Include="ChilliCream.Nitro.Aspire" />
+    <PackageReference Include="MessagePack" VersionOverride="2.5.307" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MigrateFromBrighter.After.Ordering/MigrateFromBrighter.After.Ordering.csproj" />
+    <ProjectReference Include="../MigrateFromBrighter.After.Billing/MigrateFromBrighter.After.Billing.csproj" />
+  </ItemGroup>
+</Project>
