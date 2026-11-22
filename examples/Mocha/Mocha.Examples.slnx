@@ -39,6 +39,14 @@
     <Project Path="MigrateFromMassTransit/before/Billing/MigrateFromMassTransit.Before.Billing.csproj" />
     <Project Path="MigrateFromMassTransit/before/Contracts/MigrateFromMassTransit.Before.Contracts.csproj" />
   </Folder>
+  <Folder Name="/MigrateFromMediatR/after/">
+    <Project Path="MigrateFromMediatR/after/MigrateFromMediatR.After.AppHost/MigrateFromMediatR.After.AppHost.csproj" />
+    <Project Path="MigrateFromMediatR/after/MigrateFromMediatR.After.Ordering/MigrateFromMediatR.After.Ordering.csproj" />
+  </Folder>
+  <Folder Name="/MigrateFromMediatR/before/">
+    <Project Path="MigrateFromMediatR/before/MigrateFromMediatR.Before.AppHost/MigrateFromMediatR.Before.AppHost.csproj" />
+    <Project Path="MigrateFromMediatR/before/MigrateFromMediatR.Before.Ordering/MigrateFromMediatR.Before.Ordering.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />

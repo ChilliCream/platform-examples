@@ -57,4 +57,7 @@
     <PackageVersion Include="MassTransit.Quartz" Version="8.5.12" />
     <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.22.0" />
   </ItemGroup>
+  <ItemGroup Label="MigrateFromMediatR">
+    <PackageVersion Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Aspire.AppHost.Sdk" Version="13.1.0" />
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Shop.AppHost</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="ChilliCream.Nitro.Aspire" />
+    <PackageReference Include="MessagePack" VersionOverride="2.5.307" />
+    <ProjectReference Include="../MigrateFromMediatR.After.Ordering/MigrateFromMediatR.After.Ordering.csproj" />
+  </ItemGroup>
+</Project>
