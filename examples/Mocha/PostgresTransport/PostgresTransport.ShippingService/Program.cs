@@ -1,3 +1,4 @@
+using ChilliCream.Nitro;
 using Mocha;
 using Mocha.Transport.Postgres;
 using PostgresTransport.Contracts.Events;
@@ -10,6 +11,9 @@ builder.AddServiceDefaults();
 // Get the Postgres connection string from Aspire-injected configuration
 var messagingConnectionString = builder.Configuration.GetConnectionString("messaging-db")
     ?? "Host=localhost;Database=mocha_messaging;Username=postgres;Password=postgres";
+
+// Export messaging resources for the visualizer.
+builder.Services.AddNitro().AddMocha();
 
 // MessageBus with PostgreSQL transport
 builder

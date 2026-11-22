@@ -2,6 +2,27 @@
   "version": 2,
   "dependencies": {
     "net11.0": {
+      "ChilliCream.Nitro": {
+        "type": "Direct",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "JSlsafhERMmX7oijz+AmyzpwYY2QJWnxFObXltuPhIyXqaXS17ASOl7K8b3aHoepM4EOD11weZlKP3GRh3Ra4Q==",
+        "dependencies": {
+          "ChilliCream.Nitro.Abstractions": "16.7.3",
+          "ChilliCream.Nitro.OpenTelemetry": "16.7.3"
+        }
+      },
+      "ChilliCream.Nitro.Mocha": {
+        "type": "Direct",
+        "requested": "[16.7.3, )",
+        "resolved": "16.7.3",
+        "contentHash": "F7AAlQXy09MIB5O56dMaZHCZ2uwblFS+7QUH9jOHA+SyUg+L6vr0SEe7JzwgHAKTF3bZSh9cDEWY8XQFxiidsg==",
+        "dependencies": {
+          "ChilliCream.Nitro.Abstractions": "16.7.3",
+          "Mocha": "16.7.3",
+          "Mocha.Abstractions": "16.7.3"
+        }
+      },
       "Mocha": {
         "type": "Direct",
         "requested": "[16.7.3, )",
@@ -42,6 +63,22 @@
           "Mocha": "16.7.3",
           "Mocha.Abstractions": "16.7.3",
           "Npgsql": "8.0.7"
+        }
+      },
+      "ChilliCream.Nitro.Abstractions": {
+        "type": "Transitive",
+        "resolved": "16.7.3",
+        "contentHash": "1Iwef3DpRgDULarpkhPU0ZfcEZdFlGpB2QB50x+jtAXPpCKVtP/WRUxDgPcmJZPuHYxiX46IRnAQFoN/xpO5aw=="
+      },
+      "ChilliCream.Nitro.OpenTelemetry": {
+        "type": "Transitive",
+        "resolved": "16.7.3",
+        "contentHash": "s6v//0XfwzI+yC1d9YHynBZmCfC8/ntmtmHrLGEezXIazkLZTGl717mn2M1h4XVJ0Lc/9zHI/8bQsUDEVE1rvQ==",
+        "dependencies": {
+          "ChilliCream.Nitro.Abstractions": "16.7.3",
+          "OpenTelemetry.Api": "1.15.3",
+          "OpenTelemetry.Exporter.OpenTelemetryProtocol": "1.15.3",
+          "OpenTelemetry.Extensions.Hosting": "1.15.3"
         }
       },
       "Microsoft.Extensions.AmbientMetadata.Application": {
