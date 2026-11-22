@@ -59,6 +59,18 @@
     <Project Path="MigrateFromMediator/before/MigrateFromMediator.Before.Ordering/MigrateFromMediator.Before.Ordering.csproj" />
     <Project Path="MigrateFromMediator/before/MigrateFromMediator.Before.Billing/MigrateFromMediator.Before.Billing.csproj" />
   </Folder>
+  <Folder Name="/MigrateFromNServiceBus/after/">
+    <Project Path="MigrateFromNServiceBus/after/MigrateFromNServiceBus.After.AppHost/MigrateFromNServiceBus.After.AppHost.csproj" />
+    <Project Path="MigrateFromNServiceBus/after/MigrateFromNServiceBus.After.Billing/MigrateFromNServiceBus.After.Billing.csproj" />
+    <Project Path="MigrateFromNServiceBus/after/MigrateFromNServiceBus.After.Contracts/MigrateFromNServiceBus.After.Contracts.csproj" />
+    <Project Path="MigrateFromNServiceBus/after/MigrateFromNServiceBus.After.Ordering/MigrateFromNServiceBus.After.Ordering.csproj" />
+  </Folder>
+  <Folder Name="/MigrateFromNServiceBus/before/">
+    <Project Path="MigrateFromNServiceBus/before/MigrateFromNServiceBus.Before.AppHost/MigrateFromNServiceBus.Before.AppHost.csproj" />
+    <Project Path="MigrateFromNServiceBus/before/MigrateFromNServiceBus.Before.Billing/MigrateFromNServiceBus.Before.Billing.csproj" />
+    <Project Path="MigrateFromNServiceBus/before/MigrateFromNServiceBus.Before.Contracts/MigrateFromNServiceBus.Before.Contracts.csproj" />
+    <Project Path="MigrateFromNServiceBus/before/MigrateFromNServiceBus.Before.Ordering/MigrateFromNServiceBus.Before.Ordering.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />
