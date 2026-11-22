@@ -35,6 +35,7 @@ examples/Architecture/Bookshop/
 Mocha migration examples show before-and-after implementations of the same scenario:
 
 - `examples/Mocha/MigrateFromBrighter/` shows an ordering and billing workflow using an outbox, requests, and scheduled messages.
+- `examples/Mocha/MigrateFromMassTransit/` shows an ordering and billing workflow with an outbox, saga, and delayed delivery.
 
 `examples/HotChocolate/` contains the source code of the
 [ChilliCream TV](https://chillicream.com/videos) episodes. Each example pins the Hot Chocolate version

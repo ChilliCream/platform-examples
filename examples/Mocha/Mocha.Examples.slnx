@@ -27,6 +27,18 @@
     <Project Path="MigrateFromBrighter/before/MigrateFromBrighter.Before.Contracts/MigrateFromBrighter.Before.Contracts.csproj" />
     <Project Path="MigrateFromBrighter/before/MigrateFromBrighter.Before.Ordering/MigrateFromBrighter.Before.Ordering.csproj" />
   </Folder>
+  <Folder Name="/MigrateFromMassTransit/after/">
+    <Project Path="MigrateFromMassTransit/after/AppHost/MigrateFromMassTransit.After.AppHost.csproj" />
+    <Project Path="MigrateFromMassTransit/after/Ordering/MigrateFromMassTransit.After.Ordering.csproj" />
+    <Project Path="MigrateFromMassTransit/after/Billing/MigrateFromMassTransit.After.Billing.csproj" />
+    <Project Path="MigrateFromMassTransit/after/Contracts/MigrateFromMassTransit.After.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/MigrateFromMassTransit/before/">
+    <Project Path="MigrateFromMassTransit/before/AppHost/MigrateFromMassTransit.Before.AppHost.csproj" />
+    <Project Path="MigrateFromMassTransit/before/Ordering/MigrateFromMassTransit.Before.Ordering.csproj" />
+    <Project Path="MigrateFromMassTransit/before/Billing/MigrateFromMassTransit.Before.Billing.csproj" />
+    <Project Path="MigrateFromMassTransit/before/Contracts/MigrateFromMassTransit.Before.Contracts.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <RootNamespace>Shop.Ordering</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Contracts/MigrateFromMassTransit.After.Contracts.csproj" />
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Aspire.RabbitMQ.Client" />
+    <PackageReference Include="ChilliCream.Nitro" />
+    <PackageReference Include="ChilliCream.Nitro.Mocha" />
+    <!-- Mocha.EntityFrameworkCore.Postgres references Mocha.Mediator, so Nitro's NS0004 asks for this package. This service has no mediator. -->
+    <PackageReference Include="ChilliCream.Nitro.Mocha.Mediator" />
+    <PackageReference Include="Mocha" />
+    <PackageReference Include="Mocha.Analyzers" PrivateAssets="all" />
+    <PackageReference Include="Mocha.EntityFrameworkCore.Postgres" />
+    <PackageReference Include="Mocha.Transport.RabbitMQ" />
+  </ItemGroup>
+</Project>
