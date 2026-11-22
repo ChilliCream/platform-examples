@@ -39,6 +39,7 @@ Mocha migration examples show before-and-after implementations of the same scena
 - `examples/Mocha/MigrateFromMediatR/` shows commands, queries, notifications, and request pipelines in an ordering API.
 - `examples/Mocha/MigrateFromMediator/` shows commands, queries, notifications, and pipeline behaviors across ordering and billing libraries.
 - `examples/Mocha/MigrateFromNServiceBus/` shows an ordering and billing workflow with an outbox, saga, and delayed delivery.
+- `examples/Mocha/MigrateFromWolverine/` shows an ordering and billing workflow with messaging and persistence.
 
 `examples/HotChocolate/` contains the source code of the
 [ChilliCream TV](https://chillicream.com/videos) episodes. Each example pins the Hot Chocolate version

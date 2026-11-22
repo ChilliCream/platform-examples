@@ -71,6 +71,18 @@
     <Project Path="MigrateFromNServiceBus/before/MigrateFromNServiceBus.Before.Contracts/MigrateFromNServiceBus.Before.Contracts.csproj" />
     <Project Path="MigrateFromNServiceBus/before/MigrateFromNServiceBus.Before.Ordering/MigrateFromNServiceBus.Before.Ordering.csproj" />
   </Folder>
+  <Folder Name="/MigrateFromWolverine/after/">
+    <Project Path="MigrateFromWolverine/after/AppHost/MigrateFromWolverine.After.AppHost.csproj" />
+    <Project Path="MigrateFromWolverine/after/Ordering/MigrateFromWolverine.After.Ordering.csproj" />
+    <Project Path="MigrateFromWolverine/after/Billing/MigrateFromWolverine.After.Billing.csproj" />
+    <Project Path="MigrateFromWolverine/after/Contracts/MigrateFromWolverine.After.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/MigrateFromWolverine/before/">
+    <Project Path="MigrateFromWolverine/before/AppHost/MigrateFromWolverine.Before.AppHost.csproj" />
+    <Project Path="MigrateFromWolverine/before/Ordering/MigrateFromWolverine.Before.Ordering.csproj" />
+    <Project Path="MigrateFromWolverine/before/Billing/MigrateFromWolverine.Before.Billing.csproj" />
+    <Project Path="MigrateFromWolverine/before/Contracts/MigrateFromWolverine.Before.Contracts.csproj" />
+  </Folder>
   <Folder Name="/PostgresTransport/">
     <Project Path="PostgresTransport/PostgresTransport.AppHost/PostgresTransport.AppHost.csproj" />
     <Project Path="PostgresTransport/PostgresTransport.Contracts/PostgresTransport.Contracts.csproj" />
